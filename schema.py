@@ -1,5 +1,7 @@
 import graphene
 
+from resources.auth.mutations import AuthMutation
+
 from resources.user.queries import UserQuery
 from resources.user.mutations import UserMutation
 
@@ -11,7 +13,7 @@ from extensions import mongo
 class QueryRoot(UserQuery, ArticleQuery, graphene.ObjectType):
     pass
 
-class MutationRoot(UserMutation, ArticleMutation, graphene.ObjectType):
+class MutationRoot(AuthMutation, UserMutation, ArticleMutation, graphene.ObjectType):
     pass
 
 schema= graphene.Schema(query= QueryRoot, mutation= MutationRoot)

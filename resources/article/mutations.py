@@ -8,10 +8,10 @@ class CreateArticle(graphene.Mutation):
         article= ArticleInput()
 
     article= graphene.Field(Article)
-    status_code= graphene.String()
+    status= graphene.Boolean()
 
     def mutate(self, root, article):
-        mongo.db.articles.insert_one(vars(article))
+        result= mongo.db.articles.insert_one(vars(article))
 
         new_article= Article(
             title= article.title,
@@ -19,7 +19,7 @@ class CreateArticle(graphene.Mutation):
             posted_at= article.posted_at
         )
 
-        return CreateArticle(article= new_article, status_code= '200 OK')
+        return CreateArticle(article= new_article, status= True)
 
 class ArticleMutation(graphene.AbstractType):
     new_article= CreateArticle.Field()
