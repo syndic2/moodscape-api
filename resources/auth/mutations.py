@@ -5,8 +5,8 @@ from flask_graphql_auth import (
     create_refresh_token, 
     mutation_jwt_refresh_token_required
 )
-from bson.objectid import ObjectId
 
+from ..utility_types import ResponseMessage
 from extensions import mongo
 
 class Authentication(graphene.Mutation):
@@ -16,8 +16,7 @@ class Authentication(graphene.Mutation):
 
     access_token= graphene.String()
     refresh_token= graphene.String()
-    message= graphene.String()
-    status= graphene.Boolean()
+    response= graphene.Field(ResponseMessage)
 
     def mutate(self, root, email_or_username, password):
         user= mongo.db.users.find_one({
@@ -29,13 +28,12 @@ class Authentication(graphene.Mutation):
         })
 
         if user is None:
-            return Authentication(message= 'Wrong email/username or password', status= False)
+            return Authentication(response= ResponseMessage(text= 'Wrong email/username or password', status= False))
 
         return Authentication(
-            access_token= create_access_token(user['username']),
-            refresh_token= create_refresh_token(user['username']),
-            message= 'Login success',
-            status= True
+            access_token= create_access_token(str(user['_id'])),
+            refresh_token= create_refresh_token(str(user['_id'])),
+            response= ResponseMessage(text= 'Login success', status= True)
         )
 
 class RefreshAuthentication(graphene.Mutation):
