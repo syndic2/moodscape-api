@@ -10,7 +10,7 @@ app= Flask(__name__)
 
 app.config['JWT_SECRET_KEY']= 'access-token'
 app.config['REFRESH_EXP_LENGTH']= 30
-app.config['ACCESS_EXP_LENGTH']= 15
+#app.config['ACCESS_EXP_LENGTH']= 100
 app.config['MONGO_URI']= 'mongodb://localhost:27017/moodscape'
 
 auth = GraphQLAuth(app)

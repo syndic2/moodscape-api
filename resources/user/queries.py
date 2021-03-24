@@ -1,5 +1,5 @@
 import graphene
-from flask_graphql_auth import query_jwt_required
+from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from .types import UserInput, User, ProtectedUser
@@ -7,18 +7,15 @@ from ..utility_types import ResponseMessage
 from extensions import mongo
 
 class UserQuery(graphene.AbstractType):
-    find_user= graphene.Field(
-        ProtectedUser,
-        token= graphene.String(), 
-        id= graphene.String())
     all_user= graphene.List(ProtectedUser, fields= graphene.Argument(UserInput))
+    user_profile= graphene.Field(ProtectedUser) 
 
-    @query_jwt_required
-    def resolve_find_user(self, info, **kwargs):
-        result= mongo.db.users.find_one({ '_id': ObjectId(kwargs.get('id')) })
+    @query_header_jwt_required
+    def resolve_user_profile(self, info):
+        result= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) })
         
-        if result is None:
-            return ResponseMessage(text= 'User not found', status= False)
+        #if result is None:
+        #    return ResponseMessage(text= 'Profil pengguna tidak ditemukan.', status= False)
 
         return User(result)
 

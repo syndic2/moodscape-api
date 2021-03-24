@@ -19,6 +19,9 @@ class Authentication(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
 
     def mutate(self, root, email_or_username, password):
+        if email_or_username is None or password is None or email_or_username == '' or password == '':
+            return Authentication(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
+
         user= mongo.db.users.find_one({
             '$or': [
                 { 'email': email_or_username },
@@ -28,7 +31,7 @@ class Authentication(graphene.Mutation):
         })
 
         if user is None:
-            return Authentication(response= ResponseMessage(text= 'Wrong email/username or password', status= False))
+            return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
 
         return Authentication(
             access_token= create_access_token(str(user['_id'])),
