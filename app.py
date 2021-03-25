@@ -3,6 +3,9 @@ from flask_cors import CORS
 from flask_graphql import GraphQLView
 from flask_graphql_auth import GraphQLAuth
 
+import requests
+import json
+
 from schema import schema
 from extensions import mongo
 
@@ -21,7 +24,14 @@ cors= CORS(app)
 def index():
     return jsonify(message='Online!')
 
-app.add_url_rule('/api/graphql', view_func=GraphQLView.as_view(
+@app.route('/scrape-books')
+def scrape_books():
+    response= requests.get('http://localhost:9080/crawl.json', { 'spider_name': 'books', 'start_requests': True })
+    data= json.loads(response.text)
+
+    return jsonify(books= data['items'])
+
+app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
     'graphql',
     schema=schema, 
     graphiql=True

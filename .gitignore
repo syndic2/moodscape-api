@@ -1,4 +1,6 @@
 .flaskenv
 
-__pycache__/
 /venv
+__pycache__/
+logs/
+
