@@ -11,6 +11,7 @@ class UserAbstract(graphene.AbstractType):
     email= graphene.String()
     username= graphene.String()
     password= graphene.String()
+    img_url= graphene.String()
 
 class UserInput(UserAbstract, graphene.InputObjectType):
     confirm_password= graphene.String()
@@ -20,7 +21,7 @@ class UserInput(UserAbstract, graphene.InputObjectType):
             self.__dict__[name]= value
 
 class User(UserAbstract, graphene.ObjectType):
-    _id= graphene.String()
+    _id= graphene.String()  
 
     def __init__(self, data):
         for key in data:

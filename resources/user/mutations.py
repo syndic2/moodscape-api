@@ -38,7 +38,7 @@ class CreateUser(graphene.Mutation):
 
         result= mongo.db.users.insert_one(vars(fields))
         
-        if type(result.inserted_id) is not ObjectId:
+        if result.inserted_id is None or type(result.inserted_id) is not ObjectId:
             return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, registrasi akun gagal.', status= False))
 
         fields['_id']= result.inserted_id
@@ -67,8 +67,7 @@ class UpdateUser(graphene.Mutation):
         if result is None:
             return UpdateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil.', status= False))
     
-        return UpdateUser(
-            updated_user= User(result), response= ResponseMessage(text= 'Perubahan profil tersimpan.', status= True))
+        return UpdateUser(updated_user= User(result), response= ResponseMessage(text= 'Perubahan profil tersimpan.', status= True))
 
 class UserMutation(graphene.AbstractType):
     create_user= CreateUser.Field()

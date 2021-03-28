@@ -17,6 +17,9 @@ class UserQuery(graphene.AbstractType):
         #if result is None:
         #    return ResponseMessage(text= 'Profil pengguna tidak ditemukan.', status= False)
 
+        if 'img_url' not in result:
+            result['img_url']= 'https://via.placeholder.com/100'
+
         return User(result)
 
     def resolve_all_user(self, info, fields):
