@@ -26,5 +26,3 @@ class BookSpider(scrapy.Spider):
                 'rating_count': [v for k, v in rating_numbers.items() if k in rating_text][0],
                 'img_url': f"https://books.toscrape.com/{book.css('div.image_container img.thumbnail').attrib['src']}"
             }
-
-#scrapy crawl books -O books.json -> output with replace file (-O)

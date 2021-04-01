@@ -6,8 +6,16 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+import pymongo
 
+class ArticlePipeline:
 
-class CrawlerPipeline:
-    def process_item(self, item, spider):
-        return item
+    def __init__(self):
+        self.db= pymongo.MongoClient('mongodb://localhost:27017').moodscape
+        self.collection= self.db.articles
+        self.collection.delete_many({})
+
+    def process_item(self, article, spider):
+        self.collection.update({ 'url': article['url'] }, dict(article), upsert= True)
+
+        return article

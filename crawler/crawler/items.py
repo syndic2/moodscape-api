@@ -5,8 +5,12 @@
 
 import scrapy
 
-
-class CrawlerItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class ArticleItem(scrapy.Item):
+    title= scrapy.Field()
+    short_summary= scrapy.Field()
+    author= scrapy.Field()
+    posted_at= scrapy.Field()
+    reviewed_by= scrapy.Field()
+    head_img= scrapy.Field()
+    content= scrapy.Field()
+    url= scrapy.Field()
