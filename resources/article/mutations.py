@@ -1,25 +1,40 @@
 import graphene
+from bson.objectid import ObjectId
+import time
 
-from .types import Article, ArticleInput
+from .types import ArticleInput, Article
+from ..utility_types import ResponseMessage
 from extensions import mongo
 
-class CreateArticle(graphene.Mutation):
+class UpdateArticle(graphene.Mutation):
     class Arguments:
-        article= ArticleInput()
+        _id= graphene.String()
+        fields= ArticleInput()
+    
+    updated= graphene.Boolean()
+    response= graphene.Field(ResponseMessage)
 
-    article= graphene.Field(Article)
-    status= graphene.Boolean()
-
-    def mutate(self, root, article):
-        result= mongo.db.articles.insert_one(vars(article))
-
-        new_article= Article(
-            title= article.title,
-            author= article.author,
-            posted_at= article.posted_at
+    def mutate(self, root, _id, fields):
+        if ObjectId.is_valid(_id):
+            _id= ObjectId(_id)
+        else:
+            _id= ObjectId()
+        
+        result= mongo.db.articles.update_one( 
+            { '_id': _id },
+            { '$set': dict(fields) },
+            upsert= True
         )
 
-        return CreateArticle(article= new_article, status= True)
+        time.sleep(2)
+
+        if result.upserted_id:
+            return UpdateArticle(updated= False, response= ResponseMessage(text= 'Berhasil membuat artikel baru.', status= False))
+
+        if result.matched_count == 0:
+            return UpdateArticle(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui artikel.', status= False))
+
+        return UpdateArticle(updated= True, response= ResponseMessage(text= 'Perubahan artikel tersimpan.', status= True))
 
 class ArticleMutation(graphene.AbstractType):
-    new_article= CreateArticle.Field()
+    update_article= UpdateArticle.Field()

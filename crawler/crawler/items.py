@@ -11,6 +11,6 @@ class ArticleItem(scrapy.Item):
     author= scrapy.Field()
     posted_at= scrapy.Field()
     reviewed_by= scrapy.Field()
-    head_img= scrapy.Field()
+    header_img= scrapy.Field()
     content= scrapy.Field()
     url= scrapy.Field()

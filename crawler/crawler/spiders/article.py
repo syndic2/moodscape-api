@@ -27,7 +27,7 @@ class ArticleSpider(scrapy.Spider):
         article['author']= element.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[0].get()
         article['posted_at']= element.css('span.sc-htoDjs.kpiNV::text').get()
         article['reviewed_by']= element.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[1].get()
-        article['head_img']= element.css('picture.sc-Rmtcm.vvRNj img').attrib['src']
+        article['header_img']= element.css('picture.sc-Rmtcm.vvRNj img').attrib['src']
         article['content']= BeautifulSoup(element.css('div.sc-htpNat.eGAHHA').get()).get_text()
         article['url']= response.url
 

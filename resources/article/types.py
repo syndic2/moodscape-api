@@ -6,11 +6,19 @@ class ArticleAbstract(graphene.AbstractType):
     author= graphene.String()
     posted_at= graphene.String()
     reviewed_by= graphene.String()
-    head_img= graphene.String()
+    header_img= graphene.String()
     content= graphene.String()
-
-class Article(ArticleAbstract, graphene.ObjectType):
-    pass
+    url= graphene.String()
 
 class ArticleInput(ArticleAbstract, graphene.InputObjectType):
     pass
+
+class Article(ArticleAbstract, graphene.ObjectType):
+    _id= graphene.String()
+
+    def __init__(self, data):
+        for key in data:
+            if key == '_id':
+                data[key]= str(data[key])
+            
+            setattr(self, key, data[key])
