@@ -7,14 +7,14 @@ import requests
 import urllib
 import json
 
-from schema import schema
+from schemas import main_schema, auth_schema
 from extensions import mongo
 
 app= Flask(__name__)
 
 app.config['JWT_SECRET_KEY']= 'access-token'
-app.config['REFRESH_EXP_LENGTH']= 30
-#app.config['ACCESS_EXP_LENGTH']= 100
+app.config['JWT_ACCESS_TOKEN_EXPIRES']= 1
+app.config['JWT_REFRESH_TOKEN_EXPIRES']= 30
 app.config['MONGO_URI']= 'mongodb://localhost:27017/moodscape'
 
 auth = GraphQLAuth(app)
@@ -23,7 +23,7 @@ cors= CORS(app)
 
 @app.route('/')
 def index():
-    return jsonify(message='Online!')
+    return jsonify(message= 'Online!')
 
 #@app.route('/scrape-articles')
 #def scrape_articles():
@@ -46,7 +46,13 @@ def index():
 
 app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
     'graphql',
-    schema= schema, 
+    schema= main_schema, 
+    graphiql= True
+))
+
+app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
+    'auth',
+    schema= auth_schema, 
     graphiql= True
 ))
 

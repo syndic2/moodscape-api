@@ -16,9 +16,9 @@ class UserAbstract(graphene.AbstractType):
 class UserInput(UserAbstract, graphene.InputObjectType):
     confirm_password= graphene.String()
 
-    def __setattr__(self, name, value):
-        if value is not None:
-            self.__dict__[name]= value
+    #def __setattr__(self, name, value):
+    #    if value is not None:
+    #        self.__dict__[name]= value
 
 class User(UserAbstract, graphene.ObjectType):
     _id= graphene.String()  

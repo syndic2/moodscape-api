@@ -1,6 +1,7 @@
 import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
+import time
 
 from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
@@ -14,17 +15,17 @@ class CreateUser(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
 
     def mutate(self, root, fields):
-        if fields is None or 'first_name' not in fields or 'last_name' not in fields or 'gender' not in fields or 'age' not in fields or 'email' not in fields or 'username' not in fields or 'password' not in fields or 'confirm_password' not in fields:
-            return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, data yang dikirimkan tidak lengkap.', status= False))
-
-        for key, value in fields.items():
-            if value is None or value == '' or (key == 'age' and value == 0):
-                return CreateUser(response= ResponseMessage(text= 'Kolom registrasi tidak boleh ada yang kosong!', status= False))
-
-        if fields.password != fields.confirm_password:
-            return CreateUser(response= ResponseMessage(text= 'Konfirmasi kata sandi dengan kata sandi tidak cocok!', status= False))
-
-        del fields['confirm_password']
+        #if fields is None or 'first_name' not in fields or 'last_name' not in fields or 'gender' not in fields or 'age' not in fields or 'email' not in fields or 'username' not in fields or 'password' not in fields or 'confirm_password' not in fields:
+        #    return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, data yang dikirimkan tidak lengkap.', status= False))
+        #
+        #for key, value in fields.items():
+        #    if value is None or value == '' or (key == 'age' and value == 0):
+        #        return CreateUser(response= ResponseMessage(text= 'Kolom registrasi tidak boleh ada yang kosong!', status= False))
+        #
+        #if fields.password != fields.confirm_password:
+        #    return CreateUser(response= ResponseMessage(text= 'Konfirmasi kata sandi dengan kata sandi tidak cocok!', status= False))
+        #
+        #del fields['confirm_password']
 
         exist= mongo.db.users.find_one({
             '$or': [
@@ -33,10 +34,12 @@ class CreateUser(graphene.Mutation):
             ]
         })
 
+        time.sleep(2)
+
         if exist:
             return CreateUser(response= ResponseMessage(text= 'Alamat surel dan nama pengguna sudah ada yang menggunakan.', status= False))
 
-        result= mongo.db.users.insert_one(vars(fields))
+        result= mongo.db.users.insert_one(dict(fields))
         
         if result.inserted_id is None or type(result.inserted_id) is not ObjectId:
             return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, registrasi akun gagal.', status= False))
@@ -55,14 +58,16 @@ class UpdateUser(graphene.Mutation):
 
     @mutation_header_jwt_required
     def mutate(self, root, fields):
-        for key, value in fields.items():
-            if value is None or value == '':
-                return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
+        #for key, value in fields.items():
+        #    if value is None or value == '':
+        #        return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
         result= mongo.db.users.find_one_and_update( 
             { '_id': ObjectId(get_jwt_identity()) },
-            { '$set': vars(fields) }
+            { '$set': dict(fields) }
         )
+
+        time.sleep(2)
 
         if result is None:
             return UpdateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil.', status= False))

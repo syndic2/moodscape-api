@@ -36,5 +36,22 @@ class UpdateArticle(graphene.Mutation):
 
         return UpdateArticle(updated= True, response= ResponseMessage(text= 'Perubahan artikel tersimpan.', status= True))
 
+class DeleteArticle(graphene.Mutation):
+    class Arguments:
+        _id= graphene.String()
+
+    response= graphene.Field(ResponseMessage)
+
+    def mutate(self, root, _id):
+        result= mongo.db.articles.delete_one({ '_id': ObjectId(_id) })
+        
+        time.sleep(2)
+
+        if result.deleted_count == 0:
+            return DeleteArticle(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal menghapus artikel.', status= False)) 
+
+        return DeleteArticle(response= ResponseMessage(text= 'Hapus artikel berhasil.', status= True))
+
 class ArticleMutation(graphene.AbstractType):
     update_article= UpdateArticle.Field()
+    delete_article= DeleteArticle.Field()

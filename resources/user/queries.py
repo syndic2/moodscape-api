@@ -1,6 +1,7 @@
 import graphene
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
+import time
 
 from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
@@ -16,6 +17,8 @@ class UserQuery(graphene.AbstractType):
         
         #if result is None:
         #    return ResponseMessage(text= 'Profil pengguna tidak ditemukan.', status= False)
+
+        time.sleep(2)
 
         if 'img_url' not in result:
             result['img_url']= 'https://via.placeholder.com/100'
