@@ -1,6 +1,5 @@
 import graphene
 from bson.objectid import ObjectId
-import time
 
 from .types import ArticleInput, Article
 from ..utility_types import ResponseMessage
@@ -26,8 +25,6 @@ class UpdateArticle(graphene.Mutation):
             upsert= True
         )
 
-        time.sleep(2)
-
         if result.upserted_id:
             return UpdateArticle(updated= False, response= ResponseMessage(text= 'Berhasil membuat artikel baru.', status= False))
 
@@ -44,8 +41,6 @@ class DeleteArticle(graphene.Mutation):
 
     def mutate(self, root, _id):
         result= mongo.db.articles.delete_one({ '_id': ObjectId(_id) })
-        
-        time.sleep(2)
 
         if result.deleted_count == 0:
             return DeleteArticle(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal menghapus artikel.', status= False)) 

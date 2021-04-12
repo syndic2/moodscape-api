@@ -1,7 +1,6 @@
 import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
-import time
 
 from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
@@ -34,8 +33,6 @@ class CreateUser(graphene.Mutation):
             ]
         })
 
-        time.sleep(2)
-
         if exist:
             return CreateUser(response= ResponseMessage(text= 'Alamat surel dan nama pengguna sudah ada yang menggunakan.', status= False))
 
@@ -66,8 +63,6 @@ class UpdateUser(graphene.Mutation):
             { '_id': ObjectId(get_jwt_identity()) },
             { '$set': dict(fields) }
         )
-
-        time.sleep(2)
 
         if result is None:
             return UpdateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil.', status= False))

@@ -15,7 +15,7 @@ app= Flask(__name__)
 app.config['JWT_SECRET_KEY']= 'access-token'
 app.config['JWT_ACCESS_TOKEN_EXPIRES']= 1
 app.config['JWT_REFRESH_TOKEN_EXPIRES']= 30
-app.config['MONGO_URI']= 'mongodb://localhost:27017/moodscape'
+app.config['MONGO_URI']= 'mongodb+srv://jonathan-admin:kusogaki@clustervirginia0.esrr9.mongodb.net/moodscape?retryWrites=true&w=majority'
 
 auth = GraphQLAuth(app)
 db= mongo.init_app(app)
@@ -23,7 +23,7 @@ cors= CORS(app)
 
 @app.route('/')
 def index():
-    return jsonify(message= 'Online!')
+    return jsonify(message= 'Server is online!', status= 'OK')
 
 #@app.route('/scrape-articles')
 #def scrape_articles():

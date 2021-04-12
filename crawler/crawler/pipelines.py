@@ -11,7 +11,7 @@ import pymongo
 class ArticlePipeline:
 
     def __init__(self):
-        self.db= pymongo.MongoClient('mongodb://localhost:27017').moodscape
+        self.db= pymongo.MongoClient('mongodb+srv://jonathan-admin:kusogaki@clustervirginia0.esrr9.mongodb.net/moodscape?retryWrites=true&w=majority').moodscape
         self.collection= self.db.articles
         self.collection.delete_many({})
 

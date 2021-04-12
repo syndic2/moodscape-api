@@ -1,6 +1,5 @@
 import graphene
 from bson.objectid import ObjectId
-import time
 
 from .types import ArticleInput, Article
 from ..utility_types import ResponseMessage 
@@ -12,8 +11,6 @@ class ArticleQuery(graphene.AbstractType):
 
     def resolve_article(self, info, _id): 
         article= mongo.db.articles.find_one({ '_id': ObjectId(_id) })
-        
-        time.sleep(2)
 
         return article
     
@@ -28,8 +25,6 @@ class ArticleQuery(graphene.AbstractType):
             article= Article(document)
             
             return article
-        
-        time.sleep(2)
 
         return list(map(to_article_type, documents))
     

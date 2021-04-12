@@ -6,7 +6,6 @@ from flask_graphql_auth import (
     mutation_jwt_refresh_token_required
 )
 from bson import ObjectId
-import time
 
 from ..user.types import UserInput
 from ..utility_types import ResponseMessage
@@ -25,8 +24,6 @@ class Authentication(graphene.Mutation):
     def mutate(self, root, email_or_username= '', password= '', with_google= None):
         #if email_or_username is None or password is None or email_or_username == '' or password == '':
         #    return Authentication(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
-        
-        time.sleep(2)
 
         #LOGIN WITH GOOGLE
         if with_google:
