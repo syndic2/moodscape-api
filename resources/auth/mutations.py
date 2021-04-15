@@ -59,7 +59,7 @@ class Authentication(graphene.Mutation):
         if exist:
             return None
         
-        result= mongo.db.users.insert_one(vars(account_info))
+        result= mongo.db.users.insert_one(dict(account_info))
 
         if result.inserted_id is None or type(result.inserted_id) is not ObjectId:
             return False
