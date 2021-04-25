@@ -6,6 +6,7 @@
 import scrapy
 
 class ArticleItem(scrapy.Item):
+    _id= scrapy.Field()
     title= scrapy.Field()
     short_summary= scrapy.Field()
     author= scrapy.Field()
@@ -13,4 +14,5 @@ class ArticleItem(scrapy.Item):
     reviewed_by= scrapy.Field()
     header_img= scrapy.Field()
     content= scrapy.Field()
+    url_name= scrapy.Field()
     url= scrapy.Field()
