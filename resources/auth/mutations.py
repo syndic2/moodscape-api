@@ -97,7 +97,7 @@ class RequestResetPassword(graphene.Mutation):
             return RequestResetPassword(response= ResponseMessage(text= 'Alamat surel anda salah atau belum terdaftar!', status= False))
         
         token= secrets.token_urlsafe()
-        token_expiry= datetime.datetime.utcnow()+datetime.timedelta(minutes= 1)
+        token_expiry= datetime.datetime.utcnow()+datetime.timedelta(minutes= 15)
 
         result= mongo.db.reset_passwords.insert_one({
             'email': user['email'],
