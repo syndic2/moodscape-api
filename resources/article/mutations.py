@@ -1,9 +1,9 @@
 import graphene
 from bson.objectid import ObjectId
 
+from extensions import mongo
 from .types import ArticleInput, Article
 from ..utility_types import ResponseMessage
-from extensions import mongo
 
 class UpdateArticle(graphene.Mutation):
     class Arguments:

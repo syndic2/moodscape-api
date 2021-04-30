@@ -1,5 +1,4 @@
 get-pip.py
-.flaskenv
 
 /venv
 __pycache__/

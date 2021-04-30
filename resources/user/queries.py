@@ -2,9 +2,9 @@ import graphene
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
+from extensions import mongo
 from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
-from extensions import mongo
 
 class UserQuery(graphene.AbstractType):
     all_user= graphene.List(ProtectedUser, fields= graphene.Argument(UserInput))

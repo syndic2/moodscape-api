@@ -1,18 +1,15 @@
 import graphene
 
-from resources.auth.queries import AuthQuery
-from resources.auth.mutations import AuthMutation
+from .auth.queries import AuthQuery
+from .auth.mutations import AuthMutation
 
-from resources.user.queries import UserQuery
-from resources.user.mutations import UserMutation
+from .user.queries import UserQuery
+from .user.mutations import UserMutation
 
-from resources.article.queries import ArticleQuery
-from resources.article.mutations import ArticleMutation
-
-from extensions import mongo
+from .article.queries import ArticleQuery
+from .article.mutations import ArticleMutation
 
 class QueryRoot(
-        AuthQuery, 
         UserQuery, 
         ArticleQuery, 
         graphene.ObjectType
@@ -20,7 +17,6 @@ class QueryRoot(
     pass
 
 class MutationRoot(
-        AuthMutation, 
         UserMutation, 
         ArticleMutation, 
         graphene.ObjectType

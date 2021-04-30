@@ -1,9 +1,9 @@
 import graphene
 from bson.objectid import ObjectId
 
+from extensions import mongo
 from .types import ArticleInput, Article
 from ..utility_types import ResponseMessage 
-from extensions import mongo
 
 class ArticleQuery(graphene.AbstractType):
     article= graphene.Field(Article, _id= graphene.String())

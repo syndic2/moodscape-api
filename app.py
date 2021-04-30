@@ -1,25 +1,35 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from flask_graphql import GraphQLView
-from flask_graphql_auth import GraphQLAuth
+from bs4 import BeautifulSoup
 
 import requests
 import urllib
 import json
 
-from schemas import main_schema, auth_schema
-from extensions import mongo
+from config import config
+from extensions import cors, mail, auth, mongo
+from resources.schema import main_schema, auth_schema
 
 app= Flask(__name__)
 
-app.config['JWT_SECRET_KEY']= 'access-token'
-app.config['JWT_ACCESS_TOKEN_EXPIRES']= 1
-app.config['JWT_REFRESH_TOKEN_EXPIRES']= 30
-app.config['MONGO_URI']= 'mongodb+srv://jonathan-admin:kusogaki@clustervirginia0.esrr9.mongodb.net/moodscape?retryWrites=true&w=majority'
+app.config.from_object(config)
 
-auth = GraphQLAuth(app)
-db= mongo.init_app(app)
-cors= CORS(app)
+cors.init_app(app)
+mail.init_app(app)
+auth.init_app(app)
+mongo.init_app(app)
+
+app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
+    'graphql',
+    schema= main_schema, 
+    graphiql= True
+))
+
+app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
+    'auth',
+    schema= auth_schema, 
+    graphiql= True
+))
 
 @app.route('/')
 def index():
@@ -43,18 +53,6 @@ def index():
 #        return jsonify(message= 'Connection trouble or something happend in the server. Please try again.')
 #
 #    return jsonify(data)
-
-app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
-    'graphql',
-    schema= main_schema, 
-    graphiql= True
-))
-
-app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
-    'auth',
-    schema= auth_schema, 
-    graphiql= True
-))
 
 if __name__ == '__main__':
     app.run(debug= True)

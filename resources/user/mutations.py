@@ -2,9 +2,11 @@ import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
+import datetime
+
+from extensions import mongo
 from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
-from extensions import mongo
 
 class CreateUser(graphene.Mutation):
     class Arguments:
@@ -34,17 +36,16 @@ class CreateUser(graphene.Mutation):
         })
 
         if exist:
-            return CreateUser(response= ResponseMessage(text= 'Alamat surel dan nama pengguna sudah ada yang menggunakan.', status= False))
+            return CreateUser(response= ResponseMessage(text= 'Alamat surel dan nama pengguna sudah ada yang menggunakan', status= False))
 
         result= mongo.db.users.insert_one(dict(fields))
         
-        if result.inserted_id is None or type(result.inserted_id) is not ObjectId:
-            return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, registrasi akun gagal.', status= False))
+        if result.inserted_id is None:
+            return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, registrasi akun gagal', status= False))
 
         fields['_id']= result.inserted_id
 
-        return CreateUser(  
-            created_user= User(fields), response= ResponseMessage(text= 'Registrasi akun baru berhasil!', status= True))
+        return CreateUser(created_user= User(fields), response= ResponseMessage(text= 'Registrasi akun baru berhasil!', status= True))
 
 class UpdateUser(graphene.Mutation):
     class Arguments:
@@ -59,15 +60,16 @@ class UpdateUser(graphene.Mutation):
         #    if value is None or value == '':
         #        return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
+        fields['last_profile_changed_at']= datetime.datetime.utcnow()
         result= mongo.db.users.find_one_and_update( 
             { '_id': ObjectId(get_jwt_identity()) },
             { '$set': dict(fields) }
         )
 
         if result is None:
-            return UpdateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil.', status= False))
+            return UpdateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil', status= False))
     
-        return UpdateUser(updated_user= User(result), response= ResponseMessage(text= 'Perubahan profil tersimpan.', status= True))
+        return UpdateUser(updated_user= User(result), response= ResponseMessage(text= 'Perubahan profil tersimpan', status= True))
 
 class UserMutation(graphene.AbstractType):
     create_user= CreateUser.Field()
