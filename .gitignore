@@ -1,5 +1,5 @@
 get-pip.py
-.flaskenv
+.env
 
 /venv
 __pycache__/

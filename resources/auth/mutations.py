@@ -115,7 +115,7 @@ class RequestResetPassword(graphene.Mutation):
         except:
             return RequestResetPassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False))
 
-        return RequestResetPassword(reset_url= token, response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
+        return RequestResetPassword(reset_url= f"https://moodscape.netlify.app/reset-password/{token}", response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
 
 class ResetPassword(graphene.Mutation):
     class Arguments:

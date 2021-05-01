@@ -60,6 +60,20 @@ class UpdateUser(graphene.Mutation):
         #    if value is None or value == '':
         #        return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
+        exist= mongo.db.users.find_one({
+            '$and': [
+                { 
+                    '_id': { 
+                        '$ne': ObjectId(get_jwt_identity())
+                    } 
+                },
+                { 'email': fields['email'] }
+            ]
+        })
+
+        if exist:
+            return UpdateUser(response= ResponseMessage(text= 'Surel telah ada yang menggunakan, coba dengan surel lain', status= False))
+
         fields['last_profile_changed_at']= datetime.datetime.utcnow()
         result= mongo.db.users.find_one_and_update( 
             { '_id': ObjectId(get_jwt_identity()) },
