@@ -22,6 +22,7 @@ class Authentication(graphene.Mutation):
         password= graphene.String()
         with_google= UserInput()
 
+    authenticated_user= graphene.Field(User)
     access_token= graphene.String()
     refresh_token= graphene.String()
     response= graphene.Field(ResponseMessage)
@@ -52,6 +53,7 @@ class Authentication(graphene.Mutation):
             return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
 
         return Authentication(
+            authenticated_user= User(dict(user)),
             access_token= create_access_token(str(user['_id'])),
             refresh_token= create_refresh_token(str(user['_id'])),
             response= ResponseMessage(text= 'Login success', status= True)

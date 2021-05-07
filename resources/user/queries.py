@@ -11,14 +11,14 @@ class UserQuery(graphene.AbstractType):
     user_profile= graphene.Field(ProtectedUser) 
 
     def resolve_all_user(self, info, fields):
-        documents= list(mongo.db.users.find(fields))
+        users= list(mongo.db.users.find(fields))
 
         def to_user_type(document):
             user= User(document)
 
             return user
 
-        return list(map(to_user_type, documents))
+        return map(to_user_type, users)
 
     @query_header_jwt_required
     def resolve_user_profile(self, info):

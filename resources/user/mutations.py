@@ -36,7 +36,7 @@ class CreateUser(graphene.Mutation):
         })
 
         if exist:
-            return CreateUser(response= ResponseMessage(text= 'Alamat surel dan nama pengguna sudah ada yang menggunakan', status= False))
+            return CreateUser(response= ResponseMessage(text= 'Alamat surel atau nama pengguna sudah ada yang menggunakan', status= False))
 
         result= mongo.db.users.insert_one(dict(fields))
         
@@ -85,6 +85,35 @@ class UpdateUser(graphene.Mutation):
     
         return UpdateUser(updated_user= User(result), response= ResponseMessage(text= 'Perubahan profil tersimpan', status= True))
 
+class ChangePassword(graphene.Mutation):
+    class Arguments:
+        old_password= graphene.String()
+        new_password= graphene.String()
+
+    user_with_new_password= graphene.Field(ProtectedUser)
+    response= graphene.Field(ResponseMessage)
+
+    @mutation_header_jwt_required
+    def mutate(self, root, old_password, new_password):
+        result= mongo.db.users.find_one({
+            '_id': ObjectId(get_jwt_identity()),
+            'password': old_password
+        })
+
+        if result is None:
+            return ChangePassword(response= ResponseMessage(text= 'Gagal mengubah kata sandi, kata sandi lama salah', status= False))   
+
+        result= mongo.db.users.find_one_and_update(
+            { '_id': ObjectId(get_jwt_identity()) },
+            { '$set': { 'password': new_password } }
+        )
+
+        if result is None:
+            return ChangePassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal mengubah kata sandi', status= False))   
+
+        return ChangePassword(user_with_new_password= User(result), response= ResponseMessage(text= 'Berhasil mengubah kata sandi', status= True))    
+
 class UserMutation(graphene.AbstractType):
     create_user= CreateUser.Field()
     update_user= UpdateUser.Field()
+    change_password= ChangePassword.Field()
