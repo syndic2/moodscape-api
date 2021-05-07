@@ -6,9 +6,9 @@ from ..utility_types import ResponseMessage
 class AppFeedbackAbstract(graphene.AbstractType):
     rating= graphene.Int()
     review= graphene.String()
-    category_feature= graphene.String()
+    feature_category= graphene.String()
     created_at= graphene.DateTime()
-    
+ 
 class AppFeedbackInput(AppFeedbackAbstract, graphene.InputObjectType):
     pass
 
@@ -22,3 +22,11 @@ class AppFeedback(AppFeedbackAbstract, graphene.ObjectType):
                 data[key]= str(data[key])
 
             setattr(self, key, data[key])
+
+class ProtectedAppFeedback(graphene.Union):
+    class Meta:
+        types= (AppFeedback, AuthInfoField)
+    
+    @classmethod
+    def resolve_type(cls, instance, info):
+        return type(instance)

@@ -1,18 +1,18 @@
 import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
-from bson import ObjectId
+from bson.objectid import ObjectId
 
 import datetime
 
 from extensions import mongo
-from .types import AppFeedbackInput, AppFeedback
+from .types import AppFeedbackInput, AppFeedback, ProtectedAppFeedback
 from ..utility_types import ResponseMessage
 
 class CreateAppFeedback(graphene.Mutation):
     class Arguments:
         fields= AppFeedbackInput()
     
-    created_feedback= graphene.Field(AppFeedback)
+    created_feedback= graphene.Field(ProtectedAppFeedback)
     response= graphene.Field(ResponseMessage)
 
     @mutation_header_jwt_required
