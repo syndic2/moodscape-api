@@ -11,11 +11,15 @@ class UserArticlesQuery(graphene.AbstractType):
     
     @query_header_jwt_required
     def resolve_archived_articles(self, info):
-        article_ids= mongo.db.user_articles.find_one({ 'user_id': ObjectId(get_jwt_identity()) })['archived_articles']
+        user_articles= mongo.db.user_articles.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
+        
+        if user_articles is None:
+            return UserArticles(articles= [], response= ResponseMessage(text= 'Belum memiliki artikel yang tersimpan', status= False))
+
         articles= mongo.db.articles.find({
             '_id': {
-                '$in': article_ids
+                '$in': user_articles['archived_articles']
             }
         }).sort('_id', -1)
-
-        return UserArticles(_id= 1, user_id= ObjectId(get_jwt_identity()), articles= articles, response= ResponseMessage(text= 'Berhasil mengembalikan respon', status= True))
+        
+        return UserArticles(_id= user_articles['_id'], user_id= ObjectId(get_jwt_identity()), articles= articles, response= ResponseMessage(text= 'Berhasil mengembalikan respon', status= True))
