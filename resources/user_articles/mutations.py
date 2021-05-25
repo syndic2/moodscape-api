@@ -69,7 +69,7 @@ class RemoveArchivedArticles(graphene.Mutation):
     def mutate(self, root, article_ids):
         result= mongo.db.user_articles.find_one_and_update(
             { 
-                'user_id': ObjectId("60583c9845da16c2712b9155"),
+                'user_id': ObjectId(get_jwt_identity()),
                 'archived_articles': {
                     '$in': article_ids
                 }
