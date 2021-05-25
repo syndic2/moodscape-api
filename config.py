@@ -1,3 +1,4 @@
+import datetime
 from os import environ as ENV
 
 class BaseConfig:
@@ -9,8 +10,8 @@ class BaseConfig:
     MAIL_PASSWORD= ENV.get('MAIL_PASSWORD')
 
     JWT_SECRET_KEY= ENV.get('JWT_SECRET_KEY')
-    JWT_ACCESS_TOKEN_EXPIRES= 30 
-    JWT_REFRESH_TOKEN_EXPIRES= 30
+    JWT_ACCESS_TOKEN_EXPIRES= datetime.timedelta(days= 30) 
+    JWT_REFRESH_TOKEN_EXPIRES= datetime.timedelta(days= 35) 
 
 class DevelopmentConfig(BaseConfig):
     MONGO_URI= 'mongodb://localhost:27017/moodscape'

@@ -17,35 +17,33 @@ class ArticleSpider(scrapy.Spider):
 
     def parse(self, response):
         for element_box in response.css('div.sc-htpNat.ifZKKW'):
-            url= element_box.css('a.sc-htoDjs.sc-jTzLTM.kmMpkI').attrib['href']
+            url= element_box.css('a.sc-gZMcBi.sc-kAzzGY.krILH').attrib['href']
             
             yield response.follow(url, callback= self.parseData)
     
     def parseData(self, response):
-        element= response.css('div.sc-cSHVUG.kTHmUf')
+        element= response.css('div.sc-kpOJdX.gUcjBw')
         article= ArticleItem()
 
-        article['title']= element.css('h1.sc-htoDjs.iRWfRb.poppins::text').get()
-        article['short_summary']= element.css('span.sc-htoDjs.ffgJvF::text').get()
-        article['author']= element.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[0].get()
-        article['posted_at']= element.css('span.sc-htoDjs.kpiNV::text').get()
-        article['reviewed_by']= element.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[1].get()
-        article['header_img']= element.css('picture.sc-Rmtcm.vvRNj img').attrib['src']
+        article['title']= element.css('h1.sc-gZMcBi.gIFFao.poppins::text').get()
+        article['short_summary']= element.css('span.sc-gZMcBi.gQCEgT::text').get()
+        article['author']= element.css('a.sc-gZMcBi.sc-kAzzGY.bdXpyA.Anchor-NexLink::text')[0].get()
+        article['posted_at']= element.css('span.sc-gZMcBi.hhLaDY::text').get()
+        article['reviewed_by']= element.css('a.sc-gZMcBi.sc-kAzzGY.bdXpyA.Anchor-NexLink::text')[0].get()
+        #article['header_img']= element.css('picture.sc-feJyhm.gmuGxr img').attrib['src']
+        
+        if len(element.css('picture.sc-feJyhm.gmuGxr img')) > 0:
+            article['header_img']= element.css('picture.sc-feJyhm.gmuGxr img').attrib['src']
+        elif len(element.css('picture.sc-kafWEX.ilMpFx img')) > 0:
+            article['header_img']= element.css('picture.sc-kafWEX.ilMpFx img').attrib['src']
+        else:
+            article['header_img']= 'https://via.placeholder.com/150'
+
         article['content']= BeautifulSoup(element.css('div.sc-htpNat.eGAHHA').get()).get_text()
         article['url_name']= article['title'].lower().replace(', ', ' ').replace(' ', '-')
         article['url']= response.url
 
         yield article
-
-        #yield {
-        #    'title': article.css('h1.sc-htoDjs.iRWfRb.poppins::text').get(),
-        #    'short_summary': article.css('span.sc-htoDjs.ffgJvF::text').get(),
-        #    'author': article.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[0].get(),
-        #    'posted_at': article.css('span.sc-htoDjs.kpiNV::text').get(),
-        #    'reviewed_by': article.css('a.sc-htoDjs.sc-jTzLTM.gQSQpq.Anchor-NexLink::text')[1].get(),
-        #    'head_img': article.css('picture.sc-Rmtcm.vvRNj img').attrib['src'],
-        #    'content': BeautifulSoup(article.css('div.sc-htpNat.eGAHHA').get()).get_text()
-        #}
     
     def extract_content(content):
         pass

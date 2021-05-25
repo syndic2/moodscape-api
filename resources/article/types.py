@@ -1,4 +1,5 @@
 import graphene
+from ..utility_types import ResponseMessage
 
 class ArticleAbstract(graphene.AbstractType):
     title= graphene.String()
@@ -23,4 +24,11 @@ class Article(ArticleAbstract, graphene.ObjectType):
             #    data[key]= int(data[key])
             
             setattr(self, key, data[key])
+
+class ArticlePagination(graphene.ObjectType):
+    offset= graphene.Int()
+    limit= graphene.Int()
+    max_page= graphene.Int()
+    articles= graphene.List(Article)
+    response= graphene.Field(ResponseMessage)
     

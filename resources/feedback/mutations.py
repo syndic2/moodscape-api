@@ -19,8 +19,15 @@ class CreateAppFeedback(graphene.Mutation):
     def mutate(self, root, fields):
         if fields['rating'] > 5:
             return CreateAppFeedback(response= ResponseMessage(text= 'Nilai rating tidak sesuai, gagal mengirimkan umpan balik', status= False))
+        
+        feedbacks= mongo.db.app_feedbacks.find({}).sort('_id', -1)
 
-        fields['_id']= mongo.db.app_feedbacks.find({}).count()+1
+        if feedbacks.count() > 0:
+            fields['_id']= feedbacks[0]['_id']+1
+        else:
+            fields['_id']= 1
+
+        #fields['_id']= mongo.db.app_feedbacks.find({}).count()+1
         fields['user_id']= ObjectId(get_jwt_identity())
         fields['created_at']= datetime.datetime.utcnow().replace(microsecond= 0)
         result= mongo.db.app_feedbacks.insert_one(dict(fields))

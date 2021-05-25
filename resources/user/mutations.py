@@ -5,8 +5,8 @@ from bson.objectid import ObjectId
 import datetime
 
 from extensions import mongo
-from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
+from .types import UserInput, User, ProtectedUser
 
 class CreateUser(graphene.Mutation):
     class Arguments:

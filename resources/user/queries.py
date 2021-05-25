@@ -3,22 +3,22 @@ from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from .types import UserInput, User, ProtectedUser
 from ..utility_types import ResponseMessage
+from .types import UserInput, User, ProtectedUser
 
 class UserQuery(graphene.AbstractType):
     all_user= graphene.List(ProtectedUser, fields= graphene.Argument(UserInput))
     user_profile= graphene.Field(ProtectedUser) 
 
     def resolve_all_user(self, info, fields):
-        users= list(mongo.db.users.find(fields))
+        users= mongo.db.users.find(fields)
 
         def to_user_type(document):
             user= User(document)
 
             return user
 
-        return map(to_user_type, users)
+        return list(map(to_user_type, users))
 
     @query_header_jwt_required
     def resolve_user_profile(self, info):

@@ -17,7 +17,14 @@ class ArticlePipeline:
         self.collection.delete_many({})
 
     def process_item(self, article, spider):
-        article['_id']= self.collection.find({}).count()+1
+        inserted= self.collection.find({}).sort('_id', -1)
+
+        if inserted.count() > 0:
+            article['_id']= inserted[0]['_id']+1
+        else:
+            article['_id']= 1
+        
+        #article['_id']= self.collection.find({}).count()+1
         self.collection.update({ 'url': article['url'] }, dict(article), upsert= True)
 
         return article
