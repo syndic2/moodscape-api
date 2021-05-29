@@ -6,6 +6,10 @@ from .auth.mutations import AuthMutation
 from .user.queries import UserQuery
 from .user.mutations import UserMutation
 
+from .activity.queries import ActivityQuery
+
+from .user_activities.queries import UserActivitiesQuery
+
 from .article.queries import ArticleQuery
 from .article.mutations import ArticleMutation
 
@@ -17,7 +21,9 @@ from .feedback.mutations import FeedbackMutation
 
 class QueryRoot(
         UserQuery, 
-        ArticleQuery, 
+        ActivityQuery, 
+        ArticleQuery,
+        UserActivitiesQuery,
         UserArticlesQuery,
         FeedbackQuery,
         graphene.ObjectType

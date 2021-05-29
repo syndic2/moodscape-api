@@ -9,6 +9,7 @@ import json
 from config import config
 from extensions import cors, mail, auth, mongo
 from resources.schema import main_schema, auth_schema
+from seeder.schema import seeder_schema
 
 app= Flask(__name__)
 
@@ -28,6 +29,12 @@ app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
 app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
     'auth',
     schema= auth_schema, 
+    graphiql= True
+))
+
+app.add_url_rule('/api/seeds', view_func= GraphQLView.as_view(
+    'seeds',
+    schema= seeder_schema,
     graphiql= True
 ))
 

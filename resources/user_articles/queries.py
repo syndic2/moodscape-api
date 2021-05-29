@@ -22,4 +22,9 @@ class UserArticlesQuery(graphene.AbstractType):
             }
         }).sort('_id', -1)
         
-        return UserArticles(_id= user_articles['_id'], user_id= ObjectId(get_jwt_identity()), articles= articles, response= ResponseMessage(text= 'Berhasil mengembalikan respon', status= True))
+        return UserArticles(
+            _id= user_articles['_id'], 
+            user_id= ObjectId(get_jwt_identity()), 
+            articles= articles, 
+            response= ResponseMessage(text= 'Berhasil mengembalikan artikel user', status= True)
+        )

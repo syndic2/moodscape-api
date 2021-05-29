@@ -3,10 +3,9 @@ from bson.objectid import ObjectId
 
 from extensions import mongo
 from .types import ArticleInput, Article, ArticlePagination
-from ..utility_types import ResponseMessage 
 
 class ArticleQuery(graphene.AbstractType):
-    article= graphene.Field(Article, _id= graphene.String())
+    article= graphene.Field(Article, _id= graphene.Int())
     article_by_url_name= graphene.Field(Article, url_name= graphene.String())
     all_article= graphene.Field(
         ArticlePagination, 
@@ -50,6 +49,5 @@ class ArticleQuery(graphene.AbstractType):
             offset= offset,
             limit= limit,
             max_page= total_articles/limit,
-            articles= articles,
-            response= ResponseMessage(text= 'Berhasil mengembalikan respon', status= True)
+            articles= articles
         )

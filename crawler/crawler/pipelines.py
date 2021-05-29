@@ -8,6 +8,8 @@
 from itemadapter import ItemAdapter
 import pymongo
 
+from utilities.helpers import auto_increment_id
+
 class ArticlePipeline:
 
     def __init__(self):
@@ -17,14 +19,9 @@ class ArticlePipeline:
         self.collection.delete_many({})
 
     def process_item(self, article, spider):
-        inserted= self.collection.find({}).sort('_id', -1)
-
-        if inserted.count() > 0:
-            article['_id']= inserted[0]['_id']+1
-        else:
-            article['_id']= 1
-        
         #article['_id']= self.collection.find({}).count()+1
+        article['_id']= auto_increment_id('articles')
+        
         self.collection.update({ 'url': article['url'] }, dict(article), upsert= True)
 
         return article

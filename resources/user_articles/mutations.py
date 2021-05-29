@@ -3,6 +3,7 @@ import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
+from utilities.helpers import auto_increment_id
 from extensions import mongo
 from ..utility_types import ResponseMessage
 from .types import ArchivedArticleIds, ProtectedArchivedArticleIds
@@ -39,16 +40,9 @@ class ArchiveArticle(graphene.Mutation):
             )
 
             return ArchiveArticle(archived_articles= ArchivedArticleIds(article_ids= article_ids), response= ResponseMessage(text= 'Berhasil menyimpan artikel', status= True))
-
-        archives= mongo.db.user_articles.find({}).sort('_id', -1)
-
-        if (archives.count() > 0):
-            _id= archives[0]['_id']+1
-        else:
-            _id= 1
-
+        
         result= mongo.db.user_articles.insert_one({
-            '_id': _id,
+            '_id': auto_increment_id('user_articles'),
             'user_id': ObjectId(get_jwt_identity()),
             'archived_articles': article_ids
         })

@@ -1,5 +1,4 @@
 import graphene
-from ..utility_types import ResponseMessage
 
 class ArticleAbstract(graphene.AbstractType):
     title= graphene.String()
@@ -30,5 +29,4 @@ class ArticlePagination(graphene.ObjectType):
     limit= graphene.Int()
     max_page= graphene.Int()
     articles= graphene.List(Article)
-    response= graphene.Field(ResponseMessage)
     
