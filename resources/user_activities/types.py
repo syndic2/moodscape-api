@@ -2,7 +2,7 @@ import graphene
 from flask_graphql_auth import AuthInfoField
 
 from ..utility_types import ResponseMessage
-from ..activity.types import ActivityCategory
+from ..activity.types import Activity, ActivityCategory
 
 class UserActivities(graphene.ObjectType):
     _id= graphene.Int()
@@ -13,6 +13,22 @@ class UserActivities(graphene.ObjectType):
 class ProtectedUserActivities(graphene.Union):
     class Meta:
         types= (UserActivities, AuthInfoField)
+    
+    @classmethod
+    def resolve_type(cls, instance, info):
+        return type(instance)
+
+class ProtectedUserActivity(graphene.Union):
+    class Meta:
+        types= (Activity, AuthInfoField)
+    
+    @classmethod
+    def resolve_type(cls, instance, info):
+        return type(instance)
+
+class ProtectedUserActivityCategory(graphene.Union):
+    class Meta:
+        types= (ActivityCategory, AuthInfoField)
     
     @classmethod
     def resolve_type(cls, instance, info):

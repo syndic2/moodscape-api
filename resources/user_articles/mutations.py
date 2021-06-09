@@ -1,4 +1,3 @@
-from typing import Text
 import graphene
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId

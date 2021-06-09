@@ -3,6 +3,70 @@ import graphene
 from resources.utility_types import ResponseMessage
 from extensions import mongo
 
+class ActivityIconsSeeder(graphene.Mutation):
+    response= graphene.Field(ResponseMessage)
+    
+    def mutate(self, info):
+        mongo.db.activity_icons.delete_many({})
+        
+        seeds= mongo.db.activity_icons.insert_many([
+            { '_id': 1, 'name': 'person-dancing' },
+            { '_id': 2, 'name': 'eating' },
+            { '_id': 3, 'name': 'good-sleep' },
+            { '_id': 4, 'name': 'medium-sleep' },
+            { '_id': 5, 'name': 'bad-sleep' },
+            { '_id': 6, 'name': 'french-fries' },
+            { '_id': 7, 'name': 'home' },
+            { '_id': 8, 'name': 'fork-knife' },
+            { '_id': 9, 'name': 'basket' },
+            { '_id': 10, 'name': 'no-meat' },
+            { '_id': 11, 'name': 'no-sweets' },
+            { '_id': 12, 'name': 'no-soda' },
+            { '_id': 13, 'name': 'bottle' },
+            { '_id': 14, 'name': 'walk' },
+            { '_id': 15, 'name': 'meditation' },
+            { '_id': 16, 'name': 'hand-love' },
+            { '_id': 17, 'name': 'ear' },
+            { '_id': 18, 'name': 'moneys' },
+            { '_id': 19, 'name': 'gift' },
+            { '_id': 20, 'name': 'pan' },
+            { '_id': 21, 'name': 'washing-machine' },
+            { '_id': 22, 'name': 'flowers' },
+            { '_id': 23, 'name': 'thumb-up' },
+            { '_id': 24, 'name': 'love-handshake' },
+            { '_id': 25, 'name': 'check-list' },
+            { '_id': 26, 'name': 'crosshair' },
+            { '_id': 27, 'name': 'coffe' },
+            { '_id': 28, 'name': 'scissor' },
+            { '_id': 29, 'name': 'massage' },
+            { '_id': 30, 'name': 'nail' },
+            { '_id': 31, 'name': 'skin-care' },
+            { '_id': 32, 'name': 'hot-bathub' },
+            { '_id': 33, 'name': 'home' },
+            { '_id': 34, 'name': 'briefcase' },
+            { '_id': 35, 'name': 'laptop' },
+            { '_id': 36, 'name': 'persons-handshake' },
+            { '_id': 37, 'name': 'car' },
+            { '_id': 38, 'name': 'barbel' },
+            { '_id': 39, 'name': 'movie-tapes' },
+            { '_id': 40, 'name': 'mountain' },
+            { '_id': 41, 'name': 'beach-umbrella' },
+            { '_id': 42, 'name': 'sunny' },
+            { '_id': 43, 'name': 'cloudy' },
+            { '_id': 44, 'name': 'rainy' },
+            { '_id': 45, 'name': 'snowy' },
+            { '_id': 46, 'name': 'thermometer' },
+            { '_id': 47, 'name': 'storm' },
+            { '_id': 48, 'name': 'windy' },
+            { '_id': 49, 'name': 'bicycle' },
+            { '_id': 50, 'name': 'peoples' }
+        ]);
+
+        if not seeds.inserted_ids:
+            return ActivityIconsSeeder(response= ResponseMessage(text= 'Seeding activity_icons collection failed...', status= False))
+
+        return ActivityIconsSeeder(response= ResponseMessage(text= 'Seeding activity_icons collection succeed...', status= True))
+
 class ActivitiesSeeder(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
 
@@ -65,9 +129,9 @@ class ActivitiesSeeder(graphene.Mutation):
         ])
         
         if not seeds.inserted_ids:
-            return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activities collection failed', status= True))
+            return ActivitiesSeeder(response= ResponseMessage(text= 'Seeding activities collection failed...', status= False))
 
-        return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activities succeed', status= True))
+        return ActivitiesSeeder(response= ResponseMessage(text= 'Seeding activities collection succeed...', status= True))
 
 class ActivityCategoriesSeeder(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
@@ -138,16 +202,17 @@ class ActivityCategoriesSeeder(graphene.Mutation):
             },
             {
                 '_id': 13,
-                'category': None,
+                'category': 'other',
                 'activities': [51, 52]
             }
         ])
     
         if not seeds.inserted_ids:
-            return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activity_categories collection failed', status= True))
+            return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activity_categories collection failed...', status= False))
 
-        return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activity_categories succeed', status= True))
+        return ActivityCategoriesSeeder(response= ResponseMessage(text= 'Seeding activity_categories collection succeed...', status= True))
 
 class ActivityBaseSeeder(ActivityCategoriesSeeder, graphene.AbstractType):
+    activity_icons_seeder= ActivityIconsSeeder.Field()
     activities_seeder= ActivitiesSeeder.Field()
     activity_categories_seeder= ActivityCategoriesSeeder.Field()    

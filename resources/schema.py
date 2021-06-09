@@ -9,6 +9,7 @@ from .user.mutations import UserMutation
 from .activity.queries import ActivityQuery
 
 from .user_activities.queries import UserActivitiesQuery
+from .user_activities.mutations import UserActivitiesMutation
 
 from .article.queries import ArticleQuery
 from .article.mutations import ArticleMutation
@@ -33,6 +34,7 @@ class QueryRoot(
 class MutationRoot(
         UserMutation, 
         ArticleMutation,
+        UserActivitiesMutation,
         UserArticlesMutation,
         FeedbackMutation,
         graphene.ObjectType

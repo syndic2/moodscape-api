@@ -9,7 +9,7 @@ import json
 from config import config
 from extensions import cors, mail, auth, mongo
 from resources.schema import main_schema, auth_schema
-from seeder.schema import seeder_schema
+from seeders.schema import seeder_schema
 
 app= Flask(__name__)
 
