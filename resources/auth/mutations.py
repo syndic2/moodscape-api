@@ -107,12 +107,12 @@ class RequestResetPassword(graphene.Mutation):
             'token': token,
             'token_expiry': token_expiry
         });
-
+        
         #return RequestResetPassword(inserted_id= result.inserted_id)
 
-        if not result.inserted_id:
-            return RequestResetPassword(inserted_id= result.inserted_id, response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
-        
+        #if result.inserted_id is None:
+        #    return RequestResetPassword(inserted_id= result.inserted_id, response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
+
         try:
             message= Message('Permintaan ubah kata sandi', sender= 'moodscape.app@gmail.com', recipients= [user['email']])
             message.html= render_template('emails/reset-password.html', name= user['first_name'], reset_token= token)
