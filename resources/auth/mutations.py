@@ -108,7 +108,7 @@ class RequestResetPassword(graphene.Mutation):
             'token_expiry': token_expiry
         });
 
-        return RequestResetPassword(inserted_id= result.inserted_id)
+        #return RequestResetPassword(inserted_id= result.inserted_id)
 
         if result.inserted_id is None:
             return RequestResetPassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
