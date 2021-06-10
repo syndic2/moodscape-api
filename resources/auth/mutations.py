@@ -115,7 +115,7 @@ class RequestResetPassword(graphene.Mutation):
             message.html= render_template('emails/reset-password.html', name= user['first_name'], reset_token= token)
             mail.send(message)
         except Exception as ex:
-            return RequestResetPassword(response= ResponseMessage(text= ex.message, status= False))
+            return RequestResetPassword(response= ResponseMessage(text= str(ex), status= False))
 
         return RequestResetPassword(reset_url= f"https://moodscape.netlify.app/reset-password/{token}", response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
 
