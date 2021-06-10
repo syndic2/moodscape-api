@@ -107,18 +107,16 @@ class RequestResetPassword(graphene.Mutation):
             'token': token,
             'token_expiry': token_expiry
         });
+
+        if result.inserted_id is None:
+            return RequestResetPassword(inserted_id= result.inserted_id, response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
         
-        #return RequestResetPassword(inserted_id= result.inserted_id)
-
-        #if result.inserted_id is None:
-        #    return RequestResetPassword(inserted_id= result.inserted_id, response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
-
         try:
             message= Message('Permintaan ubah kata sandi', sender= 'moodscape.app@gmail.com', recipients= [user['email']])
             message.html= render_template('emails/reset-password.html', name= user['first_name'], reset_token= token)
             mail.send(message)
         except:
-            return RequestResetPassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False))
+            return RequestResetPassword(inserted_id= result.inserted_id, response= ResponseMessage(text= 'Terjadi kesalahan pada server, pengiriman email ubah kata sandi gagal', status= False))
 
         return RequestResetPassword(inserted_id= result.inserted_id, reset_url= f"https://moodscape.netlify.app/reset-password/{token}", response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
 
