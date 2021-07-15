@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_graphql import GraphQLView
 from bs4 import BeautifulSoup
 
@@ -37,6 +37,10 @@ app.add_url_rule('/api/seeds', view_func= GraphQLView.as_view(
     schema= seeder_schema,
     graphiql= True
 ))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error_handlers/page-not-found.html'), 404
 
 @app.route('/')
 def index():

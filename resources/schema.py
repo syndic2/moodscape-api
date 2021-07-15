@@ -6,6 +6,9 @@ from .auth.mutations import AuthMutation
 from .user.queries import UserQuery
 from .user.mutations import UserMutation
 
+from .user_moods.queries import UserMoodsQuery
+from .user_moods.mutations import UserMoodMutation
+
 from .activity.queries import ActivityQuery
 
 from .user_activities.queries import UserActivitiesQuery
@@ -21,9 +24,10 @@ from .feedback.queries import FeedbackQuery
 from .feedback.mutations import FeedbackMutation
 
 class QueryRoot(
-        UserQuery, 
+        UserQuery,
         ActivityQuery, 
         ArticleQuery,
+        UserMoodsQuery, 
         UserActivitiesQuery,
         UserArticlesQuery,
         FeedbackQuery,
@@ -34,6 +38,7 @@ class QueryRoot(
 class MutationRoot(
         UserMutation, 
         ArticleMutation,
+        UserMoodMutation,
         UserActivitiesMutation,
         UserArticlesMutation,
         FeedbackMutation,

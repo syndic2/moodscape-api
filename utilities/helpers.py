@@ -1,7 +1,7 @@
 from extensions import mongo
 
 def auto_increment_id(collection):
-    _id= 0
+    _id= 1
     results= mongo.db[collection].find({}).sort('_id', -1).limit(1)
 
     if results.count() > 0:

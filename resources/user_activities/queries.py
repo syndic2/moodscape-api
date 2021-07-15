@@ -17,6 +17,7 @@ class UserActivitiesQuery(graphene.AbstractType):
         if user_activities is None:
             return UserActivities(activities= [], response= ResponseMessage(text= 'Belum memiliki aktivitas yang tersimpan', status= False))
         
+        #JOIN
         results= mongo.db.activity_categories.aggregate([
             {
                 '$lookup': {
