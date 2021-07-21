@@ -40,13 +40,13 @@ class CreateUser(graphene.Mutation):
             return CreateUser(response= ResponseMessage(text= 'Alamat surel atau nama pengguna sudah ada yang menggunakan', status= False))
 
         result= mongo.db.users.insert_one(dict(fields))
-        init_user_activities= mongo.db.user_activities.insert_one({
-            '_id': auto_increment_id('user_activities'),
-            'user_id': result.inserted_id,
-            'activities': [(activity_id+1) for activity_id in range(12)],
-        })
+        #init_user_activities= mongo.db.user_activities.insert_one({
+        #    '_id': auto_increment_id('user_activities'),
+        #    'user_id': result.inserted_id,
+        #    'activities': [(activity_id+1) for activity_id in range(12)],
+        #})
 
-        if result.inserted_id is None and init_user_activities.inserted_id is None:
+        if result.inserted_id is None: #and init_user_activities.inserted_id is None:
             return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, registrasi akun gagal', status= False))
 
         fields['_id']= result.inserted_id

@@ -1,43 +1,16 @@
 import graphene
+from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
+from bson.objectid import ObjectId
 
 from extensions import mongo
-from .types import ActivityInput, ActivityCategoryInput, Activity, ActivityIcon, ActivityCategory
+from ..utility_types import ResponseMessage
+from .types import ActivityIcon, UserActivities, ProtectedUserActivities
 
-class ActivityQuery(graphene.AbstractType):
-    activity= graphene.Field(Activity, _id= graphene.Int())
-    activities= graphene.List(Activity, fields= graphene.Argument(ActivityInput))
-    
+class GetActivityIcon(graphene.ObjectType):    
     activity_icon= graphene.Field(ActivityIcon, _id= graphene.Int())
     activity_icon_by_name= graphene.Field(ActivityIcon, name= graphene.String())
     activity_icons= graphene.List(ActivityIcon, name= graphene.Argument(graphene.String))
-    
-    activity_categories= graphene.List(ActivityCategory, fields= graphene.Argument(ActivityCategoryInput))
-
-    def resolve_activity(self, info, _id):
-        activity= mongo.db.activities.find_one({ '_id': _id })
-
-        return activity
-
-    def resolve_activities(self, info, fields):
-        if 'name' not in fields:
-            fields['name']= ''
-
-        if 'icon' not in fields:
-            fields['icon']= ''
-
-        activities= mongo.db.activities.find({
-            'name': { 
-                '$regex': fields['name'], 
-                '$options': 'i' 
-            },
-            'icon': {
-                '$regex': fields['icon'], 
-                '$options': 'i'
-            }
-        }).sort('_id', -1)
         
-        return activities
-    
     def resolve_activity_icon(self, info, _id):
         activity_icon= mongo.db.activity_icons.find_one({ '_id': _id })
 
@@ -58,21 +31,34 @@ class ActivityQuery(graphene.AbstractType):
 
         return activity_icons
 
-    def resolve_activity_categories(self, info, fields):
-        if 'category' not in fields:
-            fields['category']= ''
+class GetUserActivities(graphene.ObjectType):
+    user_activities= graphene.Field(ProtectedUserActivities)
 
-        in_array= { '$nin': [] }
+    @query_header_jwt_required
+    def resolve_user_activities(self, info):
+        user_activities= mongo.db.user_activities.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
+        
+        if user_activities is None or not user_activities['activity_categories']:
+            return GetUserActivities(activity_categories= user_activities['activity_categories'], response= ResponseMessage(text= 'Belum memiliki aktivitas yang tersimpan', status= False))
 
-        if 'activities' in fields:
-            in_array= { '$in': fields['activities'] }
+        #JOIN
+        #results= mongo.db.activity_categories.aggregate([
+        #    {
+        #        '$lookup': {
+        #            'from': 'activities',
+        #            'localField': 'activities',
+        #            'foreignField': '_id',
+        #            'as': 'activities'
+        #        }
+        #    }
+        #])
+            
+        return UserActivities(
+            _id= user_activities['_id'],
+            user_id= ObjectId(get_jwt_identity()), 
+            activity_categories= user_activities['activity_categories'],
+            response= ResponseMessage(text= 'Berhasil mengembalikan aktivitas pengguna', status= True) 
+        )
 
-        activity_categories= mongo.db.activity_categories.find({
-            'category': { 
-                '$regex': fields['category'], 
-                '$options': 'i' 
-            },
-            'activities': in_array
-        }).sort('_id', -1)
-
-        return activity_categories
+class ActivityQuery(GetActivityIcon, GetUserActivities, graphene.AbstractType):
+    pass

@@ -1,12 +1,15 @@
 import graphene
 
-from .activity_seeder import ActivityBaseSeeder
+from .activity_seeder import ActivitySeeder
 
 class QuerySeederRoot(graphene.ObjectType):
     seeds= graphene.String()
 
+    def resolve_seeds(self, info):
+        return 'GraphQL Seeder Query'
+
 class MutationSeederRoot(
-        ActivityBaseSeeder,
+        ActivitySeeder,
         graphene.ObjectType
     ):
     pass
