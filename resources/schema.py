@@ -12,6 +12,9 @@ from .activity.mutations import ActivityMutation
 from .mood.queries import MoodQuery
 from .mood.mutations import MoodMutation
 
+from .habit.queries import HabitQuery
+from .habit.mutations import HabitMutation
+
 from .article.queries import ArticleQuery
 from .article.mutations import ArticleMutation
 
@@ -21,6 +24,7 @@ from .feedback.mutations import FeedbackMutation
 class QueryRoot(
         UserQuery,
         MoodQuery,
+        HabitQuery,
         ActivityQuery, 
         ArticleQuery,
         FeedbackQuery,
@@ -31,6 +35,7 @@ class QueryRoot(
 class MutationRoot(
         UserMutation,
         MoodMutation,
+        HabitMutation,
         ActivityMutation, 
         ArticleMutation,
         FeedbackMutation,

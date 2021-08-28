@@ -31,24 +31,13 @@ class ArticlePagination(graphene.ObjectType):
     max_page= graphene.Int()
     articles= graphene.List(Article)
 
-#User - Articles
-class ArchivedArticleIds(graphene.ObjectType):
-    article_ids= graphene.List(graphene.Int)
-
 class UserArticles(graphene.ObjectType):
     _id= graphene.Int()
     user_id= graphene.String()
     articles= graphene.List(Article)
     response= graphene.Field(ResponseMessage)
 
-class ProtectedArchivedArticleIds(graphene.Union):
-    class Meta:
-        types= (ArchivedArticleIds, AuthInfoField)
-    
-    @classmethod
-    def resolve_type(cls, instance, info):
-        return type(instance)
-
+#Article/Auth
 class ProtectedUserArticles(graphene.Union):
     class Meta:
         types= (UserArticles, AuthInfoField)

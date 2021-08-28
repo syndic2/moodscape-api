@@ -28,13 +28,21 @@ class ActivityCategory(ActivityCategoryAbstract, graphene.ObjectType):
     _id= graphene.Int()
     activities= graphene.List(Activity)
 
-#User - Activities
 class UserActivities(graphene.ObjectType):
     _id= graphene.Int()
     user_id= graphene.String()
     activity_categories= graphene.List(ActivityCategory)
     response= graphene.Field(ResponseMessage)
 
+class ActivityResponse(graphene.ObjectType):
+    activity= graphene.Field(Activity)
+    response= graphene.Field(ResponseMessage)
+
+class ActivityCategoryResponse(graphene.ObjectType):
+    activity_category= graphene.Field(ActivityCategory)
+    response= graphene.Field(ResponseMessage)
+
+#Activity/Auth
 class ProtectedUserActivities(graphene.Union):
     class Meta:
         types= (UserActivities, AuthInfoField)
@@ -45,7 +53,7 @@ class ProtectedUserActivities(graphene.Union):
 
 class ProtectedActivity(graphene.Union):
     class Meta:
-        types= (Activity, AuthInfoField)
+        types= (ActivityResponse, AuthInfoField)
     
     @classmethod
     def resolve_type(cls, instance, info):
@@ -53,7 +61,7 @@ class ProtectedActivity(graphene.Union):
 
 class ProtectedActivityCategory(graphene.Union):
     class Meta:
-        types= (ActivityCategory, AuthInfoField)
+        types= (ActivityCategoryResponse, AuthInfoField)
     
     @classmethod
     def resolve_type(cls, instance, info):

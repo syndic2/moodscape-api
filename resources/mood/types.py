@@ -2,11 +2,20 @@ import graphene
 from flask_graphql_auth import AuthInfoField
 
 from ..utility_types import TimestampsInput, Timestamps, ResponseMessage
+from ..activity.types import Activity
 
 #Mood
-class MoodEmoticon(graphene.ObjectType):
+class MoodEmoticonAbstract(graphene.AbstractType):
     name= graphene.String()
     value= graphene.Int()
+    iconPath= graphene.String()
+    color= graphene.String()
+
+class MoodEmoticonInput(MoodEmoticonAbstract, graphene.InputObjectType):
+    pass
+
+class MoodEmoticon(MoodEmoticonAbstract, graphene.ObjectType):
+    pass
 
 class MoodParametersAbstract(graphene.AbstractType):
     internal= graphene.String()
@@ -18,28 +27,45 @@ class MoodParametersInput(MoodParametersAbstract, graphene.InputObjectType):
 class MoodParameters(MoodParametersAbstract, graphene.ObjectType):
     pass
 
+class MoodParametersFilterInput(graphene.InputObjectType):
+    internal= graphene.Boolean()
+    external= graphene.Boolean()
+
 class MoodAbstract(graphene.AbstractType):
-    activity_ids= graphene.List(graphene.Int)
+    activities= graphene.List(Activity)
     note= graphene.String()
-    img_paths= graphene.List(graphene.String)
+    #img_paths= graphene.List(graphene.String)
 
 class MoodInput(MoodAbstract, graphene.InputObjectType):
-    timestamps= TimestampsInput()
+    emoticon= MoodEmoticonInput()
+    created_at= TimestampsInput()
     parameters= MoodParametersInput()
+    activities= graphene.List(graphene.Int)
+
+class MoodFilterInput(graphene.InputObjectType):
+    search_text= graphene.String()
+    emoticon_name= graphene.String()
+    parameters= MoodParametersFilterInput()
+    activity_ids= graphene.List(graphene.Int)
+    note= graphene.Boolean()
 
 class Mood(MoodAbstract, graphene.ObjectType): 
     _id= graphene.Int()
     emoticon= graphene.Field(MoodEmoticon)
-    timestamps= graphene.Field(Timestamps)
+    created_at= graphene.Field(Timestamps)
     parameters= graphene.Field(MoodParameters)
 
-#User - Moods
 class UserMoods(graphene.ObjectType):
     _id= graphene.Int()
     user_id= graphene.String()
     moods= graphene.List(Mood)
     response= graphene.Field(ResponseMessage)
 
+class MoodResponse(graphene.ObjectType):
+    mood= graphene.Field(Mood)
+    response= graphene.Field(ResponseMessage)
+
+#Mood/Auth
 class ProtectedUserMoods(graphene.Union):
     class Meta:
         types= (UserMoods, AuthInfoField)
@@ -50,7 +76,7 @@ class ProtectedUserMoods(graphene.Union):
 
 class ProtectedMood(graphene.Union):
     class Meta:
-        types= (Mood, AuthInfoField)
+        types= (MoodResponse, AuthInfoField)
     
     @classmethod
     def resolve_type(cls, instance, info):

@@ -4,7 +4,6 @@ from bson.objectid import ObjectId
 
 import datetime
 
-from utilities.helpers import auto_increment_id
 from extensions import mongo
 from ..utility_types import ResponseMessage
 from .types import UserInput, User, ProtectedUser

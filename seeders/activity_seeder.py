@@ -1,10 +1,10 @@
 import graphene
 from bson.objectid import ObjectId
 
-from resources.utility_types import ResponseMessage
 from extensions import mongo
+from resources.utility_types import ResponseMessage
 
-initial_activity_categories= [
+activity_categories= [
     {
         '_id': 1,
         'category': 'Sosial',
@@ -129,7 +129,7 @@ initial_activity_categories= [
     },
     {
         '_id': 13,
-        'category': 'other',
+        'category': None,
         'activities': [
             { '_id': 51, 'name': 'bersepeda', 'icon': 'bicycle' },
             { '_id': 52, 'name': 'bertemu seseorang', 'icon': 'peoples' }
@@ -205,13 +205,39 @@ class UserActivitiesSeeds(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
 
     def mutate(self, info):
+        mongo.db.sequences.delete_one({ '_id': 'user_activities' })
+        mongo.db.sequences.delete_one({ '_id': 'array_sequences' })
+        mongo.db.array_sequences.delete_many({ 'collection': 'user_activities', 'array_documents': 'activity_categories' })
+        mongo.db.array_sequences.delete_many({ 'collection': 'user_activities', 'array_documents': 'activities' })
         mongo.db.user_activities.delete_many({})
-
+        
         seeds= mongo.db.user_activities.insert_many([
             {
                 '_id': 1,
                 'user_id': ObjectId('60acfde1ea67a0786c51fc0c'),
-                'activity_categories': initial_activity_categories
+                'activity_categories': activity_categories
+            }
+        ])
+
+        mongo.db.sequences.insert_many([
+            { '_id': 'user_activities', 'value': 1 },
+            { '_id': 'array_sequences', 'value': 2 },
+        ])
+
+        mongo.db.array_sequences.insert_many([
+            {
+                '_id': 1,
+                'collection': 'user_activities',
+                'document_id': ObjectId('60acfde1ea67a0786c51fc0c'),
+                'array_documents': 'activity_categories',
+                'value': len(activity_categories)
+            },
+            {
+                '_id': 2,
+                'collection': 'user_activities',
+                'document_id': ObjectId('60acfde1ea67a0786c51fc0c'),
+                'array_documents': 'activities',
+                'value': 52
             }
         ])
 
