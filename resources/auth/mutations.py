@@ -41,7 +41,7 @@ class Authentication(graphene.Mutation):
                 email_or_username= with_google.email
                 password= with_google.password
 
-        user= mongo.db.users.find_one({
+        authenticated_user= mongo.db.users.find_one({
             '$or': [
                 { 'email': email_or_username },
                 { 'username': email_or_username }
@@ -49,13 +49,16 @@ class Authentication(graphene.Mutation):
             'password': password 
         })
 
-        if user is None:
+        if authenticated_user is None:
             return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
 
+        if 'img_url' not in authenticated_user:
+            authenticated_user['img_url']= 'https://via.placeholder.com/100'
+
         return Authentication(
-            authenticated_user= User(dict(user)),
-            access_token= create_access_token(str(user['_id'])),
-            refresh_token= create_refresh_token(str(user['_id'])),
+            authenticated_user= authenticated_user,
+            access_token= create_access_token(str(authenticated_user['_id'])),
+            refresh_token= create_refresh_token(str(authenticated_user['_id'])),
             response= ResponseMessage(text= 'Login success', status= True)
         )
     

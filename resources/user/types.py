@@ -1,5 +1,6 @@
 import graphene
 from flask_graphql_auth import AuthInfoField
+from graphene.types.objecttype import ObjectType
 
 from ..utility_types import ResponseMessage
 
@@ -16,23 +17,16 @@ class UserAbstract(graphene.AbstractType):
 class UserInput(UserAbstract, graphene.InputObjectType):
     confirm_password= graphene.String()
 
-    #def __setattr__(self, name, value):
-    #    if value is not None:
-    #        self.__dict__[name]= value
-
 class User(UserAbstract, graphene.ObjectType):
     _id= graphene.String()  
 
-    def __init__(self, data):
-        for key in data:
-            if key == '_id':
-                data[key]= str(data[key])
-
-            setattr(self, key, data[key])
+class UserResponse(graphene.ObjectType):
+    user= graphene.Field(User)
+    response= graphene.Field(ResponseMessage)
 
 class ProtectedUser(graphene.Union):
     class Meta:
-        types= (User, AuthInfoField, ResponseMessage)
+        types= (UserResponse, AuthInfoField)
     
     @classmethod
     def resolve_type(cls, instance, info):
