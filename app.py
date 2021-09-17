@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 from flask_graphql import GraphQLView
-from bs4 import BeautifulSoup
 
 import requests
 import urllib

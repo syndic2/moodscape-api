@@ -7,12 +7,26 @@ from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article, ArticlePagination, UserArticles, ProtectedUserArticles
 
 class GetArticle(graphene.ObjectType):
-    get_articles= graphene.Field(ArticlePagination, offset= graphene.Int(default_value= 5), limit= graphene.Int(default_value= 0))
+    get_articles= graphene.List(Article, title= graphene.String())
+    get_article_pagination= graphene.Field(ArticlePagination, offset= graphene.Int(default_value= 5), limit= graphene.Int(default_value= 0))
     get_article= graphene.Field(Article, _id= graphene.Int())
     get_article_by_url_name= graphene.Field(Article, url_name= graphene.String())
     get_filtered_articles= graphene.Field(graphene.List(Article), fields= graphene.Argument(ArticleInput))
 
-    def resolve_get_articles(self, info, **kwargs):
+    def resolve_get_articles(self, info, title):
+        fields= {}
+
+        if title != '':
+            fields['title']= { '$regex': title, '$options': 'i' }
+        
+        articles= list(mongo.db.articles.find(fields).sort('_id', -1))
+
+        for article in articles:
+            article['posted_at']= article['posted_at'].date()
+
+        return articles
+
+    def resolve_get_article_pagination(self, info, **kwargs):
         fields= {}
         offset= kwargs.get('offset')
         limit= kwargs.get('limit')
@@ -29,6 +43,9 @@ class GetArticle(graphene.ObjectType):
         articles= mongo.db.articles.find(dict(fields)).limit(limit)
         articles = sorted(articles, key= lambda i: i['_id'], reverse= True)
 
+        for article in articles:
+            article['posted_at']= article['posted_at'].date()
+
         return ArticlePagination(
             offset= offset,
             limit= limit,
@@ -38,11 +55,13 @@ class GetArticle(graphene.ObjectType):
     
     def resolve_get_article(self, info, _id): 
         article= mongo.db.articles.find_one({ '_id': ObjectId(_id) })
+        article['posted_at']= article['posted_at'].date()
 
         return article
     
     def resolve_get_article_by_url_name(self, info, url_name):
         article= mongo.db.articles.find_one({ 'url_name': url_name })
+        article['posted_at']= article['posted_at'].date()
 
         return article
     
@@ -52,6 +71,9 @@ class GetArticle(graphene.ObjectType):
 
         articles= mongo.db.articles.find(fields)
         
+        for article in articles:
+            article['posted_at']= article['posted_at'].date()
+
         return articles
 
 class GetUserArticles(graphene.ObjectType):
@@ -66,6 +88,9 @@ class GetUserArticles(graphene.ObjectType):
             return UserArticles(articles= [], response= ResponseMessage(text= 'Belum memiliki artikel yang tersimpan', status= False))
 
         articles= list(mongo.db.articles.find({ '_id': { '$in': user_articles['archived_articles'] } }).sort('_id', -1))
+
+        for article in articles:
+            article['posted_at']= article['posted_at'].date()
 
         return UserArticles(
             _id= user_articles['_id'], 
@@ -87,6 +112,9 @@ class GetUserArticles(graphene.ObjectType):
             fields['title']= { '$regex': fields['title'], '$options': 'i' }
 
         articles= mongo.db.articles.find(fields)
+
+        for article in articles:
+            article['posted_at']= article['posted_at'].date()
 
         return articles
 

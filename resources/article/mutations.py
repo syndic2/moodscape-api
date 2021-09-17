@@ -1,53 +1,135 @@
 import graphene
+from datetime import datetime
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from utilities.helpers import get_sequence
+from utilities.helpers import datetime_format, validate_datetime, get_sequence
 from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article
 
+class CreateArticle(graphene.Mutation):
+    class Arguments:
+        fields= ArticleInput()
+
+    created_article= graphene.Field(Article)
+    response= graphene.Field(ResponseMessage)
+
+    def mutate(self, info, fields):
+        if validate_datetime(fields.posted_at, 'date') is False:
+            return CreateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Format tanggal tidak valid, artikel gagal terbuat', status= False)
+            )
+
+        is_article_title_exist= mongo.db.articles.find_one({ 'title': fields.title })
+
+        if is_article_title_exist:
+            return CreateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Judul sudah terpakai, artikel gagal terbuat', status= False)
+            )
+        
+        fields= {
+            '_id': get_sequence('articles'),
+            'title': fields['title'],
+            'short_summary': fields['short_summary'],
+            'author': fields['author'],
+            'posted_at': datetime.strptime(fields.posted_at, datetime_format('date')),
+            'reviewed_by': fields['reviewed_by'],
+            'header_img':  fields['header_img'] if 'header_img' in fields and fields['header_img'] is not None else '',
+            'content': fields['content'],
+            'url_name': fields['title'].lower().replace(', ', ' ').replace(' ', '-'),
+            'url': ''
+        }
+        result= mongo.db.articles.insert_one(dict(fields))
+
+        if result.inserted_id is None:
+            return CreateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal terbuat', status= False)
+            )
+
+        created_article= list(mongo.db.articles.find({}).sort('_id', -1).limit(1))[0]
+        created_article['posted_at']= created_article['posted_at'].date()
+
+        return CreateArticle(
+            created_article= created_article,
+            response= ResponseMessage(text= 'Berhasil menambahkan artikel baru', status= True)
+        )
+
 class UpdateArticle(graphene.Mutation):
     class Arguments:
-        _id= graphene.String()
+        _id= graphene.Int()
         fields= ArticleInput()
     
-    updated= graphene.Boolean()
+    updated_article= graphene.Field(Article)
     response= graphene.Field(ResponseMessage)
 
     def mutate(self, info, _id, fields):
-        if ObjectId.is_valid(_id):
-            _id= ObjectId(_id)
-        else:
-            _id= ObjectId()
-        
-        result= mongo.db.articles.update_one( 
+        if validate_datetime(fields.posted_at, 'date') is False:
+            return UpdateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Format tanggal tidak valid, artikel gagal diperbarui', status= False)
+            ) 
+
+        is_article_title_exist= mongo.db.articles.find_one({ '_id': { '$ne': _id }, 'title': fields.title })
+
+        if is_article_title_exist:
+            return UpdateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Judul sudah terpakai, artikel gagal diperbarui', status= False)
+            )
+
+        fields['posted_at']= datetime.strptime(fields.posted_at, datetime_format('date'))
+        result= mongo.db.articles.find_one_and_update(
             { '_id': _id },
-            { '$set': dict(fields) },
-            upsert= True
+            { '$set': dict(fields) }
         )
 
-        if result.upserted_id:
-            return UpdateArticle(updated= False, response= ResponseMessage(text= 'Berhasil membuat artikel baru.', status= False))
+        if result is None:
+            return UpdateArticle(
+                updated_article= None, 
+                response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal diperbarui', status= False)
+            )
 
-        if result.matched_count == 0:
-            return UpdateArticle(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui artikel.', status= False))
+        updated_article= mongo.db.articles.find_one({ '_id': _id })
+        updated_article['posted_at']= updated_article['posted_at'].date()
 
-        return UpdateArticle(updated= True, response= ResponseMessage(text= 'Perubahan artikel tersimpan.', status= True))
+        return UpdateArticle(
+            updated_article= updated_article, 
+            response= ResponseMessage(text= 'Berhasil membarui artikel', status= True)
+        )
 
-class RemoveArticle(graphene.Mutation):
+class RemoveArticles(graphene.Mutation):
     class Arguments:
-        _id= graphene.String()
+        article_ids= graphene.List(graphene.Int)
 
+    removed_articles= graphene.List(graphene.Int)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, info, _id):
-        result= mongo.db.articles.delete_one({ '_id': ObjectId(_id) })
+    def mutate(self, info, article_ids):
+        articles= [article['_id'] for article in list(mongo.db.articles.find({}))]
+        is_article_ids_exist= all(_id in articles for _id in article_ids)
+
+        if is_article_ids_exist is False:
+            return RemoveArticles(
+                removed_articles= [],
+                response= ResponseMessage(text= 'Artikel tidak ditemukan, artikel gagal terhapus', status= False)
+            ) 
+        
+        result= mongo.db.articles.delete_many({ '_id': { '$in': article_ids } })
 
         if result.deleted_count == 0:
-            return RemoveArticle(response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal menghapus artikel.', status= False)) 
-
-        return RemoveArticle(response= ResponseMessage(text= 'Hapus artikel berhasil.', status= True))
+            return RemoveArticles(
+                removed_articles= [],
+                response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal terhapus', status= False)
+            ) 
+    
+        return RemoveArticles(
+            removed_articles= article_ids,
+            response= ResponseMessage(text= 'Berhasil menghapus artikel', status= True)
+        )
 
 class ArchiveArticle(graphene.Mutation):
     class Arguments:
@@ -157,7 +239,8 @@ class RemoveArchivedArticles(graphene.Mutation):
         )
 
 class ArticleMutation(graphene.AbstractType):
+    create_article= CreateArticle.Field()
     update_article= UpdateArticle.Field()
-    remove_article= RemoveArticle.Field()
+    remove_articles= RemoveArticles.Field()
     archive_articles= ArchiveArticle.Field()
     remove_archived_articles= RemoveArchivedArticles.Field()
