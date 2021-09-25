@@ -1,12 +1,13 @@
-import graphene
+import os, datetime, graphene
+from graphene_file_upload.scalars import Upload
+from flask import request
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
-import datetime
-
-from extensions import mongo
+from extensions import mongo, bcrypt
+from utilities.helpers import upload_path, formatted_file_name, datetime_format, validate_datetime
 from ..utility_types import ResponseMessage
-from .types import UserInput, User, ProtectedUser
+from .types import UserInput, User
 
 class CreateUser(graphene.Mutation):
     class Arguments:
@@ -15,7 +16,7 @@ class CreateUser(graphene.Mutation):
     created_user= graphene.Field(User)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, root, fields):
+    def mutate(self, info, fields):
         #if fields is None or 'first_name' not in fields or 'last_name' not in fields or 'gender' not in fields or 'age' not in fields or 'email' not in fields or 'username' not in fields or 'password' not in fields or 'confirm_password' not in fields:
         #    return CreateUser(response= ResponseMessage(text= 'Terjadi kesalahan pada server, data yang dikirimkan tidak lengkap.', status= False))
         #
@@ -63,13 +64,114 @@ class CreateUser(graphene.Mutation):
 
 class UpdateUser(graphene.Mutation):
     class Arguments:
-        fields= UserInput()
-
+        _id= graphene.String()
+        fields= UserInput() 
+        img_upload= Upload()
+    
     updated_user= graphene.Field(User)
     response= graphene.Field(ResponseMessage)
 
+    def mutate(self, info, _id, fields, img_upload):
+        if  ObjectId.is_valid(_id) is False:
+            return UpdateUser(
+                updated_user= None,
+                response= ResponseMessage(text= 'Format Id tidak sesuai, pengguna gagal diperbarui', status= False)
+            )
+        
+        if validate_datetime(fields['date_of_birth'], 'date') is False:
+            return UpdateUser(
+                updated_user= None,
+                response= ResponseMessage(text= 'Format tanggal tidak sesuai, pengguna gagal diperbarui', stauts= False)
+            )
+
+        if 'date_of_birth' in fields:
+            fields['date_of_birth']= datetime.datetime.strptime(fields['date_of_birth'], datetime_format('date'))
+        
+        if 'password' in fields:
+            fields['password']= bcrypt.generate_password_hash(fields['password'])
+
+        if img_upload.filename != 'default':
+            file_name= formatted_file_name(img_upload.filename)
+            fields['img_url']= f"{request.host_url}uploads/images/{file_name}"
+            img_upload.save(os.path.join(f"{upload_path}/images", file_name))
+
+        result= mongo.db.users.find_one_and_update(
+            { '_id': ObjectId(_id) },
+            { '$set': dict(fields) }
+        );
+
+        if result is None:
+            return UpdateUser(
+                updated_user= None,
+                response= ResponseMessage(text= 'Terjadi kesalahan pada server, pengguna gagal diperbarui', status= False)
+            ) 
+
+        updated_user= mongo.db.users.find_one({ '_id': ObjectId(_id) })
+        updated_user['date_of_birth']= updated_user['date_of_birth'].date()
+        updated_user['joined_at']= updated_user['joined_at'].date()
+
+        return UpdateUser(
+            updated_user= updated_user,
+            response= ResponseMessage(text= 'Berhasil membarui informasi pengguna', status= True)
+        )
+
+class RemoveUsers(graphene.Mutation):
+    class Arguments:
+        user_ids= graphene.List(graphene.String)
+        is_soft_delete= graphene.Boolean()
+    
+    removed_users= graphene.List(graphene.String)
+    response= graphene.Field(ResponseMessage)
+
+    def mutate(self, info, user_ids, is_soft_delete):
+        users= [str(user['_id']) for user in mongo.db.users.find({})]
+        is_user_ids_exist= all(_id in users for _id in user_ids)
+
+        if is_user_ids_exist is False:
+            return RemoveUsers(
+                removed_users= [],
+                response= ResponseMessage(text= 'Pengguna tidak ditemukan, pengguna gagal terhapus', status= False)
+            )
+        
+        for i in range(len(user_ids)): 
+            user_ids[i]= ObjectId(user_ids[i])
+        
+        if is_soft_delete:
+            result= mongo.db.users.update_many(
+                { '_id': { '$in': user_ids } },
+                { 
+                    '$set': { 'is_active': False }
+                }
+            )
+
+            if result.modified_count == 0:
+                return RemoveUsers(
+                    removed_users= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, pengguna gagal terhapus', status= False)
+                )
+        else:
+            result= mongo.db.users.delete_many({ '_id': { '$in': user_ids } })
+
+            if result.deleted_count == 0:
+                return RemoveUsers(
+                    removed_users= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, pengguna gagal terhapus', status= False)
+                )
+
+        return RemoveUsers(
+            removed_users= user_ids,
+            response= ResponseMessage(text= 'Berhasil menghapus pengguna', status= True)
+        )
+
+class UpdateProfile(graphene.Mutation):
+    class Arguments:
+        fields= UserInput()
+
+    updated_profile= graphene.Field(User)
+    response= graphene.Field(ResponseMessage)
+
     @mutation_header_jwt_required
-    def mutate(self, root, fields):
+    def mutate(self, info, fields):
         #for key, value in fields.items():
         #    if value is None or value == '':
         #        return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
@@ -86,8 +188,8 @@ class UpdateUser(graphene.Mutation):
         })
 
         if exist:
-            return UpdateUser(
-                updated_user= None,
+            return UpdateProfile(
+                updated_profile= None,
                 response= ResponseMessage(text= 'Surel telah ada yang menggunakan, coba dengan surel lain', status= False)
             )
 
@@ -98,15 +200,15 @@ class UpdateUser(graphene.Mutation):
         )
 
         if result is None:
-            return UpdateUser(
-                updated_user= None,
+            return UpdateProfile(
+                updated_profile= None,
                 response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil', status= False)
             )
 
         updated_user= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) });
 
-        return UpdateUser(
-            updated_user= updated_user, 
+        return UpdateProfile(
+            updated_profile= updated_user, 
             response= ResponseMessage(text= 'Perubahan profil tersimpan', status= True)
         )
 
@@ -147,6 +249,11 @@ class ChangePassword(graphene.Mutation):
         )    
 
 class UserMutation(graphene.AbstractType):
+    #user
     create_user= CreateUser.Field()
     update_user= UpdateUser.Field()
+    remove_users= RemoveUsers.Field()
+
+    #auth
+    update_profile= UpdateProfile.Field()
     change_password= ChangePassword.Field()

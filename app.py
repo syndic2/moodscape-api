@@ -1,25 +1,24 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, jsonify, render_template, send_file
 from flask_graphql import GraphQLView
-
-import requests
-import urllib
-import json
+from graphene_file_upload.flask import FileUploadGraphQLView
 
 from config import config
-from extensions import cors, mail, auth, mongo
+from seeds import seed_cli
+from extensions import cors, auth, bcrypt, mail, mongo
 from resources.schema import main_schema, auth_schema
-from seeders.schema import seeder_schema
 
 app= Flask(__name__)
 
 app.config.from_object(config)
+app.cli.add_command(seed_cli)
 
 cors.init_app(app)
-mail.init_app(app)
 auth.init_app(app)
+bcrypt.init_app(app)
+mail.init_app(app)
 mongo.init_app(app)
 
-app.add_url_rule('/api/graphql', view_func= GraphQLView.as_view(
+app.add_url_rule('/api/graphql', view_func= FileUploadGraphQLView.as_view(
     'graphql',
     schema= main_schema, 
     graphiql= True
@@ -31,12 +30,6 @@ app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
     graphiql= True
 ))
 
-app.add_url_rule('/api/seeds', view_func= GraphQLView.as_view(
-    'seeds',
-    schema= seeder_schema,
-    graphiql= True
-))
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error_handlers/page-not-found.html'), 404
@@ -44,6 +37,10 @@ def page_not_found(e):
 @app.route('/')
 def index():
     return jsonify(message= 'Server is online!', status= 'OK')
+
+@app.route('/uploads/images/<file_name>')
+def display_uploaded_image(file_name):
+    return send_file(f"{app.config['UPLOAD_FOLDER']}/images/{file_name}", mimetype= 'image/gif')
 
 #@app.route('/scrape-articles')
 #def scrape_articles():

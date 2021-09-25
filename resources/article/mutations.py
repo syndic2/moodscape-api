@@ -1,21 +1,24 @@
-import graphene
+import os, graphene
+from graphene_file_upload.scalars import Upload
 from datetime import datetime
+from flask import request
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from utilities.helpers import datetime_format, validate_datetime, get_sequence
+from utilities.helpers import upload_path, formatted_file_name, datetime_format, validate_datetime, get_sequence
 from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article
 
 class CreateArticle(graphene.Mutation):
     class Arguments:
         fields= ArticleInput()
+        header_img_upload= Upload()
 
     created_article= graphene.Field(Article)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, info, fields):
+    def mutate(self, info, fields, header_img_upload):
         if validate_datetime(fields.posted_at, 'date') is False:
             return CreateArticle(
                 updated_article= None, 
@@ -30,6 +33,11 @@ class CreateArticle(graphene.Mutation):
                 response= ResponseMessage(text= 'Judul sudah terpakai, artikel gagal terbuat', status= False)
             )
         
+        if header_img_upload.filename != 'default':
+            file_name= formatted_file_name(header_img_upload.filename)
+            fields['header_img']= f"{request.host_url}uploads/images/{file_name}"
+            header_img_upload.save(os.path.join(f"{upload_path}/images", file_name))
+
         fields= {
             '_id': get_sequence('articles'),
             'title': fields['title'],
@@ -42,6 +50,7 @@ class CreateArticle(graphene.Mutation):
             'url_name': fields['title'].lower().replace(', ', ' ').replace(' ', '-'),
             'url': ''
         }
+
         result= mongo.db.articles.insert_one(dict(fields))
 
         if result.inserted_id is None:

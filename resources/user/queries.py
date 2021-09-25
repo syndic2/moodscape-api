@@ -1,24 +1,40 @@
-from resources.utility_types import ResponseMessage
-import graphene
+import os, graphene
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from .types import UserInput, User, UserResponse, ProtectedUser
+from utilities.helpers import upload_path
+from resources.utility_types import ResponseMessage
+from .types import User, UserResponse, ProtectedUser
 
 class UserQuery(graphene.AbstractType):
-    all_user= graphene.List(ProtectedUser, fields= graphene.Argument(UserInput))
+    get_users= graphene.List(User)
+    get_user= graphene.Field(User, _id= graphene.String())
     get_user_profile= graphene.Field(ProtectedUser) 
 
-    def resolve_all_user(self, info, fields):
-        users= mongo.db.users.find(fields)
+    def resolve_get_users(self, info):
+        users= list(mongo.db.users.find({}))
 
-        def to_user_type(document):
-            user= User(document)
+        for user in users:
+            user['date_of_birth']= user['date_of_birth'].date()
+            user['joined_at']= user['joined_at'].date()
+            
+            img_name= user['img_url'].split('/')[-1]
+            if user['img_url'] != 'https://via.placeholder.com/100' and os.path.isfile(os.path.join(f"{upload_path}/images", img_name)) is False:
+                result= mongo.db.users.find_one_and_update(
+                    { '_id': ObjectId(user['_id']) },
+                    { '$set': { 'img_url': 'https://via.placeholder.com/100' } }
+                )
 
-            return user
+                if result is None:
+                    return []
 
-        return list(map(to_user_type, users))
+        return users    
+
+    def resolve_get_user(self, info, _id):
+      user= mongo.db.users.find_one({ '_id': ObjectId(_id) })
+
+      return user
 
     @query_header_jwt_required
     def resolve_get_user_profile(self, info):
@@ -30,8 +46,8 @@ class UserQuery(graphene.AbstractType):
                 response= ResponseMessage(text= 'Profil pengguna tidak ditemukan', status= False)
             )
 
-        if 'img_url' not in result:
-            result['img_url']= 'https://via.placeholder.com/100'
+        result['date_of_birth']= result['date_of_birth'].date()
+        result['joined_at']= result['joined_at'].date()
 
         return UserResponse(
             user= result,

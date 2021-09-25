@@ -21,7 +21,6 @@ class CreateAppFeedback(graphene.Mutation):
         if fields['rating'] > 5:
             return CreateAppFeedback(response= ResponseMessage(text= 'Nilai rating tidak sesuai, gagal mengirimkan umpan balik', status= False))
         
-        #fields['_id']= mongo.db.app_feedbacks.find({}).count()+1
         fields['_id']= get_sequence('app_feedbacks')
         fields['user_id']= ObjectId(get_jwt_identity())
         fields['created_at']= datetime.datetime.utcnow().replace(microsecond= 0)

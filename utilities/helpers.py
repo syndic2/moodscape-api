@@ -1,5 +1,12 @@
-import datetime
+import os, datetime
 from extensions import mongo
+
+upload_path= os.path.join(os.path.dirname(os.path.abspath(__file__)), '../uploads')
+
+def formatted_file_name(file_name):
+    splits= file_name.split('.')
+    
+    return f"{splits[0]}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.{splits[1]}"
 
 def datetime_format(type= 'datetime'):
     if type == 'datetime':

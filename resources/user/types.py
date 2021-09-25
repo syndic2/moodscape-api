@@ -1,6 +1,5 @@
 import graphene
 from flask_graphql_auth import AuthInfoField
-from graphene.types.objecttype import ObjectType
 
 from ..utility_types import ResponseMessage
 
@@ -8,11 +7,13 @@ class UserAbstract(graphene.AbstractType):
     first_name= graphene.String()
     last_name= graphene.String()
     gender= graphene.String()
-    age= graphene.Int()
+    date_of_birth= graphene.String()
     email= graphene.String()
     username= graphene.String()
     password= graphene.String()
     img_url= graphene.String()
+    joined_at= graphene.String()
+    is_active= graphene.Boolean()
 
 class UserInput(UserAbstract, graphene.InputObjectType):
     confirm_password= graphene.String()
