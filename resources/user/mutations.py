@@ -1,11 +1,12 @@
 import os, datetime, graphene
+from flask_bcrypt import check_password_hash, generate_password_hash
 from graphene_file_upload.scalars import Upload
 from flask import request
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo, bcrypt
-from utilities.helpers import upload_path, formatted_file_name, datetime_format, validate_datetime
+from utilities.helpers import default_img, upload_path, is_uploaded_file_exist, formatted_file_name, datetime_format, validate_datetime, calculate_age
 from ..utility_types import ResponseMessage
 from .types import UserInput, User
 
@@ -29,25 +30,26 @@ class CreateUser(graphene.Mutation):
         #
         #del fields['confirm_password']
 
-        exist= mongo.db.users.find_one({
+        if validate_datetime(fields['date_of_birth'], 'date') is False:
+            return CreateUser(
+                created_user= None,
+                response= ResponseMessage(text= 'Format tanggal lahir tidak sesusai', status= False)
+            )
+
+        is_email_username_exist= mongo.db.users.find_one({
             '$or': [
                 { 'email': fields.email },
                 { 'username': fields.username }
             ]
         })
 
-        if exist:
+        if is_email_username_exist:
             return CreateUser(
                 created_user= None,
                 response= ResponseMessage(text= 'Alamat surel atau nama pengguna sudah ada yang menggunakan', status= False)
             )
 
         result= mongo.db.users.insert_one(dict(fields))
-        #init_user_activities= mongo.db.user_activities.insert_one({
-        #    '_id': auto_increment_id('user_activities'),
-        #    'user_id': result.inserted_id,
-        #    'activities': [(activity_id+1) for activity_id in range(12)],
-        #})
 
         if result.inserted_id is None: #and init_user_activities.inserted_id is None:
             return CreateUser(
@@ -95,10 +97,16 @@ class UpdateUser(graphene.Mutation):
             fields['img_url']= f"{request.host_url}uploads/images/{file_name}"
             img_upload.save(os.path.join(f"{upload_path}/images", file_name))
 
+        if calculate_age(datetime.datetime.strptime(fields['date_of_birth'], datetime_format('date')).date()) < 12:
+            return UpdateUser(
+                updated_user= None,
+                response= ResponseMessage(text= 'Umur pengguna belum mencukupi untuk menggunakan aplikasi ini, pengguna gagal diperbarui', status= False)
+            )
+
         result= mongo.db.users.find_one_and_update(
             { '_id': ObjectId(_id) },
             { '$set': dict(fields) }
-        );
+        )
 
         if result is None:
             return UpdateUser(
@@ -109,6 +117,20 @@ class UpdateUser(graphene.Mutation):
         updated_user= mongo.db.users.find_one({ '_id': ObjectId(_id) })
         updated_user['date_of_birth']= updated_user['date_of_birth'].date()
         updated_user['joined_at']= updated_user['joined_at'].date()
+
+        if updated_user['img_url'] != default_img and is_uploaded_file_exist(updated_user['img_url'].split('/')[-1]) is False: 
+            result= mongo.db.users.update_one(
+                { '_id': ObjectId(_id) },
+                { '$set': { 'img_url': default_img } }
+            )
+
+            if result.modified_count == 0:
+                return UpdateUser(
+                    updated_user= None,
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada gambar profil pengguna, pengguna gagal diperbarui', status= False)
+                )
+
+            updated_user['img_url']= default_img 
 
         return UpdateUser(
             updated_user= updated_user,
@@ -176,7 +198,13 @@ class UpdateProfile(graphene.Mutation):
         #    if value is None or value == '':
         #        return UpdateUser(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
-        exist= mongo.db.users.find_one({
+        if validate_datetime(fields['date_of_birth'], 'date') is False:
+            return UpdateProfile(
+                updated_profile= None,
+                response= ResponseMessage(text= 'Format tanggal lahir tidak sesuai', status= False)
+            )
+
+        is_email_exist= mongo.db.users.find_one({
             '$and': [
                 { 
                     '_id': { 
@@ -187,13 +215,13 @@ class UpdateProfile(graphene.Mutation):
             ]
         })
 
-        if exist:
+        if is_email_exist:
             return UpdateProfile(
                 updated_profile= None,
                 response= ResponseMessage(text= 'Surel telah ada yang menggunakan, coba dengan surel lain', status= False)
             )
 
-        fields['last_profile_changed_at']= datetime.datetime.utcnow()
+        fields['date_of_birth']= datetime.datetime.strptime(fields['date_of_birth'], datetime_format('date'))
         result= mongo.db.users.find_one_and_update( 
             { '_id': ObjectId(get_jwt_identity()) },
             { '$set': dict(fields) }
@@ -202,10 +230,11 @@ class UpdateProfile(graphene.Mutation):
         if result is None:
             return UpdateProfile(
                 updated_profile= None,
-                response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal perbarui profil', status= False)
+                response= ResponseMessage(text= 'Terjadi kesalahan pada server, profil gagal diperbarui', status= False)
             )
 
-        updated_user= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) });
+        updated_user= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) })
+        updated_user['date_of_birth']= updated_user['date_of_birth'].date()
 
         return UpdateProfile(
             updated_profile= updated_user, 
@@ -222,17 +251,14 @@ class ChangePassword(graphene.Mutation):
 
     @mutation_header_jwt_required
     def mutate(self, root, old_password, new_password):
-        result= mongo.db.users.find_one({
-            '_id': ObjectId(get_jwt_identity()),
-            'password': old_password
-        })
+        user= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) })
 
-        if result is None:
+        if user is None or check_password_hash(user['password'], old_password):
             return ChangePassword(response= ResponseMessage(text= 'Gagal mengubah kata sandi, kata sandi lama salah', status= False))   
 
         result= mongo.db.users.find_one_and_update(
             { '_id': ObjectId(get_jwt_identity()) },
-            { '$set': { 'password': new_password } }
+            { '$set': { 'password': generate_password_hash(new_password) } }
         )
 
         if result is None:

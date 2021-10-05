@@ -65,6 +65,36 @@ class MoodResponse(graphene.ObjectType):
     mood= graphene.Field(Mood)
     response= graphene.Field(ResponseMessage)
 
+#User moods chart
+class MoodAverageByRangeDate(graphene.ObjectType):
+    start_date= graphene.Int()
+    end_date= graphene.Int()
+    moods= graphene.List(Mood)
+    average= graphene.Float()
+
+class MoodAverageGroupByYear(graphene.ObjectType):
+    year= graphene.Int()
+    mood_average_by_range_date= graphene.List(MoodAverageByRangeDate)
+
+class MoodsAverageGroupByMonth(graphene.ObjectType):
+    group= graphene.String()
+    mood_average_group_by_year= graphene.List(MoodAverageGroupByYear)
+
+class UserMoodsChart(graphene.ObjectType):
+    user_id= graphene.String()
+    moods_chart= graphene.List(MoodsAverageGroupByMonth)
+
+#class MoodsCount(graphene.ObjectType):
+#    happy= graphene.List(Mood)
+#    smile= graphene.List(Mood)
+#    neutral= graphene.List(Mood)
+#    sad= graphene.List(Mood)
+#    awful= graphene.List(Mood)
+#
+#class MoodsByMonth(graphene.ObjectType):
+#    moods= graphene.List(Mood)
+#    moods_count= graphene.Field(MoodsCount)
+
 #Mood/Auth
 class ProtectedUserMoods(graphene.Union):
     class Meta:
@@ -74,6 +104,22 @@ class ProtectedUserMoods(graphene.Union):
     def resolve_type(cls, instance, info):
         return type(instance)
 
+class ProtectedUserMoodsChart(graphene.Union):
+    class Meta:
+        types= (UserMoodsChart, AuthInfoField)
+    
+    @classmethod
+    def resolve_type(cls, instance, info):
+        return type(instance)
+
+#class ProtectedMoodsByMonth(graphene.Union):
+#    class Meta:
+#        types= (MoodsByMonth, AuthInfoField)
+#    
+#    @classmethod
+#    def resolve_type(cls, instance, info):
+#        return type(instance)
+
 class ProtectedMood(graphene.Union):
     class Meta:
         types= (MoodResponse, AuthInfoField)
@@ -81,3 +127,4 @@ class ProtectedMood(graphene.Union):
     @classmethod
     def resolve_type(cls, instance, info):
         return type(instance)
+

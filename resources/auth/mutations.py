@@ -6,6 +6,7 @@ from flask_graphql_auth import (
     create_refresh_token, 
     mutation_jwt_refresh_token_required
 )
+from flask_bcrypt import check_password_hash
 from flask_mail import Message
 from bson import ObjectId
 
@@ -27,7 +28,7 @@ class Authentication(graphene.Mutation):
     refresh_token= graphene.String()
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, root, email_or_username= '', password= '', with_google= None):
+    def mutate(self, root, email_or_username, password, with_google):
         #if email_or_username is None or password is None or email_or_username == '' or password == '':
         #    return Authentication(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
@@ -45,15 +46,16 @@ class Authentication(graphene.Mutation):
             '$or': [
                 { 'email': email_or_username },
                 { 'username': email_or_username }
-            ],
-            'password': password 
+            ] 
         })
 
-        if authenticated_user is None:
+        if authenticated_user is None or check_password_hash(authenticated_user['password'], password) is False:
             return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
 
         if 'img_url' not in authenticated_user:
             authenticated_user['img_url']= 'https://via.placeholder.com/100'
+
+        authenticated_user['date_of_birth']= authenticated_user['date_of_birth'].date()
 
         return Authentication(
             authenticated_user= authenticated_user,

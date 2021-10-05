@@ -725,34 +725,31 @@ class RemoveActivityCategories(graphene.Mutation):
 
 class ReorderActivityCategory(graphene.Mutation):
     class Arguments:
-        reordered_indexes= graphene.List(graphene.Int)
+        category_ids= graphene.List(graphene.Int)
     
     reordered_activity_categories= graphene.List(ActivityCategory)
     response= graphene.Field(ResponseMessage)
 
     @mutation_header_jwt_required
-    def mutate(self, info, reordered_indexes):
+    def mutate(self, info, category_ids):
         activity_categories= mongo.db.user_activities.find_one({ 'user_id': ObjectId(get_jwt_identity()) })['activity_categories']
 
-        if (
-            len(reordered_indexes) == 0 or len(reordered_indexes) > len(activity_categories) or 
-            0 not in reordered_indexes or len(activity_categories)-1 not in reordered_indexes or
-            len([index for index in reordered_indexes if index < 0]) > 0 or 
-            len([index for index in reordered_indexes if index >= len(activity_categories)]) > 0    
-        ):
+        if len(category_ids) == 0 or len(category_ids) > len(activity_categories) or len(category_ids) < len(activity_categories):
             return ReorderActivityCategory(
                 reordered_activity_categories= activity_categories,
                 response= ResponseMessage(text= 'Ukuran indeks kategori aktivitas tidak sesuai, kategori aktivitas gagal terubah', status= False)
             ) 
 
-        reordered_activity_categories= [activity_categories[i] for i in reordered_indexes]
+        reordered_activity_categories= []
+
+        for _id in category_ids:
+            for activity_category in activity_categories:
+                if activity_category['_id'] == _id:
+                    reordered_activity_categories.append(activity_category)
+
         result= mongo.db.user_activities.update_one(
             { 'user_id': ObjectId(get_jwt_identity()) },
-            { 
-                '$set': { 
-                    'activity_categories': reordered_activity_categories 
-                } 
-            }
+            {  '$set': { 'activity_categories': reordered_activity_categories } }
         )
 
         if result.modified_count == 0:

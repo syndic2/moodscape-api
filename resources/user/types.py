@@ -21,6 +21,26 @@ class UserInput(UserAbstract, graphene.InputObjectType):
 class User(UserAbstract, graphene.ObjectType):
     _id= graphene.String()  
 
+class UsersGroupByGender(graphene.ObjectType):
+    males= graphene.List(User)
+    females= graphene.List(User)
+
+class UserAgeGroup(graphene.ObjectType):
+    group= graphene.String()
+    range= graphene.String()
+    users= graphene.List(User)
+
+class UsersGroupByAge(graphene.ObjectType):
+    children= graphene.Field(UserAgeGroup)
+    teenager= graphene.Field(UserAgeGroup)
+    adult= graphene.Field(UserAgeGroup)
+    elderly= graphene.Field(UserAgeGroup)
+    above_elderly= graphene.Field(UserAgeGroup)
+
+class UsersGrowthByYear(graphene.ObjectType):
+    month= graphene.String()
+    users= graphene.List(User)
+
 class UserResponse(graphene.ObjectType):
     user= graphene.Field(User)
     response= graphene.Field(ResponseMessage)

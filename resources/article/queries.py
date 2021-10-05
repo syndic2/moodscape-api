@@ -3,6 +3,7 @@ from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
+from utilities.helpers import default_img, is_uploaded_file_exist
 from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article, ArticlePagination, UserArticles, ProtectedUserArticles
 
@@ -23,6 +24,17 @@ class GetArticle(graphene.ObjectType):
 
         for article in articles:
             article['posted_at']= article['posted_at'].date()
+
+            if article['header_img'] != default_img and is_uploaded_file_exist(article['header_img'].split('/')[-1]) is False:
+                result= mongo.db.articles.update_one(
+                    { '_id': article['_id'] },
+                    { '$set': { 'header_img': default_img } }
+                )
+
+                if result.modified_count == 0:
+                    return []
+                
+                article['header_img']= default_img
 
         return articles
 

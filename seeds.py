@@ -6,10 +6,13 @@ from itertools import count
 import random
 
 from extensions import bcrypt, mongo
+from utilities.helpers import default_img, datetime_format
 
 seed_cli= AppGroup('seed_run')
 fake= Faker()
 seed_length= 15 #default seed data
+
+#615883ceae38a5d50fdb2d67
 
 #seeder
 def user_seeder():
@@ -30,7 +33,7 @@ def user_seeder():
                     'email': 'jonathangani279@gmail.com',
                     'username': 'syndic',
                     'password': bcrypt.generate_password_hash('kusogaki'),
-                    'img_url': 'https://via.placeholder.com/100',
+                    'img_url': default_img,
                     'joined_at': datetime.now(),
                     'is_active': True
                 })
@@ -39,12 +42,12 @@ def user_seeder():
                     'first_name': fake.first_name(),
                     'last_name': fake.last_name(),
                     'gender': random.choice(['M', 'F']),
-                    'date_of_birth': fake.date_time(),
+                    'date_of_birth': fake.date_time_between_dates(datetime(1980, 1, 1, 0, 0, 0, 0), datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)),
                     'email': fake.email(),
-                    'username': fake.profile('username'),
+                    'username': fake.profile()['username'],
                     'password': bcrypt.generate_password_hash('seeding-password'),
-                    'img_url': 'https://via.placeholder.com/100',
-                    'joined_at': fake.date_time(),
+                    'img_url': default_img,
+                    'joined_at': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now()),
                     'is_active': fake.boolean() 
                 })
         
@@ -92,7 +95,7 @@ def mood_seeder():
             'name': 'netral',
             'value': 3,
             'iconPath': 'icons/svg/emoticons/neutral.svg',
-            'color': '#FFC30B'
+            'color': '#FFD300'
         },
         {
             'name': 'sedih',
@@ -115,7 +118,7 @@ def mood_seeder():
             mood_seeds.append({ 
                 '_id': number+1,
                 'emoticon': random.choice(emoticons),
-                'created_at': fake.date_time(),
+                'created_at': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now()),
                 'parameters': {
                     'internal': fake.sentence(),
                     'external': fake.sentence()
@@ -187,8 +190,8 @@ def habit_seeder():
                 'day': random.choice(['all day', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']),
                 'goal': random.randrange(1, 30),
                 'goal_dates': {
-                    'start': fake.date_time(),
-                    'end': fake.date_time()
+                    'start': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now()),
+                    'end': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now())
                 },
                 'reminder_time': random.choice(['', fake.time('%H:%M')]),
                 'label_color': random.choice(['#FF0000', '#FFC0CB', '#FF8C00', '#0000FF', '#358873'])
@@ -199,7 +202,7 @@ def habit_seeder():
             print('Seeding habits collection failed...')
             return
 
-        sequence_seed= mongo.db.sequences.insert_one({ '_id': 'habits', 'value': seed_length })
+        sequence_seed= mongo.db.sequences.insert_one({ '_id': 'habits', 'value': seed_length*seed_length })
         if sequence_seed.inserted_id is None:
             print('Seeding habits sequences collection failed...')
             return
@@ -272,7 +275,7 @@ def activity_seeder():
                 'activity_categories': [
                     {
                         '_id': activity_category_id+1,
-                        'name': fake.word(),
+                        'category': fake.word(),
                         'activities': [
                             { 
                                 '_id':  next(activity_id_gap_counter)+1, 
@@ -334,32 +337,30 @@ def activity_seeder():
         print('error: ', ex)
 
 def app_feedback_seeder():
-    mongo.db.sequences.delete_one({ '_id': 'app_feedbacks' })
     mongo.db.app_feedbacks.delete_many({})
 
-    app_feedback_seeds= []
-    user_ids= [user['_id'] for user in mongo.db.users.find({})]
+    try:
+        app_feedback_seeds= []
+        user_ids= [user['_id'] for user in mongo.db.users.find({})]
 
-    for _ in range(seed_length):
-        app_feedback_seeds.append({
-            'user_id': random.choice(user_ids),
-            'rating': random.randrange(1, 5),
-            'review': fake.paragraph(),
-            'feature_category': random.choice(['Mood Tracker', 'Habit Tracker', 'Statistics', 'Chatbot', 'Article']),
-            'created_at': fake.date_time()
-        })
+        for _ in range(seed_length):
+            app_feedback_seeds.append({
+                'user_id': random.choice(user_ids),
+                'rating': random.randrange(1, 5),
+                'review': fake.paragraph(),
+                'feature_category': random.choice(['Mood Tracker', 'Habit Tracker', 'Statistics', 'Chatbot', 'Article']),
+                'created_at': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now())
+            })
 
-    result= mongo.db.app_feedbacks.insert_many(app_feedback_seeds)
-    if len(result.inserted_ids) == 0:
-        print('Seeding app_feedbacks collection failed...')
-        return
-
-    sequence_seed= mongo.db.sequences.insert_one({ '_id': 'app_feedbacks', 'value': seed_length })
-    if sequence_seed.inserted_id is None:
+        result= mongo.db.app_feedbacks.insert_many(app_feedback_seeds)
+        if len(result.inserted_ids) == 0:
+            print('Seeding app_feedbacks collection failed...')
+            return
+        
+        print('Seeding app_feedbacks collection succced...')
+    except Exception as ex:
         print('Seeding app_feedbacks sequences collection failed...')
-        return
-
-    print('Seeding app_feedbacks collection succced...')
+        print('error: ', ex)
 
 #commands
 @seed_cli.command('user_seeder')

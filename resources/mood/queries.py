@@ -3,11 +3,14 @@ from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
+from utilities.helpers import get_month_name
 from ..utility_types import ResponseMessage
-from .types import MoodFilterInput, MoodResponse, UserMoods, ProtectedUserMoods, ProtectedMood
+from .types import MoodFilterInput, MoodResponse, UserMoods, UserMoodsChart, ProtectedUserMoods, ProtectedUserMoodsChart, ProtectedMood
 
 class GetUserMoods(graphene.AbstractType):
     get_user_moods= graphene.Field(ProtectedUserMoods)
+    get_user_moods_chart= graphene.Field(ProtectedUserMoodsChart)
+    #get_user_moods_by_month= graphene.Field(ProtectedMoodsByMonth, month= graphene.Int())
     get_user_mood= graphene.Field(ProtectedMood, _id= graphene.Int())
     get_filtered_user_mood= graphene.Field(ProtectedUserMoods, filters= graphene.Argument(MoodFilterInput))
 
@@ -35,7 +38,111 @@ class GetUserMoods(graphene.AbstractType):
             moods= moods,
             response= ResponseMessage(text= 'Berhasil mengembalikan mood pengguna', status= True)
         )
+    
+    #@query_header_jwt_required
+    def resolve_get_user_moods_chart(self, info):
+        user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId('615883ceae38a5d50fdb2d67') })
 
+        if user_moods is None or not user_moods['moods']:
+            return UserMoodsChart(
+                user_id= None,
+                moods_chart= []
+            )
+
+        moods= list(mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] } }))
+        moods_chart= []
+
+        #create month group
+        for month in range(12):
+            moods_chart.append({
+                'group': get_month_name(month),
+                'mood_average_group_by_year': []
+            })
+
+        #create year group
+        for mood in moods:
+            created_at= mood['created_at'].date()
+            is_year_exist_in_group= [year_group for year_group in moods_chart[created_at.month-1]['mood_average_group_by_year'] if year_group['year'] == created_at.year]
+
+            if len(is_year_exist_in_group) == 0:
+                moods_chart[created_at.month-1]['mood_average_group_by_year'].append({
+                    'year': created_at.year,
+                    'mood_average_by_range_date': []
+                })
+
+        #create range date group in each year group
+        for month_group in moods_chart:
+            for year_group in month_group['mood_average_group_by_year']:
+                start_date= 1
+                end_date= 3 
+
+                for date in range(10):
+                    year_group['mood_average_by_range_date'].append({
+                        'start_date': start_date,
+                        'end_date': end_date,
+                        'moods': [],
+                        'average': 0
+                    })
+
+                    start_date+= 3
+                    end_date+= 3
+
+        #grouping mood by range date
+        for mood in moods:
+            created_at= mood['created_at'].date()
+
+            for year_group in moods_chart[created_at.month-1]['mood_average_group_by_year']:
+                if year_group['year'] == created_at.year:
+                    for date_group in year_group['mood_average_by_range_date']:
+                        if created_at.day >= date_group['start_date'] and created_at.day <= date_group['end_date']:
+                            mood_temp= mood.copy()
+                            mood_temp['created_at']= {
+                                'date': mood_temp['created_at'].date(),
+                                'time': str(mood_temp['created_at'].time())[:-3]
+                            }
+                            date_group['moods'].append(mood_temp)
+                            date_group['average']+= mood_temp['emoticon']['value']
+        
+        #calculate average of moods on each range date group
+        for month_group in moods_chart:
+            for year_group in month_group['mood_average_group_by_year']:
+                for date_group in year_group['mood_average_by_range_date']:
+                    if len(date_group['moods']) > 0: date_group['average']/= len(date_group['moods'])
+
+        return UserMoodsChart(
+            user_id= user_moods['user_id'],
+            moods_chart= moods_chart
+        )
+    
+    #@query_header_jwt_required
+    #def resolve_get_user_moods_by_month(self, info, month):
+    #    user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
+#
+    #    if user_moods is None or not user_moods['moods']:
+    #        return MoodsByMonth(
+    #            moods= [],
+    #            moods_count= None
+    #        )
+    #    
+    #    moods= mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] } })
+    #    moods_by_month= [] 
+    #    moods_count= MoodsCount(happy= [], smile= [], neutral= [], sad= [], awful= [])
+#
+    #    for mood in moods:
+    #        if mood['created_at'].date().month == month:
+    #            moods_by_month.append(mood)
+#
+    #            if mood['emoticon']['name'] == 'gembira': moods_count.happy.append(mood)
+    #            elif mood['emoticon']['name'] == 'senang': moods_count.smile.append(mood)
+    #            elif mood['emoticon']['name'] == 'netral': moods_count.neutral.append(mood)
+    #            elif mood['emoticon']['name'] == 'sedih': moods_count.sad.append(mood)
+    #            elif mood['emoticon']['name'] == 'buruk': moods_count.awful.append(mood)
+    #    
+    #    return MoodsByMonth(
+    #        moods= moods_by_month,
+    #        moods_count= moods_count
+    #    )
+ 
     @query_header_jwt_required
     def resolve_get_user_mood(self, info, _id):
         is_mood_id_exist= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()), 'moods': _id })

@@ -1,7 +1,25 @@
 import os, datetime
 from extensions import mongo
 
+default_img= 'https://via.placeholder.com/100'
 upload_path= os.path.join(os.path.dirname(os.path.abspath(__file__)), '../uploads')
+
+def is_uploaded_file_exist(file_name, sub_directory= 'images'):
+    return os.path.isfile(os.path.join(f"{upload_path}/{sub_directory}", file_name))
+
+def get_month_name(month_number):
+    months= [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ]
+
+    return months[month_number]
+
+def calculate_age(date_of_birth):
+    today= datetime.date.today()
+    age= today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+    
+    return age
 
 def formatted_file_name(file_name):
     splits= file_name.split('.')
