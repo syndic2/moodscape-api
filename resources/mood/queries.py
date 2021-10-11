@@ -10,7 +10,6 @@ from .types import MoodFilterInput, MoodResponse, UserMoods, UserMoodsChart, Pro
 class GetUserMoods(graphene.AbstractType):
     get_user_moods= graphene.Field(ProtectedUserMoods)
     get_user_moods_chart= graphene.Field(ProtectedUserMoodsChart)
-    #get_user_moods_by_month= graphene.Field(ProtectedMoodsByMonth, month= graphene.Int())
     get_user_mood= graphene.Field(ProtectedMood, _id= graphene.Int())
     get_filtered_user_mood= graphene.Field(ProtectedUserMoods, filters= graphene.Argument(MoodFilterInput))
 
@@ -39,9 +38,9 @@ class GetUserMoods(graphene.AbstractType):
             response= ResponseMessage(text= 'Berhasil mengembalikan mood pengguna', status= True)
         )
     
-    #@query_header_jwt_required
+    @query_header_jwt_required
     def resolve_get_user_moods_chart(self, info):
-        user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId('615883ceae38a5d50fdb2d67') })
+        user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if user_moods is None or not user_moods['moods']:
             return UserMoodsChart(
@@ -114,35 +113,6 @@ class GetUserMoods(graphene.AbstractType):
             moods_chart= moods_chart
         )
     
-    #@query_header_jwt_required
-    #def resolve_get_user_moods_by_month(self, info, month):
-    #    user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
-#
-    #    if user_moods is None or not user_moods['moods']:
-    #        return MoodsByMonth(
-    #            moods= [],
-    #            moods_count= None
-    #        )
-    #    
-    #    moods= mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] } })
-    #    moods_by_month= [] 
-    #    moods_count= MoodsCount(happy= [], smile= [], neutral= [], sad= [], awful= [])
-#
-    #    for mood in moods:
-    #        if mood['created_at'].date().month == month:
-    #            moods_by_month.append(mood)
-#
-    #            if mood['emoticon']['name'] == 'gembira': moods_count.happy.append(mood)
-    #            elif mood['emoticon']['name'] == 'senang': moods_count.smile.append(mood)
-    #            elif mood['emoticon']['name'] == 'netral': moods_count.neutral.append(mood)
-    #            elif mood['emoticon']['name'] == 'sedih': moods_count.sad.append(mood)
-    #            elif mood['emoticon']['name'] == 'buruk': moods_count.awful.append(mood)
-    #    
-    #    return MoodsByMonth(
-    #        moods= moods_by_month,
-    #        moods_count= moods_count
-    #    )
- 
     @query_header_jwt_required
     def resolve_get_user_mood(self, info, _id):
         is_mood_id_exist= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()), 'moods': _id })

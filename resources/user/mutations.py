@@ -49,6 +49,12 @@ class CreateUser(graphene.Mutation):
                 response= ResponseMessage(text= 'Alamat surel atau nama pengguna sudah ada yang menggunakan', status= False)
             )
 
+        fields['date_of_birth']= datetime.datetime.strptime(fields['date_of_birth'], datetime_format('date'))
+        fields['password']= generate_password_hash(fields['password'])
+        fields['joined_at']= datetime.datetime.now()
+        fields['is_admin']= False
+        fields['is_active']= True
+
         result= mongo.db.users.insert_one(dict(fields))
 
         if result.inserted_id is None: #and init_user_activities.inserted_id is None:

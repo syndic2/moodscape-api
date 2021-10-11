@@ -12,7 +12,7 @@ seed_cli= AppGroup('seed_run')
 fake= Faker()
 seed_length= 15 #default seed data
 
-#615883ceae38a5d50fdb2d67
+#615efa6d090a57f3964eaa57
 
 #seeder
 def user_seeder():
@@ -35,6 +35,7 @@ def user_seeder():
                     'password': bcrypt.generate_password_hash('kusogaki'),
                     'img_url': default_img,
                     'joined_at': datetime.now(),
+                    'is_admin': False,
                     'is_active': True
                 })
             else:
@@ -48,6 +49,7 @@ def user_seeder():
                     'password': bcrypt.generate_password_hash('seeding-password'),
                     'img_url': default_img,
                     'joined_at': fake.date_time_between_dates(datetime(2017, 1, 1), datetime.now()),
+                    'is_admin': False,
                     'is_active': fake.boolean() 
                 })
         
@@ -391,5 +393,33 @@ def run_all_seeder():
     habit_seeder()
     activity_seeder()
     app_feedback_seeder()
+
+#clear seeds
+@seed_cli.command('clear_seeds')
+def run_clear_seeds():
+    collections= [
+        'users', 'user_moods', 'user_activities', 'user_habits', 'user_articles',
+        'moods', 'activity_icons', 'habits', 'habit_tracks', 'app_feedbacks', 'reset_passwords', 'array_sequences'
+    ]
+    sequences= ['users', 'user_moods', 'user_habits', 'moods', 'activity_icons', 'habits', 'habit_tracks']
+
+    try:
+        for collection in collections:
+            if collection in mongo.db.list_collection_names():
+                mongo.db[collection].drop()
+
+        if len(list(mongo.db.sequences.find({ '_id': { '$in': sequences } }))) > 0:
+            result= mongo.db.sequences.delete_many({ '_id': { '$in': sequences } })
+
+            if result.deleted_count == 0:
+                print(f'Clear sequence collections: {sequences} failed')
+                return
+        
+        print(f'Clear collections: {collections} succeed...')
+        print(f'Clear sequence collections: {sequences} succeed')
+    except Exception as ex:
+        print(f'Clear collections: {collections} succeed...')
+        print(f'Clear sequence collections: {sequences} succeed')
+        print('error', ex)
 
 

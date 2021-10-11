@@ -117,7 +117,9 @@ class UserQuery(graphene.AbstractType):
                 response= ResponseMessage(text= 'Profil pengguna tidak ditemukan', status= False)
             )
 
-        result['date_of_birth']= result['date_of_birth'].date()
+        if 'date_of_birth' in result:
+            result['date_of_birth']= result['date_of_birth'].date()
+
         result['joined_at']= result['joined_at'].date()
 
         return UserResponse(

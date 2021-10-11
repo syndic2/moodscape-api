@@ -7,12 +7,12 @@ from ..utility_types import ResponseMessage
 from .types import re_structure_habit_output, UserHabits, HabitResponse, ProtectedUserHabits, ProtectedHabit
 
 class GetUserHabits(graphene.AbstractType):
-    get_user_habits= graphene.Field(ProtectedUserHabits, day= graphene.String())
+    get_user_habits= graphene.Field(ProtectedUserHabits)
     get_user_habit= graphene.Field(ProtectedHabit, _id= graphene.Int())
     get_filtered_user_habits= graphene.Field(ProtectedUserHabits)
 
     @query_header_jwt_required
-    def resolve_get_user_habits(self, info, day):
+    def resolve_get_user_habits(self, info):
         user_habit= mongo.db.user_habits.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if user_habit is None or 'habits' not in user_habit:
@@ -21,24 +21,16 @@ class GetUserHabits(graphene.AbstractType):
                 response= ResponseMessage(text= 'Belum memiliki habit yang tersimpan', status= False)
             )
 
-        filters_query= { '_id': { '$in': user_habit['habits'] } }
+        #filters_query= { '_id': { '$in': user_habit['habits'] } }
+#
+        #if day != '':
+        #    filters_query['day']= day
 
-        if day != '':
-            filters_query['day']= day
+        habits= list(mongo.db.habits.find({ '_id': { '$in': user_habit['habits'] } }))
 
-        habits= list(mongo.db.habits.find(filters_query))
-        habit_tracks= mongo.db.habit_tracks.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
-
-        if habit_tracks:
-            #merge 
-            for habit in habits:
-                habit['track_details']= None
-
-                for track in habit_tracks['tracks']:
-                    if habit['_id'] == track['habit_id']:
-                        habit['track_details']= track
-                
-                habit= re_structure_habit_output(habit, habit['track_details'])
+        for habit in habits:
+            habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': habit['_id'] })
+            habit= re_structure_habit_output(habit, habit_track)
 
         return UserHabits(
             _id= user_habit['_id'],
@@ -58,30 +50,17 @@ class GetUserHabits(graphene.AbstractType):
             ) 
 
         result= mongo.db.habits.find_one({ '_id': _id })
-        habit_tracks= mongo.db.habit_tracks.find_one(
-            { 'user_id': ObjectId(get_jwt_identity()) },
-            {
-                'tracks': {
-                    '$elemMatch': {
-                        'habit_id': _id
-                    }
-                }
-            }
-        )
-
-        if 'tracks' in habit_tracks:
-            result= re_structure_habit_output(result, habit_tracks['tracks'][0])
-        else:
-            result= re_structure_habit_output(result)
 
         if result is None:
             return HabitResponse(
                 habit= None,
                 response= ResponseMessage(text= 'Terjadi kendala pada server, habit tidak ditemukan', status= False)
             )
-        
+
+        habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': _id })
+
         return HabitResponse(
-            habit= result,
+            habit= re_structure_habit_output(result, habit_track),
             response= ResponseMessage(text= 'Berhasil mengembalikan habit', status= True)
         )
 

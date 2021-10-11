@@ -15,7 +15,8 @@ class CreateHabit(graphene.Mutation):
     response= graphene.Field(ResponseMessage)
 
     @mutation_header_jwt_required
-    def mutate(self, info, fields):        
+    def mutate(self, info, fields):
+        #start validation check        
         if validate_datetime(fields.goal_dates.start, 'date') is False:
             return CreateHabit(
                 created_habit= None,
@@ -39,7 +40,9 @@ class CreateHabit(graphene.Mutation):
                 created_habit= None,
                 response= ResponseMessage(text= 'Format waktu pengingat tidak sesuai, habit gagal diperbarui', status= False)
             )
+        #end validation check
 
+        #start create habit and user habits
         insert_on_habits= mongo.db.habits.insert_one(dict(re_structure_habit_input(fields)))
 
         if insert_on_habits.inserted_id is None:
@@ -50,6 +53,7 @@ class CreateHabit(graphene.Mutation):
 
         is_user_habits_exist= mongo.db.user_habits.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
+        #check if user habits exist or not
         if is_user_habits_exist is None:
             create_user_habits= mongo.db.user_habits.insert_one({
                 '_id': get_sequence('user_habits'),
@@ -77,11 +81,39 @@ class CreateHabit(graphene.Mutation):
                     created_habit= None,
                     response= ResponseMessage(text= 'Tidak dapat menyimpan pada user_habits collection, habit gagal ditambahkan', status= False)
                 )
-
+        
         created_habit= mongo.db.habits.find_one({ '_id': insert_on_habits.inserted_id })
+        #end create habit and user habits
+
+        #start create habit track
+        result= mongo.db.habit_tracks.insert_one({
+            'habit_id': insert_on_habits.inserted_id,
+            'total_completed': 0,
+            'total_streaks': 0,
+            'streak_logs': [
+                {
+                    'start_date': datetime.datetime.strptime(fields.goal_dates.start, datetime_format('date')),
+                    'end_date': datetime.datetime.strptime(fields.goal_dates.end, datetime_format('date')),
+                    'current_goal': 0,
+                    'target_goal': created_habit['goal'],
+                    'last_marked_at': None,
+                    'is_complete': False,
+                    'marked_at': []
+                }
+            ]
+        })
+
+        if result.inserted_id is None:
+            return CreateHabit(
+                created_habit= None,
+                response= ResponseMessage(text= 'Tidak dapat membuat habit track baru, habit gagal ditambahkan', status= False)
+            )
+        
+        created_habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': insert_on_habits.inserted_id })
+        #end create habit streak logs
 
         return CreateHabit(
-            created_habit= re_structure_habit_output(created_habit),
+            created_habit= re_structure_habit_output(created_habit, created_habit_track),
             response= ResponseMessage(text= 'Berhasil menambahkan habit baru', status= True)
         )
 
@@ -95,6 +127,7 @@ class UpdateHabit(graphene.Mutation):
 
     @mutation_header_jwt_required
     def mutate(self, info, _id, fields):
+        #start validation check
         if validate_datetime(fields.goal_dates.start, 'date') is False:
             return UpdateHabit(
                 updated_habit= None,
@@ -137,29 +170,9 @@ class UpdateHabit(graphene.Mutation):
                 updated_habit= None,
                 response= ResponseMessage(text= 'Habit tidak ditemukan pada habits collection, habit gagal diperbarui', status= False)
             )
+        #end validation check
 
-        #update on habit track
-        is_habit_tracks_exist= mongo.db.habit_tracks.find_one({
-            'user_id': ObjectId(get_jwt_identity()),
-            'tracks.habit_id': _id
-        })
-
-        if is_habit_tracks_exist:
-            update_on_habit_tracks= mongo.db.habit_tracks.find_one_and_update(
-                { 'user_id': ObjectId(get_jwt_identity()), 'tracks.habit_id': _id },
-                {
-                    '$set': {
-                        'tracks.$.target_goal': fields['goal']
-                    }
-                }
-            )
-
-            if update_on_habit_tracks is None:
-                return UpdateHabit(
-                    updated_habit= None,
-                    response= ResponseMessage(text= 'Tidak dapat membarui track pada habit_tracks, habit gagal diperbarui', status= False)
-                )
-        
+        #start update habit
         result= mongo.db.habits.find_one_and_update(
             { '_id': _id },
             { '$set': dict(re_structure_habit_input(fields, 'update')) }    
@@ -170,26 +183,89 @@ class UpdateHabit(graphene.Mutation):
                 updated_habit= None,
                 response= ResponseMessage(text= 'Terjadi kendala pada server, habit gagal diperbarui', status= False)
             )
-
+        
         updated_habit= mongo.db.habits.find_one({ '_id': _id })
-        habit_tracks= mongo.db.habit_tracks.find_one(
-            { 'user_id': ObjectId(get_jwt_identity()) },
-            {
-                'tracks': {
+        #end update habit
+
+        #start update on habit streak logs
+        is_streak_log_exist= mongo.db.habit_tracks.find_one(
+            { 
+                'habit_id': _id,
+                'streak_logs': {
                     '$elemMatch': {
-                        'habit_id': _id
+                        'start_date': datetime.datetime.strptime(fields.goal_dates.start, datetime_format('date')),
+                        #'end_date': datetime.datetime.strptime(fields.goal_dates.end, datetime_format('date'))
                     }
                 }
             }
         )
 
-        if 'tracks' in habit_tracks:
-            updated_habit= re_structure_habit_output(updated_habit, habit_tracks['tracks'][0])
+        #check if streak log exist in array streak_logs
+        if is_streak_log_exist is None:
+            result= mongo.db.habit_tracks.update_one(
+                { 'habit_id': _id },
+                {
+                    '$push': {
+                        'streak_logs': {
+                            'start_date': datetime.datetime.strptime(fields.goal_dates.start, datetime_format('date')),
+                            'end_date': datetime.datetime.strptime(fields.goal_dates.end, datetime_format('date')),
+                            'current_goal': 0,
+                            'target_goal': fields['goal'],
+                            'last_marked_at': None,
+                            'is_complete': False,
+                            'marked_at': []
+                        }
+                    }
+                }
+            )
+
+            if result.modified_count == 0:
+                return UpdateHabit(
+                    updated_habit= None,
+                    response= ResponseMessage(text= 'Tidak dapat menambah streak log pada habit_streak_logs, habit gagal diperbarui', status= False)
+                )
         else:
-            updated_habit= re_structure_habit_output(updated_habit)
+            current_log= None
+            total_completed= is_streak_log_exist['total_completed']
+
+            for log in is_streak_log_exist['streak_logs']:
+                if log['start_date'] == datetime.datetime.strptime(fields.goal_dates.start, datetime_format('date')):
+                    current_log= log
+            
+            if current_log['current_goal'] == updated_habit['goal'] and datetime.datetime.now().date() in current_log['marked_at']:
+                total_completed+= 1
+                current_log['is_complete']= True
+                    
+            result= mongo.db.habit_tracks.find_one_and_update(
+                { 
+                    'habit_id': updated_habit['_id'],
+                    'total_completed': total_completed,
+                    'streak_logs': {
+                        '$elemMatch': {
+                            'start_date': datetime.datetime.strptime(fields.goal_dates.start, datetime_format('date'))
+                        }
+                    } 
+                },
+                { 
+                    '$set': { 
+                        'streak_logs.$.end_date': datetime.datetime.strptime(fields.goal_dates.end, datetime_format('date')),
+                        'streak_logs.$.target_goal': updated_habit['goal'],
+                        'streak_logs.$.is_complete': current_log['is_complete'] 
+                    } 
+                }
+            )
+
+            if result is None:
+                return UpdateHabit(
+                    updated_habit= None,
+                    response= ResponseMessage(text= 'Tidak dapat mengubah streak log pada habit_streak_logs, habit gagal diperbarui', status= False)
+                )
+        
+        habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': _id })
+        #end update on habit streak logs
 
         return UpdateHabit(
-            updated_habit= updated_habit,
+            updated_habit= re_structure_habit_output(updated_habit, habit_track),
             response= ResponseMessage(text= 'Berhasil membarui habit', status= True)
         )
 
@@ -213,6 +289,7 @@ class RemoveHabits(graphene.Mutation):
                 response= ResponseMessage(text= 'Habit tidak ditemukan, habit gagal terhapus', status= False)
             )
 
+        #start remove from habits
         remove_from_habits= mongo.db.habits.delete_many({ '_id': { '$in': habit_ids } }) 
 
         if remove_from_habits.deleted_count == 0:
@@ -220,7 +297,9 @@ class RemoveHabits(graphene.Mutation):
                 removed_habits= [],
                 response= ResponseMessage(text= 'Gagal menghapus habit dari habits collection, habit gagal terhapus', status= False)
             )
+        #end remove from habits
 
+        #start remove from user habits
         remove_from_user_habits= mongo.db.user_habits.update_one(
             { 'user_id': ObjectId(get_jwt_identity()) },
             {
@@ -237,29 +316,17 @@ class RemoveHabits(graphene.Mutation):
                 removed_habits= [],
                 response= ResponseMessage(text= 'Gagal menghapus habit dari user_habits collection, habit gagal terhapus', status= False)
             )
+        #end remove from user habits
 
-        is_habit_tracks_exist= mongo.db.habit_tracks.find_one({ 
-            'user_id': ObjectId(get_jwt_identity()),
-            'tracks.habit_id': { '$all': habit_ids } 
-        })
+        #start remove from habit streak logs
+        remove_from_habit_tracks= mongo.db.habit_tracks.delete_many({ 'habit_id': { '$in': habit_ids } })
 
-        if is_habit_tracks_exist:
-            remove_from_habit_tracks= mongo.db.habit_tracks.update_one(
-                { 'user_id': ObjectId(get_jwt_identity()) },
-                {
-                    '$pull': {
-                        'tracks': {
-                            'habit_id': { '$in': habit_ids }
-                        }
-                    }
-                }
+        if remove_from_habit_tracks.deleted_count == 0:
+            return RemoveHabits(
+                removed_habits= [],
+                response= ResponseMessage(text= 'Gagal menghapus habit dari habit_streak_logs collection, habit gagal terhapus', status= False)
             )
-        
-            if remove_from_habit_tracks.modified_count == 0:
-                return RemoveHabits(
-                    removed_habits= [],
-                    response= ResponseMessage(text= 'Gagal menghapus habit dari habit_tracks collection, habit gagal terhapus', status= False)
-                )
+        #end remove from habit streak logs
 
         return RemoveHabits(
             removed_habits= habit_ids,
@@ -276,6 +343,7 @@ class MarkHabitGoal(graphene.Mutation):
 
     @mutation_header_jwt_required
     def mutate(self, info, _id, marked_at):
+        #start validation check
         #validate date
         if validate_datetime(marked_at, 'date') is False:
             return MarkHabitGoal(
@@ -296,151 +364,90 @@ class MarkHabitGoal(graphene.Mutation):
             )
         
         habit= mongo.db.habits.find_one({ '_id': _id })
-        is_habit_tracks_exist= mongo.db.habit_tracks.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
-
-        days_left= 0
 
         #check date now still between on goal start and end date
         date_now= datetime.datetime.strptime(marked_at, datetime_format('date')).date()
 
-        if date_now >= habit['goal_dates']['start'].date() and date_now <= habit['goal_dates']['end'].date():
-            days_left= (habit['goal_dates']['end'].date() - date_now).days
-        else:
+        #if date_now >= habit['goal_dates']['start'].date() and date_now <= habit['goal_dates']['end'].date():
+        #    days_left= (habit['goal_dates']['end'].date() - date_now).days
+        #else:
+        #    return MarkHabitGoal(
+        #        marked_habit= None,
+        #        response= ResponseMessage(text= 'Tanggal tidak sesuai dengan rentang tanggal yang ditentukan, habit goal gagal ditandai', status= False)
+        #    )
+
+        if date_now < habit['goal_dates']['start'].date() or date_now > habit['goal_dates']['end'].date():
             return MarkHabitGoal(
                 marked_habit= None,
                 response= ResponseMessage(text= 'Tanggal tidak sesuai dengan rentang tanggal yang ditentukan, habit goal gagal ditandai', status= False)
             )
+        #end validation check     
 
-        #check habit_tracks exist or not
-        if is_habit_tracks_exist is None:
-            create_habit_tracks= mongo.db.habit_tracks.insert_one({
-                '_id': get_sequence('habit_tracks'),
-                'user_id': ObjectId(get_jwt_identity()),
-                'tracks': [
-                    {
-                        'habit_id': _id,
-                        'current_goal': 1,
-                        'target_goal': habit['goal'],
-                        'streaks': 0,
-                        'last_marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')),
-                        'logs': [
-                            { 'current_goal': 1, 'marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')) }
-                        ]
-                    }   
-                ]
-            })
-
-            if create_habit_tracks.inserted_id is None:
-                return MarkHabitGoal(
-                    marked_habit= None,
-                    response= ResponseMessage(text= 'Tidak dapat membuat habit_tracks baru, habit goal gagal ditandai', status= False)
-                ) 
-        else:
-            is_track_exist= mongo.db.habit_tracks.find_one({ 
-                'user_id': ObjectId(get_jwt_identity()),
-                'tracks.habit_id': _id  
-            })
-
-            #check if track exist or not in tracks array
-            if is_track_exist is None:
-                create_track= mongo.db.habit_tracks.update_one(
-                    { 'user_id': ObjectId(get_jwt_identity()) },
-                    {
-                        '$push': {
-                            'tracks': {
-                                'habit_id': _id,
-                                'current_goal': 1,
-                                'target_goal': habit['goal'],
-                                'streaks': 0,
-                                'last_marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')),
-                                'logs': [
-                                    { 'current_goal': 1, 'marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')) }
-                                ]
-                            }
-                        }
-                    }
-                )
-
-                if create_track.modified_count == 0:
-                    return MarkHabitGoal(
-                        marked_habit= None,
-                        response= ResponseMessage(text= 'Tidak dapat membuat track baru, habit goal gagal ditandai', status= False)
-                    )
-            else:
-                is_already_marked= mongo.db.habit_tracks.find_one(
-                    { 'user_id': ObjectId(get_jwt_identity()) },
-                    {
-                        'tracks': {
-                            '$elemMatch': {
-                                'habit_id': _id,
-                                'logs': {
-                                    '$elemMatch': {
-                                        'marked_at': datetime.datetime.strptime(marked_at, datetime_format('date'))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                )
-
-                #check is already marked or not
-                if 'tracks' in is_already_marked:
-                    return MarkHabitGoal(
-                        marked_habit= None,
-                        response= ResponseMessage(text= 'Habit ini sudah ditandai pada tanggal tersebut', status= False)
-                    )
-                
-                current_track= mongo.db.habit_tracks.find_one(
-                    { 'user_id': ObjectId(get_jwt_identity()) },
-                    {
-                        'tracks': {
-                            '$elemMatch': {
-                                'habit_id': _id
-                            }
-                        }
-                    }
-                )['tracks'][0]
-
-                #check if tracking complete
-                if current_track['current_goal'] == habit['goal']:
-                    return MarkHabitGoal(
-                        marked_habit= None,
-                        response= ResponseMessage(text= 'Tracking habit sudah selesai, habit goal gagal ditandai', status= False)
-                    )
-
-                #update current goal & add new log
-                update_habit_tracks= mongo.db.habit_tracks.update_one(
-                    { 'user_id': ObjectId(get_jwt_identity()), 'tracks.habit_id': _id },
-                    {
-                        '$set': { 
-                            'tracks.$.current_goal': current_track['current_goal']+1,
-                            'tracks.$.last_marked_at': datetime.datetime.strptime(marked_at, datetime_format('date'))
-                        },
-                        '$push': {
-                            'tracks.$.logs': { 'current_goal': current_track['current_goal']+1, 'marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')) }
-                        }
-                    }
-                )
-
-                if update_habit_tracks.modified_count == 0:
-                    return MarkHabitGoal(
-                        marked_habit= None,
-                        response= ResponseMessage(text= 'Tidak dapat menambah log baru pada habit_tracks, habit goal gagal ditandai', status= False)
-                    ) 
-        
-        updated_track= mongo.db.habit_tracks.find_one(
-            { 'user_id': ObjectId(get_jwt_identity()) },
-            {
-                'tracks': {
-                    '$elemMatch': {
-                        'habit_id': _id
-                    }
+        #start mark habit
+        is_already_marked= mongo.db.habit_tracks.find_one({ 
+            'habit_id': _id,
+            'streak_logs': {
+                '$elemMatch': {
+                    'start_date': habit['goal_dates']['start'],
+                    'last_marked_at': datetime.datetime.strptime(marked_at, datetime_format('date'))
                 }
             }
-        )['tracks'][0]
+        })
+
+        if is_already_marked:
+            return MarkHabitGoal(
+                marked_habit= None,
+                response= ResponseMessage(text= 'Habit sudah ditandai pada tanggal tersebut', status= False)
+            )
+        else:
+            current_track= mongo.db.habit_tracks.find_one({ 'habit_id': _id })
+            current_log= None
+
+            for log in current_track['streak_logs']:
+                if log['start_date'] == habit['goal_dates']['start']:
+                    current_log= log
+            
+            if current_log['current_goal']+1 == current_log['target_goal']:
+                current_track['total_completed']+= 1
+                current_log['is_complete']= True
+            
+            current_track['total_streaks']+= 1
+            current_log['current_goal']+= 1
+
+            result= mongo.db.habit_tracks.update_one(
+                { 
+                    'habit_id': _id,
+                    'streak_logs': {
+                        '$elemMatch': {
+                            'start_date': habit['goal_dates']['start']
+                        }
+                    }
+                },
+                {
+                    '$set': { 
+                        'total_completed': current_track['total_completed'],
+                        'total_streaks': current_track['total_streaks'],
+                        'streak_logs.$.current_goal': current_log['current_goal'],
+                        'streak_logs.$.last_marked_at': datetime.datetime.strptime(marked_at, datetime_format('date')),
+                        'streak_logs.$.is_complete': current_log['is_complete']
+                    },
+                    '$push': {
+                        'streak_logs.$.marked_at': datetime.datetime.strptime(marked_at, datetime_format('date'))
+                    }
+                }
+            )
+
+            if result.modified_count == 0:
+                return MarkHabitGoal(
+                    marked_habit= None,
+                    response= ResponseMessage(text= 'Tidak dapat menambah marked_at log baru pada habit_tracks, habit goal gagal ditandai', status= False)
+                )
+
+        habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': _id })
+        #end mark habit
         
         return MarkHabitGoal(
-            marked_habit= re_structure_habit_output(habit, updated_track),
+            marked_habit= re_structure_habit_output(habit, habit_track),
             response= ResponseMessage(text= f"Berhasil menandai habit hari ini, tanggal {marked_at}", status= True)
         )
 

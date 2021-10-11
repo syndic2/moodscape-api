@@ -84,17 +84,6 @@ class UserMoodsChart(graphene.ObjectType):
     user_id= graphene.String()
     moods_chart= graphene.List(MoodsAverageGroupByMonth)
 
-#class MoodsCount(graphene.ObjectType):
-#    happy= graphene.List(Mood)
-#    smile= graphene.List(Mood)
-#    neutral= graphene.List(Mood)
-#    sad= graphene.List(Mood)
-#    awful= graphene.List(Mood)
-#
-#class MoodsByMonth(graphene.ObjectType):
-#    moods= graphene.List(Mood)
-#    moods_count= graphene.Field(MoodsCount)
-
 #Mood/Auth
 class ProtectedUserMoods(graphene.Union):
     class Meta:
@@ -111,14 +100,6 @@ class ProtectedUserMoodsChart(graphene.Union):
     @classmethod
     def resolve_type(cls, instance, info):
         return type(instance)
-
-#class ProtectedMoodsByMonth(graphene.Union):
-#    class Meta:
-#        types= (MoodsByMonth, AuthInfoField)
-#    
-#    @classmethod
-#    def resolve_type(cls, instance, info):
-#        return type(instance)
 
 class ProtectedMood(graphene.Union):
     class Meta:

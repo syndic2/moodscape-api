@@ -1,4 +1,4 @@
-import graphene
+import datetime, graphene
 from flask import render_template
 from flask_graphql_auth import (
     get_jwt_identity,
@@ -38,7 +38,7 @@ class Authentication(graphene.Mutation):
             
             if google_auth is False:
                 return Authentication(response= ResponseMessage(text= 'Terjadi kesalahan terhadap akun Google anda, silahkan coba kembali', status= False))
-            elif google_auth is True:
+            else:
                 email_or_username= with_google.email
                 password= with_google.password
 
@@ -49,13 +49,20 @@ class Authentication(graphene.Mutation):
             ] 
         })
 
-        if authenticated_user is None or check_password_hash(authenticated_user['password'], password) is False:
+        if authenticated_user is None:
             return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
-
+        else:
+            try:
+                if not with_google and check_password_hash(authenticated_user['password'], password) is False:
+                    return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
+            except:
+                return Authentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
+        
         if 'img_url' not in authenticated_user:
             authenticated_user['img_url']= 'https://via.placeholder.com/100'
 
-        authenticated_user['date_of_birth']= authenticated_user['date_of_birth'].date()
+        if 'date_of_birth' in authenticated_user:
+            authenticated_user['date_of_birth']= authenticated_user['date_of_birth'].date()
 
         return Authentication(
             authenticated_user= authenticated_user,
@@ -70,6 +77,10 @@ class Authentication(graphene.Mutation):
 
         if exist:
             return None
+        
+        account_info['joined_at']= datetime.datetime.now()
+        account_info['is_admin']= False
+        account_info['is_active']= True
         
         result= mongo.db.users.insert_one(dict(account_info))
 
