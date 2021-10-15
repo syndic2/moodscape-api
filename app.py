@@ -6,6 +6,7 @@ from config import config
 from seeds import seed_cli
 from extensions import cors, auth, bcrypt, mail, mongo
 from resources.schema import main_schema, auth_schema
+from services.telegram import telegram_api
 
 app= Flask(__name__)
 
@@ -29,6 +30,8 @@ app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
     schema= auth_schema, 
     graphiql= True
 ))
+
+app.register_blueprint(telegram_api, url_prefix= '/telegram')
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -3,6 +3,7 @@ from extensions import mongo
 
 default_img= 'https://via.placeholder.com/100'
 upload_path= os.path.join(os.path.dirname(os.path.abspath(__file__)), '../uploads')
+telegram_sessions_path= os.path.join(os.path.dirname(os.path.abspath(__file__)), '../telegram_sessions')
 
 def is_uploaded_file_exist(file_name, sub_directory= 'images'):
     return os.path.isfile(os.path.join(f"{upload_path}/{sub_directory}", file_name))

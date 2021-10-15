@@ -40,7 +40,7 @@ class MutationRoot(
         UserMutation,
         MoodMutation,
         HabitMutation,
-        ActivityMutation, 
+        ActivityMutation,
         PsychologyDiseaseMutation,
         ArticleMutation,
         FeedbackMutation,

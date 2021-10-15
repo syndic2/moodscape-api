@@ -64,17 +64,6 @@ def re_structure_habit_output(fields, track_fields= None):
 
             for j in range(len(fields['track']['streak_logs'][i]['marked_at'])):
                 fields['track']['streak_logs'][i]['marked_at'][j]= fields['track']['streak_logs'][i]['marked_at'][j].date()
-    
-    #if (len(streak_logs)) > 0:
-    #    for streak_log in streak_logs:
-    #        streak_log['start_date']= streak_log['start_date'].date()
-    #        streak_log['end_date']= streak_log['end_date'].date()
-    #        streak_log['marked_at']= list(streak_log['marked_at'])
-#
-    #        for i in range(len(streak_log['marked_at'])):
-    #            streak_log['marked_at'][i]= streak_log['marked_at'][i].date()
-#
-    #    fields['streak_logs']= streak_logs
 
     return fields
 
@@ -103,12 +92,6 @@ class HabitTrack(graphene.ObjectType):
     total_streaks= graphene.Int()
     streak_logs= graphene.List(HabitStreakLog)
 
-#class HabitTrackDetail(graphene.ObjectType):
-#    current_goal= graphene.Int()
-#    #days_left= graphene.Int()
-#    completed= graphene.Int()
-#    last_marked_at= graphene.String()
-
 class HabitAbstract(graphene.AbstractType):
     name= graphene.String()
     description= graphene.String()
@@ -125,7 +108,6 @@ class Habit(HabitAbstract, graphene.ObjectType):
     _id= graphene.Int()
     created_at= graphene.Field(Timestamps)
     goal_dates= graphene.Field(HabitGoalDates)
-    #track_details= graphene.Field(HabitTrackDetail)
     track= graphene.Field(HabitTrack)
 
 class UserHabits(graphene.ObjectType):
