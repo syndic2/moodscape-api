@@ -12,8 +12,6 @@ seed_cli= AppGroup('seed_run')
 fake= Faker()
 seed_length= 15 #default seed data
 
-#615efa6d090a57f3964eaa57
-
 #seeder
 def user_seeder():
     mongo.db.sequences.delete_one({ '_id': 'users' })
@@ -260,11 +258,6 @@ def activity_seeder():
         if len(result.inserted_ids) == 0:
             print('Seeding activity_icons collection failed...')
             return
-        
-        sequence_seed= mongo.db.sequences.insert_one({ '_id': 'activity_icons', 'value': seed_length })
-        if sequence_seed.inserted_id is None:
-            print('Seeding activity_icons sequences collection failed...')
-            return
     	
         user_ids= [user['_id'] for user in mongo.db.users.find({})]
         icon_names= [icon['name'] for icon in mongo.db.activity_icons.find({})]
@@ -338,6 +331,27 @@ def activity_seeder():
         print('Seeding user_activities collection failed...')
         print('error: ', ex)
 
+def activity_icons_seeder():
+    mongo.db.sequences.delete_one({ '_id': 'activity_icons' })
+
+    try:
+        activity_icon_seeds= []
+        
+        for number in range(seed_length):
+            activity_icon_seeds.append({
+                '_id': number+1,
+                'name': fake.word()
+            })
+
+        result= mongo.db.activity_icons.insert_many(activity_icon_seeds)
+        if len(result.inserted_ids) == 0:
+            print('Seeding activity_icons collection failed...')
+            return
+        
+        print('Seeding activity_icons collection succeed...')
+    except Exception as ex:
+        print('Seeding activity_icons collection failed...')
+
 def app_feedback_seeder():
     mongo.db.app_feedbacks.delete_many({})
 
@@ -381,6 +395,10 @@ def run_habit_seeder():
 def run_activity_seeder():
     activity_seeder()
 
+@seed_cli.command('activity_icons_seeder')
+def run_activity_icons_seeder():
+    activity_icons_seeder()
+
 @seed_cli.command('app_feedback_seeder')
 def run_app_feedback_seeder():
     app_feedback_seeder()
@@ -401,7 +419,7 @@ def run_clear_seeds():
         'users', 'user_moods', 'user_activities', 'user_habits', 'user_articles',
         'moods', 'activity_icons', 'habits', 'habit_tracks', 'app_feedbacks', 'reset_passwords', 'array_sequences'
     ]
-    sequences= ['users', 'user_moods', 'user_habits', 'moods', 'activity_icons', 'habits', 'habit_tracks']
+    sequences= ['users', 'user_moods', 'user_habits', 'moods', 'habits']
 
     try:
         for collection in collections:
@@ -416,10 +434,10 @@ def run_clear_seeds():
                 return
         
         print(f'Clear collections: {collections} succeed...')
-        print(f'Clear sequence collections: {sequences} succeed')
+        print(f'Clear sequence collections: {sequences} succeed...')
     except Exception as ex:
-        print(f'Clear collections: {collections} succeed...')
-        print(f'Clear sequence collections: {sequences} succeed')
+        print(f'Clear collections: {collections} failed...')
+        print(f'Clear sequence collections: {sequences} failed...')
         print('error', ex)
 
 

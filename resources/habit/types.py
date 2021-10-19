@@ -120,11 +120,33 @@ class HabitResponse(graphene.ObjectType):
     habit= graphene.Field(Habit)
     response= graphene.Field(ResponseMessage)
 
+#User habits chart
+class HabitAverageGroupByYear(graphene.ObjectType):
+    year= graphene.Int()
+    habits= graphene.List(Habit)
+    average= graphene.Int()
+
+class HabitAverageGroupByMonth(graphene.ObjectType):
+    group= graphene.String()
+    habit_average_group_by_year= graphene.List(HabitAverageGroupByYear)
+
+class UserHabitsChart(graphene.ObjectType):
+    user_id= graphene.String()
+    habits_chart= graphene.List(HabitAverageGroupByMonth)
+
 #Habit/Auth
 class ProtectedUserHabits(graphene.Union):
     class Meta:
         types= (UserHabits, AuthInfoField)
     
+    @classmethod
+    def resolve_type(cls, instance, info):
+        return type(instance)
+
+class ProtectedUserHabitsChart(graphene.Union):
+    class Meta:
+        types= (UserHabitsChart, AuthInfoField)
+
     @classmethod
     def resolve_type(cls, instance, info):
         return type(instance)

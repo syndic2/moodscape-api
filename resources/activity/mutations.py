@@ -19,6 +19,10 @@ class CreateActivity(graphene.Mutation):
     @mutation_header_jwt_required
     def mutate(self, info, fields, activity_category_id):
         is_user_activities_exist= mongo.db.user_activities.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
+        query_conditions= {
+            'query_filter': { 'user_id': ObjectId(get_jwt_identity()) },
+            '$elemMatch': {}
+        }
 
         if is_user_activities_exist is None:
             create_user_activities= mongo.db.user_activities.insert_one({
@@ -45,11 +49,6 @@ class CreateActivity(graphene.Mutation):
                     response= ResponseMessage(text= 'Tidak dapat membuat user_activities baru, aktivitas gagal ditambahkan', status= False)
                 )
         else:
-            query_conditions= {
-                'query_filter': { 'user_id': ObjectId(get_jwt_identity()) },
-                '$elemMatch': {}
-            }
-
             if activity_category_id == 0:
                 is_none_category_exist= mongo.db.user_activities.find_one({
                     'user_id': ObjectId(get_jwt_identity()),

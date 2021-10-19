@@ -61,6 +61,8 @@ class GetUserMoods(graphene.AbstractType):
         #create year group
         for mood in moods:
             created_at= mood['created_at'].date()
+
+            #distinct year
             is_year_exist_in_group= [year_group for year_group in moods_chart[created_at.month-1]['mood_average_group_by_year'] if year_group['year'] == created_at.year]
 
             if len(is_year_exist_in_group) == 0:

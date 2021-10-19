@@ -23,7 +23,7 @@ class CreateAppFeedback(graphene.Mutation):
             )
         
         fields['user_id']= ObjectId(get_jwt_identity())
-        fields['created_at']= datetime.datetime.utcnow().replace(microsecond= 0)
+        fields['created_at']= datetime.datetime.now()
         result= mongo.db.app_feedbacks.insert_one(dict(fields))
 
         if result.inserted_id is None:
@@ -32,10 +32,15 @@ class CreateAppFeedback(graphene.Mutation):
                 response= ResponseMessage(text= 'Terjadi kesalahan pada server, gagal mengirimkan umpan balik', status= False)
             ) 
 
-        created_feedback= mongo.db.app_feedbacks.find({ 'user_id': ObjectId(get_jwt_identity()) }).sort('created_at', -1).limit(1)
+        created_feedback= mongo.db.app_feedbacks.find_one({ '_id': result.inserted_id, 'user_id': ObjectId(get_jwt_identity()) })
+        created_feedback['user']= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) })
+        created_feedback['created_at']= {
+            'date': created_feedback['created_at'].date(),
+            'time': created_feedback['created_at'].time()
+        }
 
         return CreateAppFeedback(
-            created_feedback= created_feedback[0], 
+            created_feedback= created_feedback, 
             response= ResponseMessage(text= 'Umpan balik berhasil terkirim', status= True)
         ) 
 
