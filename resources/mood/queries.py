@@ -153,11 +153,11 @@ class GetUserMoods(graphene.AbstractType):
             filter_conditions.append({ 'parameters.internal': { '$regex': filters.search_text, '$options': 'i' } })
         if filters.parameters.external is True:
             filter_conditions.append({ 'parameters.external': { '$regex': filters.search_text, '$options': 'i' } })
-        if not filters.activity_ids is False:
+        if len(filters.activity_ids) > 0:
             filter_conditions.append({ 'activities._id': { '$all': filters.activity_ids } })
         if filters.note is True:
             filter_conditions.append({ 'note': { '$regex': filters.search_text, '$options': 'i' } })
-
+        
         user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if user_moods is None or not user_moods['moods']:
@@ -166,7 +166,9 @@ class GetUserMoods(graphene.AbstractType):
                 response= ResponseMessage(text= 'Belum memiliki mood yang tersimpan', status= False)
             ) 
 
-        moods= list(mongo.db.moods.find({  '_id': { '$in': user_moods['moods'] }, '$or': filter_conditions }).sort('created_at', -1))
+        moods= []
+
+        if len(filter_conditions) > 0: moods= list(mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] }, '$and': filter_conditions }).sort('created_at', -1))
 
         for mood in moods:
             mood['created_at']= {

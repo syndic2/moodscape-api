@@ -259,7 +259,7 @@ class ChangePassword(graphene.Mutation):
     def mutate(self, root, old_password, new_password):
         user= mongo.db.users.find_one({ '_id': ObjectId(get_jwt_identity()) })
 
-        if user is None or check_password_hash(user['password'], old_password):
+        if user is None or check_password_hash(user['password'], old_password) is False:
             return ChangePassword(response= ResponseMessage(text= 'Gagal mengubah kata sandi, kata sandi lama salah', status= False))   
 
         result= mongo.db.users.find_one_and_update(
