@@ -1,4 +1,5 @@
 from flask.cli import AppGroup
+from flask_bcrypt import generate_password_hash
 from faker import Faker
 
 from datetime import datetime
@@ -11,6 +12,8 @@ from utilities.helpers import default_img, datetime_format
 seed_cli= AppGroup('seed_run')
 fake= Faker()
 seed_length= 15 #default seed data
+
+# ** old seeder code (probably not gonna use it anymore) **
 
 #seeder
 def user_seeder():
@@ -412,12 +415,124 @@ def run_all_seeder():
     activity_seeder()
     app_feedback_seeder()
 
+# **new seeder code below here**
+
+#seeds admin user
+@seed_cli.command('admin_user_seeder')
+def run_admin_user_seeder():
+    mongo.db.users.delete_many({ 'is_admin': True })
+    
+    try:
+        users= [
+            {
+                'first_name': 'Jonathan',
+                'last_name': 'Admin',
+                'email': 'jonathanadmin@gmail.com',
+                'username': 'admin2',
+                'password': generate_password_hash('kusogaki'), 
+                'joined_at': datetime.now(),
+                'is_admin': False,
+                'is_active': True
+            }
+        ]
+
+        result= mongo.db.users.insert_many(users)
+
+        if len(result.inserted_ids) == 0:
+            print('Seeding users(admin) collection failed...')
+            return  
+
+        print('Seeding users(admin) collection succced...')
+    except Exception as ex:
+        print('Seeding users(admin) collection failed...')
+        print('error', ex)
+
+#seeds theme
+@seed_cli.command('theme_seeder')
+def run_theme_seeder():
+    mongo.db.themes.delete_many({})
+
+    try:
+        themes= [
+            {
+                'name': 'Comfort Light Green',
+                'colors': {
+                    'primary': '#aed9b2',
+                    'primary_rgb': '174, 217, 178',
+                    'primary_contrast': '#ffffff',
+                    'primary_contrast_rgb': '255, 255, 255',
+                    'primary_shade': '#99bf9d',
+                    'primary_tint': '#b6ddba'
+                },
+                'is_active': True
+            },
+            {
+                'name': 'Pink Dogwood',
+                'colors': {
+                    'primary': '#f7d1d1',
+                    'primary_rgb': '247, 209, 209',
+                    'primary_contrast': '#ffffff',
+                    'primary_contrast_rgb': '255, 255, 255',
+                    'primary_shade': '#d9b8b8',
+                    'primary_tint': '#f8d6d6'
+                },
+                'is_active': True
+            },
+            {
+                'name': 'Bright Pastel Orange',
+                'colors': {
+                    'primary': '#ffb650',
+                    'primary_rgb': '255, 182, 80',
+                    'primary_contrast': '#ffffff',
+                    'primary_contrast_rgb': '2555, 255, 255',
+                    'primary_shade': '#e0a046',
+                    'primary_tint': '#ffbd62'
+                },
+                'is_active': True
+            },
+            {
+                'name': 'Red Shimmer',
+                'colors': {
+                    'primary': '#f5595c',
+                    'primary_rgb': '245, 89, 92',
+                    'primary_contrast': '#ffffff',
+                    'primary_contrast_rgb': '255, 255, 255',
+                    'primary_shade': '#d84e51',
+                    'primary_tint': '#f66a6c'
+                },
+                'is_active': True
+            },
+            {
+                'name': 'Purple Rose',
+                'colors': {
+                    'primary': '#b09fca',
+                    'primary_rgb': '176, 159, 202',
+                    'primary_contrast': '#ffffff',
+                    'primary_contrast_rgb': '255, 255, 2555',
+                    'primary_shade': '#9b8cb2',
+                    'primary_tint': '#b8a9cf'
+                },
+                'is_active': True
+            },
+        ]
+
+        result= mongo.db.themes.insert_many(themes)
+
+        if len(result.inserted_ids) == 0:
+            print('Seeding themes collection failed...')
+            return
+
+        print('Seeding themes collection succeed...')
+    except Exception as ex:
+        print('Seeding themes collection failed...')
+        print('error', ex)
+
 #clear seeds
 @seed_cli.command('clear_seeds')
 def run_clear_seeds():
     collections= [
         'users', 'user_moods', 'user_activities', 'user_habits', 'user_articles',
-        'moods', 'activity_icons', 'habits', 'habit_tracks', 'app_feedbacks', 'reset_passwords', 'array_sequences'
+        'moods', 'activity_icons', 'habits', 'habit_tracks', 'themes', 'app_feedbacks', 'reset_passwords', 'array_sequences'
     ]
     sequences= ['users', 'user_moods', 'user_habits', 'moods', 'habits']
 

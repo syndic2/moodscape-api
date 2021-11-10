@@ -16,28 +16,28 @@ class UserQuery(graphene.AbstractType):
     get_user_profile= graphene.Field(ProtectedUser) 
 
     def resolve_get_users(self, info):
-        users= list(mongo.db.users.find({}))
+        users= list(mongo.db.users.find({ 'is_admin': False }))
 
         for user in users:
-            user['date_of_birth']= user['date_of_birth'].date()
+            if 'date_of_birth' in user and user['date_of_birth'] is not None: user['date_of_birth']= user['date_of_birth'].date()
             user['joined_at']= user['joined_at'].date()
             
-            if user['img_url'] != default_img and is_uploaded_file_exist(user['img_url'].split('/')[-1]) is False:
-                result= mongo.db.users.update_one(
-                    { '_id': ObjectId(user['_id']) },
-                    { '$set': { 'img_url': default_img } }
-                )
-
-                if result.modified_count == 0:
-                    return []
-                
-                user['img_url']= default_img
+            #if user['img_url'] != default_img and is_uploaded_file_exist(user['img_url'].split('/')[-1]) is False:
+            #    result= mongo.db.users.update_one(
+            #        { '_id': ObjectId(user['_id']) },
+            #        { '$set': { 'img_url': default_img } }
+            #    )
+#
+            #    if result.modified_count == 0:
+            #        return []
+            #    
+            #    user['img_url']= default_img
 
         return users    
 
     def resolve_get_users_group_by_gender(self, info):
-        males= mongo.db.users.find({ 'gender': 'M' })
-        females= mongo.db.users.find({ 'gender': 'F' })
+        males= mongo.db.users.find({ 'gender': 'M', 'is_admin': False })
+        females= mongo.db.users.find({ 'gender': 'F', 'is_admin': False })
 
         return UsersGroupByGender(
             males= males,
@@ -45,7 +45,7 @@ class UserQuery(graphene.AbstractType):
         )
 
     def resolve_get_users_group_by_age(self, info):
-        users= list(mongo.db.users.find({}))
+        users= list(mongo.db.users.find({ 'is_admin': False }))
         childrens= []
         teenagers= [] 
         adults= [] 
@@ -53,7 +53,7 @@ class UserQuery(graphene.AbstractType):
         above_elders= []   
 
         for user in users:
-            age= calculate_age(user['date_of_birth'].date())
+            if 'date_of_birth' in user and user['date_of_birth'] is not None: age= calculate_age(user['date_of_birth'].date())
 
             if age >= 5 and age <= 11:
                 childrens.append(user)
@@ -87,7 +87,7 @@ class UserQuery(graphene.AbstractType):
         start_date= datetime.datetime.strptime(start_date, datetime_format('date'))
         end_date= datetime.datetime.strptime(end_date, datetime_format('date'))
 
-        users= list(mongo.db.users.find({ 'joined_at': { '$gte': start_date, '$lte': end_date } }))
+        users= list(mongo.db.users.find({ 'joined_at': { '$gte': start_date, '$lte': end_date }, 'is_admin': False }))
         users_growth_by_year= []
 
         for number in range(12):

@@ -1,11 +1,6 @@
 import datetime, graphene
 from flask import render_template
-from flask_graphql_auth import (
-    get_jwt_identity,
-    create_access_token, 
-    create_refresh_token, 
-    mutation_jwt_refresh_token_required
-)
+from flask_graphql_auth import get_jwt_identity, create_access_token, create_refresh_token, mutation_jwt_refresh_token_required
 from flask_bcrypt import check_password_hash
 from flask_mail import Message
 from bson import ObjectId
@@ -16,6 +11,35 @@ import secrets
 from extensions import mail, mongo
 from ..user.types import UserInput, User
 from ..utility_types import ResponseMessage
+
+class AdminAuthentication(graphene.Mutation):
+    class Arguments:
+        email_or_username= graphene.String()
+        password= graphene.String()
+
+    authenticated_user= graphene.Field(User)
+
+    access_token= graphene.String()
+    refresh_token= graphene.String()
+    response= graphene.Field(ResponseMessage)
+    
+    def mutate(self, info, email_or_username, password):
+        result= mongo.db.users.find_one({
+            '$or': [
+                { 'email': email_or_username },
+                { 'username': email_or_username }
+            ],
+            'is_admin': True 
+        })
+
+        if result is None or check_password_hash(result['password'], password) is False:
+            return AdminAuthentication(response= ResponseMessage(text= 'Alamat surel/nama pengguna atau kata sandi anda salah!', status= False))
+
+        return AdminAuthentication(
+            access_token= create_access_token(str(result['_id'])),
+            refresh_token= create_refresh_token(str(result['_id'])),
+            response= ResponseMessage(text= 'Berhasil masuk', status= True)
+        )
 
 class Authentication(graphene.Mutation):
     class Arguments:
@@ -28,7 +52,7 @@ class Authentication(graphene.Mutation):
     refresh_token= graphene.String()
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, root, email_or_username, password, with_google):
+    def mutate(self, info, email_or_username, password, with_google):
         #if email_or_username is None or password is None or email_or_username == '' or password == '':
         #    return Authentication(response= ResponseMessage(text= 'Kolom tidak boleh ada yang kosong!', status= False))
 
@@ -46,7 +70,8 @@ class Authentication(graphene.Mutation):
             '$or': [
                 { 'email': email_or_username },
                 { 'username': email_or_username }
-            ] 
+            ],
+            'is_admin': False 
         })
 
         if authenticated_user is None:
@@ -68,7 +93,7 @@ class Authentication(graphene.Mutation):
             authenticated_user= authenticated_user,
             access_token= create_access_token(str(authenticated_user['_id'])),
             refresh_token= create_refresh_token(str(authenticated_user['_id'])),
-            response= ResponseMessage(text= 'Login success', status= True)
+            response= ResponseMessage(text= 'Berhasil masuk', status= True)
         )
     
     @staticmethod
@@ -108,7 +133,7 @@ class RequestResetPassword(graphene.Mutation):
     reset_url= graphene.String()
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, root, email):
+    def mutate(self, info, email):
         user= mongo.db.users.find_one({ 'email': email })
 
         if user is None:
@@ -143,7 +168,7 @@ class ResetPassword(graphene.Mutation):
     user_with_new_password= graphene.Field(User)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, root, reset_token, new_password):
+    def mutate(self, info, reset_token, new_password):
         requested_reset= mongo.db.reset_passwords.find_one({ 'token': reset_token })
 
         if requested_reset is None:
@@ -164,6 +189,7 @@ class ResetPassword(graphene.Mutation):
         return ResetPassword(user_with_new_password= User(result), response= ResponseMessage(text= 'Berhasil melakukan pengubahan kata sandi', status= True))
 
 class AuthMutation(graphene.AbstractType):
+    admin_login= AdminAuthentication.Field()
     login= Authentication.Field()
     refresh_auth= RefreshAuthentication.Field()
     request_reset_password= RequestResetPassword.Field()

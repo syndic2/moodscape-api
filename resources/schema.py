@@ -21,6 +21,9 @@ from .psychology_disease.mutations import PsychologyDiseaseMutation
 from .article.queries import ArticleQuery
 from .article.mutations import ArticleMutation
 
+from .theme.queries import ThemeQuery
+from .theme.mutations import ThemeMutation
+
 from .feedback.queries import FeedbackQuery
 from .feedback.mutations import FeedbackMutation
 
@@ -31,6 +34,7 @@ class QueryRoot(
         ActivityQuery,
         PsychologyDiseaseQuery, 
         ArticleQuery,
+        ThemeQuery,
         FeedbackQuery,
         graphene.ObjectType
     ):
@@ -43,6 +47,7 @@ class MutationRoot(
         ActivityMutation,
         PsychologyDiseaseMutation,
         ArticleMutation,
+        ThemeMutation,
         FeedbackMutation,
         graphene.ObjectType
     ):
