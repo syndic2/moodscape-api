@@ -78,3 +78,9 @@ def get_sequence_in_array(collection, document_id, array_documents):
     document= mongo.db.array_sequences.find_one_and_update(is_document_exist_query, { '$inc': { 'value': 1 } }, return_document= True)
 
     return document['value']
+
+def object_id_to_string_in_list(data, key_id= '_id'):
+    for i in range(len(data)):
+        data[i][key_id]= str(data[i][key_id])
+
+    return data

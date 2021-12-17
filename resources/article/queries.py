@@ -43,30 +43,31 @@ class GetArticle(graphene.ObjectType):
         offset= kwargs.get('offset')
         limit= kwargs.get('limit')
 
-        total_articles= mongo.db.articles.find({}).count()
+        articles= list(mongo.db.articles.find({}))
+        total_articles= len(articles)
 
-        #PAGINATE
-        if offset < len(list(mongo.db.articles.find({}))):
-            last_id= dict(mongo.db.articles.find({}).sort('_id')[offset])['_id']
+        #PAGINATE   
+        if offset < total_articles:
+            last_id= articles[offset]['_id']
             fields['_id']= { '$gte': last_id }
         else:
-            fields['_id']= { '$gte': total_articles-limit }
-        
-        articles= mongo.db.articles.find(dict(fields)).limit(limit)
-        articles = sorted(articles, key= lambda i: i['_id'], reverse= True)
+            fields['_id']= { '$gte': len(articles)-limit }
 
-        for article in articles:
-            article['posted_at']= article['posted_at'].date()
+        paginated_articles= []
+
+        for i in range(offset, len(articles))[:limit]:
+            articles[i]['posted_at']= articles[i]['posted_at'].date()
+            paginated_articles.append(articles[i])
 
         return ArticlePagination(
             offset= offset,
             limit= limit,
             max_page= total_articles/limit,
-            articles= articles
+            articles= paginated_articles
         )
     
     def resolve_get_article(self, info, _id): 
-        article= mongo.db.articles.find_one({ '_id': ObjectId(_id) })
+        article= mongo.db.articles.find_one({ '_id': _id })
         article['posted_at']= article['posted_at'].date()
 
         return article
@@ -81,8 +82,8 @@ class GetArticle(graphene.ObjectType):
         if fields.title:
             fields['title']= { '$regex': fields['title'], '$options': 'i' }
 
-        articles= mongo.db.articles.find(fields)
-        
+        articles= list(mongo.db.articles.find(fields).sort('_id', -1))
+
         for article in articles:
             article['posted_at']= article['posted_at'].date()
 
@@ -123,7 +124,7 @@ class GetUserArticles(graphene.ObjectType):
         if fields.title:
             fields['title']= { '$regex': fields['title'], '$options': 'i' }
 
-        articles= mongo.db.articles.find(fields)
+        articles= list(mongo.db.articles.find(fields).sort('_id', -1))
 
         for article in articles:
             article['posted_at']= article['posted_at'].date()

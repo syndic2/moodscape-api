@@ -6,6 +6,7 @@ from config import config
 from seeds import seed_cli
 from extensions import cors, auth, bcrypt, mail, mongo
 from resources.schema import main_schema, auth_schema
+from services.mental_disorders import mental_disorder_api
 from services.telegram import telegram_api
 
 app= Flask(__name__)
@@ -31,6 +32,7 @@ app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
     graphiql= True
 ))
 
+app.register_blueprint(mental_disorder_api, url_prefix= '/api/mental-disorders')
 app.register_blueprint(telegram_api, url_prefix= '/telegram')
 
 @app.errorhandler(404)

@@ -1,0 +1,1657 @@
+[
+  {
+    "name": "Agorofobia",
+    "short_description": "Agoraphobia atau agorafobia adalah jenis gangguan kecemasan yang membuat penderita takut berlebihan terhadap ruangan terbuka atau tempat umum. Penderita biasanya menghindari tempat maupun situasi yang mungkin memicu panik, terperangkap, tidak berdaya, atau malu.",
+    "types": [
+      {
+        "name": "Agorafobia terkait serangan panik",
+        "short_description": "Sebagian kasus agorafobia berkembang sebagai komplikasi dari gangguan panik. Kondisi ini muncul setelah penderita mengalami serangan panik dalam situasi atau lingkungan tertentu, yang menyebabkan trauma. Akbatnya, penderita akan berusaha menghindarinya."
+      },
+      {
+        "name": "Agorafobia yang tidak terkait serangan panik",
+        "short_description": "Agorafobia juga bisa diderita oleh orang yang tidak terkena gangguan panik. Kondisi ini bisa muncul pada mereka yang mengalami ketakutan berlebih pada kondisi tertentu."
+      }
+    ],
+    "signs_and_sympthomps": [
+      {
+        "point": "Adanya ketakutan atau kecemasan yang terlihat jelas pada setidaknya dua dari lima situasi berikut ini",
+        "description_points": [
+          "Menggunakan transportasi umum, seperti bus, kereta, pesawat, dan kapal.",
+          "Berada di tempat terbuka, seperti pasar, tempat parkir, dan sebagainya.",
+          "Berada di tempat tertutup, seperti toko, bioskop, dan sebagainya.",
+          "Mengantre atau berada di tengah keramaian.",
+          "Sendirian di luar rumah."
+        ]
+      },
+      {
+        "point": "Individu menghindari situasi-situasi tersebut karena berpikir bahwa sulit untuk melarikan diri atau tidak akan mendapat bantuan saat gejala-gejala panik atau peristiwa yang memalukan terjadi (contoh, takut jatuh di dekapan orang yang tua atau takut mengompol di tempat umum).",
+        "description_points": []
+      },
+      { "point": "Situasi-situasi tersebut hampir selalu memicu rasa takut atau cemas secara langsung.", "description_points": [] },
+      { "point": "Penderita memendam kondisinya meski merasakan ketakutan atau kecemasan yang intens.", "description_points": [] },
+      { "point": "Penyebab rasa cemas atau takut bukanlah ancaman yang benar-benar terjadi.", "description_points": [] },
+      { "point": "Rasa cemas, takut, atau sikap menghindar terus berlangsung selama enam bulan atau lebih.", "description_points": [] },
+      { "point": "Rasa takut, cemas, atau sikap menghindar mengganggu kehidupan penderita, baik secara sosial, pekerjaan, dan lainnya.", "description_points": [] },
+      { "point": "Jika penderita didiagnosis mengalami kondisi medis tertentu, rasa takut, cemas, dan sikap menghindarnya muncul secara berlebihan.", "description_points": [] },
+      {
+        "point": "Rasa takut, cemas, atau sikap menghindar yang tidak berkaitan dengan gejala gangguan mental lain. Misalnya, fobia secara spesifik atau tergantung situasi, gangguan kecemasan sosial, gangguan obsesif-kompulsif, gangguan dismorfik tubuh (body dysmorphic disorder), post-traumatic disorder, atau separation anxiety disorder.",
+        "description_points": []
+      }
+    ],
+    "causes": [
+      "Pengidap agorafobia umumnya masih anak-anak, tapi juga bisa mulai terjadi pada akhir remaja atau awal dewasa sebelum usia 35 tahun.",
+      "Jenis kelamin perempuan. Kaum hawa lebih berisiko untuk mengalami agorafobia daripada pria.",
+      "Mengalami gangguan panik atau fobia lain.",
+      "Menanggapi serangan panik dengan takut dan sikap menghindar yang berlebihan.",
+      "Mempunyai sikap mudah cemas atau gugup.",
+      "Memiliki anggota keluarga dengan gangguan sejenis.",
+      "Memiliki pengalaman traumatis di masa kecil, seperti kematian orang tua atau pelecehan seksual.",
+      "Mengalami peristiwa yang membuat stres, seperti kehilangan orang yang dicintai, perceraian, atau kehilangan pekerjaan.",
+      "Memiliki riwayat penyakit mental, seperti depresi, anoreksia, atau bulimia.",
+      "Menyalahgunakan alkohol atau narkoba.",
+      "Sedang mengalami hubungan yang toksik.",
+      "Takut menjadi korban kejahatan atau serangan teroris jika keluar rumah.",
+      "Takut tertular penyakit mematikan jika berkerumun.",
+      "Takut melakukan sesuatu yang memalukan di depan orang lain."
+    ],
+    "diagnosis": [
+      { "point": "Tanya jawab", "description": "Dokter akan menanyakan dan mengamai gejala yang dialami oleh pasien. Demikian pula dengan faktor risiko pasien." },
+      { "point": "Pemeriksaan fisik", "description": "Dokter akan mencari ada tidaknya tanda-tanda agorafobia pada pasien." },
+      { "point": "Wawancara dengan ahli kejiwaan", "description": "Pasien perlu menjalani wawancara dengan dokter spesialis kejiwaan atau psikolog." },
+      { "point": "Diagnosis berdasarkan kriteria di DSM-5", "description": "Sebagian besar dokter ahli jiwa akan menentukan diagnosis agorafobia dengan kriteria DSM-5, yang berisi daftar gejala serta kuosioner." }
+    ],
+    "complications": [
+      "Penderita tidak mau meninggalkan rumah, sehingga tidak bisa bekerja, bersekolah, atau beraktivitas dengan normal.",
+      "Depresi.",
+      "Penyalahgunaan alkohol atau narkoba.",
+      "Gangguan kesehatan lain, termasuk gangguan kecemasan atau gangguan kepribadian lainnya."
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Salah satu jenis psikoterapi yang efektif dalam menangani agorafobia adalah terapi perilaku kognitif (cognitive behavioral therapy/CBT). Terapi ini dapat membantu penderita untuk mempelajar beberapa hal berikut.",
+        "description_points": [
+          "Mengidentifikasi hal-hal yang memicu dan memperparah gejala serangan panik.",
+          "Mengetahui cara mengatasi dan mentoleransi gejala-gejala yang muncul.",
+          "Mengenali cara menghadapi pemikiran yang memicu rasa cemas.",
+          "Mengubah perilaku yang tidak sehat dengan teknik desentisisasi atau terapi paparan (exposure therapy). Terapi ini menempatkan penderita pada situasi atau kondisi memicu rasa takut dan cemas, namun dengan pengawasan dari ahli sehingga tetap aman. "
+        ]
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Dokter umumnya memberikan beberapa obat di bawah ini untuk penderita agiorafobia",
+        "description_points": [
+          "Antidepresan",
+          "Anticemas"
+        ]
+      },
+      {
+        "point": "Penanganan mandiri",
+        "description": "Jika mengalami agorafobia, beberapa hal di bawah ini dapat dilakukan",
+        "description_points": [
+          "Mematuhi penanganan yang diberikan oleh dokter.",
+          "Mengelola stres, misalnya mempelajari teknik relaksasi (seperti meditasi dan yoga).",
+          "Menghindari rokok, alkohol, kafein, dan narkotika.",
+          "Berbagi cerita dengan orang-orang terdekat mengenai masalah yang dialami.",
+          "Bergabung dalam support group agar dapat saling berdiskusi dan mendukung sesama pengidap agorafobia.",
+          "Menerapkan pola hidup yang sehat, seperti mengonsumsi makanan dengan gizi seimbang, cukup istirahat, dan teratur berolahraga.",
+          "Jangan terus menghindari situasi atau tempat yang memicu cemas maupun takut, dan hadapilah secara bertahap."
+        ]
+      }
+    ],
+    "how_to_prevent": ["Karena penyebabnya belum diketahui secara pasti, cara mencegah agorafobia juga belum tersedia. \r\n Agorafobia dan kecemasan biasanya akan meningkat saat penderita terus-menerus menghindari situasi yang ia takuti. Karena itu, penderita sebaiknya berusaha untuk tetap mendatangi tempat atau situasi yang membuatnya takut serta cemas. \r\n Dengan begitu, penderita perlahan-lahan mampu mengalahkan rasa takut maupun cemas yang menderanya. Namun lakukan langkah ini dengan hati-hati. \r\n Jika merasa kesulitan, penderita dapat meminta bantuan dari keluarga atau orang terdekat untuk menemani."]
+  },
+
+  {
+    "name": "Anoreksia Nervosa",
+    "short_description": "Anoreksia nervosa adalah gangguan makan (eating disorder) yang berpotensi mengancam jiwa. Kondisi ini ditandai dengan aneka masalah psikologi terkait berat badan, bentuk tubuh, dan control terhadap konsumsi makanan.",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Perubahan warna jari-jari menjadi kebiruan", "description_points": [] },
+      { "point": "Penurunan berat badan yang ekstrem dan tidak sesuai dengan perkembangan", "description_points": [] },
+      { "point": "Rambut yang menipis, patah, atau rontok", "description_points": [] },
+      { "point": "Menstruasi terganggu (bagi wanita)", "description_points": [] },
+      { "point": "Penampilan kurus berlebihan, hingga tulang terlihat menonjol", "description_points": [] },
+      { "point": "Adanya rambut-rambut halus yang menutupi tubuh (lanugo)", "description_points": [] },
+      { "point": "Dehidrasi", "description_points": [] },
+      { "point": "Membatasi asupan makanan secara berlebihan", "description_points": [] },
+      { "point": "Olahraga secara berlebihan", "description_points": [] },
+      { "point": "Menyangkal rasa lapar dan menghindari makanan", "description_points": [] },
+      { "point": "Makan dalam jumlah yang sedikit atau bahkan tidak makan sama sekali", "description_points": [] },
+      { "point": "Berbohong tentang apa yang dimakan, berapa jumlah makanan yang dimakan, kapan mulai makan, ataupun angka berat badan", "description_points": [] },
+      { "point": "Selalu melihat diri di cermin untuk melihat kekurangan yang dirasakan", "description_points": [] },
+      { "point": "Berkurangnya minat terhadap seks", "description_points": [] },
+      { "point": "Adanya rasa sakit di perut dan konstipasi", "description_points": [] },
+      { "point": "Menarik diri dari kehidupan sosial", "description_points": [] },
+      { "point": "Mengecek berat badan berulang-ulang", "description_points": [] },
+      { "point": "Insomnia", "description_points": [] },
+      { "point": "Mudah marah", "description_points": [] },
+      { "point": "Mudah lelah", "description_points": [] }
+    ],
+    "causes": [
+      "Kondisi ini lebih rentan dialami oleh kaum perempuan. Namun, laki-laki juga bisa mengalaminya dan biasanya terkait dengan meningkatnya tekanan social.",
+      "Kaum remaja lebih umum menderita gangguan makan ini. Akan tetapi semua usia bisa mengalami Anoreksia nervosa meski jarang menimpa mereka yang berusia 40 tahun ke atas.",
+      "Pada beberapa individu, perubahan gen tertentu membuat mereka memiliki risiko anoreksia yang lebih tinggi. Jika memiliki orang tua, saudara kandung, atau anak yang memiliki gangguan ini lebih berisiko mengalami hal yang sama.",
+      "Faktor risiko lain adalah menjalani diet atau sering mengalami kelaparan. Mereka yang mengalami kelaparan akan terpengaruh otak dan suasana hatinya termasuk cara piker, kecemasan, dan penurunan nafsu makan.",
+      "Mereka yang tinggal di lingkungan baru, mengalami putus hubungan, ditinggal mati orang tercinta, atau orang tercinta menderita penyakit tertentu juga berisiko mengalami kondisi ini."
+    ],
+    "diagnosis": [
+      { "point": "Pemeriksaan fisik dengan mengukur tinggi badan, berat badan, tanda-tanda vital, dan lainnya", "description": "" },
+      { "point": "Evaluasi psikologis untuk mengecek pikiran, perasaan dan kebiasaan makan penderita", "description": "" },
+      { "point": "Tes laboratorium yang akan mendapatkan hasil hitung darah lengkap, serta tes darah untuk melihat fungsi hati, ginjal, dan sebagainya", "description": "" },
+      {
+        "point": "Tes-tes lainnya berupa X-ray untuk mengecek kepadatan tulang, ada tidaknya keretakan atau patahan di tulang, kemungkinan pneunomia, atau masalah jantung, serta penggunaan Electrocardiograms untuk melihat ada tidaknya keanehan di jantung",
+        "description": ""
+      },
+      {
+        "point": "Membatasi asupan kalori sampai di bawah konsumsi energi yang dibutuhkan sehingga berat badan menjadi rendah secara signifikan dilihat dari segi usia, jenis kelamin, tahap perkembangan, dan kesehatan fisik. Berat badan yang rendah didefinisikan sebagai berat badan yang berada di bawah normal.",
+        "description": ""
+      },
+      {
+        "point": "Persepsi mengenai bentuk atau berat badan individu yang terganggu, efek yang tidak sesuai dari berat atau bentuk badan pada evaluasi diri, atau kurangnya kesadaran akan keseriusan dari berat badan individu yang rendah secara terus-menerus.",
+        "description": ""
+      },
+      {
+        "point": "Rasa takut yang intens mengenai kenaikan berat badan atau menjadi gemuk, atau perilaku yang menghalangi kenaikan berat badan secara terus-menerus, meskipun berat badan individu sudah sangat rendah.",
+        "description": ""
+      }
+    ],
+    "complications": [
+      "Anemia atau kurang darah",
+      "Masalah pada jantung, seperti prolaps katup mitral, irama jantung abnormal, atau gagal jantung heart",
+      "Pengeroposan tulang (osteoporosis) yang membuat risiko patah tulang kian tinggi",
+      "Kehilangan otot",
+      "Pada wanita, tidak mengalami menstruasi",
+      "Pada pria, terjadinya penurunan hormone testosteron",
+      "Masalah gastrointestinal, seperti sembelit, kembung, atau mual",
+      "Ketidakseimbangan elektrolit, seperti rendahnya kadar kalium darah, natrium, dan klorida",
+      "Masalah ginjal",
+      "Kerusakan organ jika penderitanya mengalami anoreksia parah. Organ yang bisa mengalami kerusakan antara lain otak, jantung, dan ginjal",
+      "Depresi, kecemasan, dan gangguan suasana hati lainnya",
+      "Gangguan kepribadian",
+      "Gangguan obsesif-kompulsif",
+      "Penyalahgunaan alkohol dan obat terlarang",
+      "Keinginan melukai diri sendiri, pikiran untuk bunuh diri, atau upaya bunuh diri"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Secara khusus cognitive behavioral therapy (CBT) pada terapi individu dapat membantu individu dewasa. Namun, obat-obatan tidak dianjurkan untuk mengatasi penyakit Anoreksia.",
+        "description_points": []
+      },
+      {
+        "point": "Jika Anda mengalami anoreksia, berikut beberapa hal yang dapat membantu Anda",
+        "description": "",
+        "description_points": [
+          "Jangan mengisolasi diri Anda dan beritahukan kondisi Anda kepada orang-orang terdekat",
+          "Tetap mengikuti perawatan yang telah dilakukan",
+          "Tahan diri Anda untuk tidak terus-menerus menimbang berat badan ataupun mengecek bentuk badan Anda di depan cermin",
+          "Berdiskusi dengan dokter atau ahli gizi Anda mengenai diet serta suplemen yang Anda butuhkan"
+        ]
+      },
+      {
+        "point": "Keluarga, teman, dan lingkungan sekitar dapat membantu penderita dengan",
+        "description": "",
+        "description_points": [
+          "Memberitahukan bahwa menjadi terlalu kurus bukan berarti menjadi lebih baik",
+          "Mendukung penderita untuk jujur mengenai perasaannya",
+          "Memberitahukan penderita bahwa Anda tidak ingin dia menjadi sempurna karena kesempurnaan itu tidak ada",
+          "Berdiskusi dengan dokter atau ahli gizi Anda mengenai diet serta suplemen yang Anda butuhkan",
+          "Menekankan pentingnya karakter penderita dan bukan fisiknya",
+          "Membantu membangun harga diri penderita",
+          "Mengajari penderita mengenai bahaya diet yang ekstrem"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Pencegahan anoreksia nervosa biasanya melibatkan keluarga. Anggota keluarga bisa berperan penting dengan membantu penderita menghargai tubuhnya dan tidak memiliki persepsi yang salah mengenai tubuhnya. \r\n Anggota keluarga juga bisa mencegah penderita mengalami anorexia yang semakin parah dengan menghubungi dokter dan ahli kesehatan mental lainnya secepatnya jika sudah ada beberapa gejala yang terlihat. \r\n Namun, yang paling terpenting adalah kepekaan lingkungan di sekitar penderita untuk dapat mendeteksi kemungkinan individu mengalami anoreksia."
+    ]
+  },
+
+  {
+    "name": "Autisme",
+    "short_description": "Autism apectrum disorder (ASD) atau autisme adalah kondisi yang berhubungan dengan gangguan perkembangan otak pada bagian interaksi sosial dan komunikasi penderitanya.",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Regresi atau penurunan perkembangan", "description_points": [] },
+      { "point": "Tidak adanya penunjuk protodeklaratif, yaitu kegagalan fokus", "description_points": [] },
+      { "point": "Reaksi abnormal terhadap rangsangan lingkungan", "description_points": [] },
+      { "point": "Interaksi sosial yang tidak normal", "description_points": [] },
+      { "point": "Tidak ada respons khas terhadap rasa sakit dan cedera fisik", "description_points": [] },
+      { "point": "Keterlambatan dan penyimpangan bahasa", "description_points": [] },
+      { "point": "Tidak adanya permainan simbolis", "description_points": [] },
+      { "point": "Perilaku yang berulang dan stereotipik", "description_points": [] }
+    ],
+    "causes": [
+      "Mutasi gen, seperti sindrom Rett atau fragile X syndrome ",
+      "Faktor lingkungan, misalnya infeksi, obat-obatan, komplikasi semasa kehamilan, atau polusi udara",
+      "Jenis kelamin laki-laki",
+      "Faktor keturunan, contohnya pasangan dengan anak autisme akan mempunyai risiko lebih tinggi untuk kembali memiliki anak dengan kondisi serupa",
+      "Bayi prematur",
+      "Usia orang tua yang lebih tua saat memiliki anak"
+    ],
+    "diagnosis": [
+      {
+        "point": "Melakukan tes genetik untuk mengidentifikasi apakah anak memiliki penyakit genetik seperti Sindrom Rett atau fragile X syndrome",
+        "description": ""
+      },
+      {
+        "point": "Memberikan tes-tes yang meliputi kemampuan mendengar, berkomunikasi, berbahasa, tingkat perkembangan, dan masalah-masalah dalam sosial dan perilaku",
+        "description": ""
+      },
+      {
+        "point": "Melakukan observasi pada anak serta menanyakan interaksi sosial, latar belakang keluarga, kemampuan berkomunikasi, dan perubahan-perubahan perilaku anak pada orangtua",
+        "description": ""
+      },
+      {
+        "point": "Memberikan suatu interaksi komunikasi dan sosial yang terstruktur pada anak dan menilai bagaimana anak meresponi interaksi tersebut.",
+        "description": ""
+      },
+      {
+        "point": "Menggunakan kriteria-kriteria dari DSM-5 untuk mendiagnosis apakah anak memiliki ASD",
+        "description": ""
+      }
+    ],
+    "complications": [
+      "Masalah di sekolah dan dengan keberhasilan belajar",
+      "Masalah ketenagakerjaan",
+      "Ketidakmampuan untuk hidup mandiri",
+      "Isolasi sosial",
+      "Stres dalam keluarga",
+      "Menjadi korban penindasan"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Obat-obatan",
+        "description": "Obat-obatan biasa diberikan untuk meringankan gejala-gejala ASD saja, beberapa pilihan obat yang diberikan adalah:",
+        "description_points": [
+          "Obat tidur untuk membantu gangguan tidur yang dialami",
+          "Antipsikotik untuk menangani masalah-masalah perilaku yang parah.",
+          "Obat untuk meringankan gejala hiperaktif",
+          "Antidepresan untuk mengatasi kecemasan dan depresi"
+        ]
+      },
+      {
+        "point": "Terapi edukasi",
+        "description": "Terapi edukasi dilakukan dengan cara mengikuti program edukasi yang sangat terstuktur.",
+        "description_points": []
+      },
+      {
+        "point": "Terapi keluarga",
+        "description": "Terapi keluarga bertujuan meningkatkan kemampuan interaksi sosial dan komunikasi anak, menangani perilaku-perilaku anak yang bermasalah, serta mengajarkan kemampuan dasar untuk kehidupan sehari-hari melalui bermain dan berinteraksi.",
+        "description_points": []
+      },
+      {
+        "point": "Terapi perilaku dan komunikasi",
+        "description": "Terapi ini sangat bergantung pada susunan programnya. Ada program yang lebih fokus pada mengajarkan anak untuk mengurangi perilaku-perilaku yang bermasalah serta mengajarkan kemampuan baru.",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": ["Langkah pencegahan gangguan spektrum autisme tidak diketahui hingga saat ini. Pasalnya, penyebabnya juga belum diketahui secara pasti. \r\n Namun Ada bisa mengurangi risiko penyakit ini dengan cara diagnosis sejak dini. Karena hal ini sangat membantu untuk memperbaiki perilaku, kemampuan, dan perkembangan bahasa anak."]
+  },
+
+  {
+    "name": "Bad Mood",
+    "short_description": "Bad mood biasanya menggambarkan perubahan suasana hati atau emosi secara cepat dan intens. Seseorang yang mengalami kondisi ini bisa berubah dengan cepat dari senang menuju sedih.",
+    "types": [],
+    "signs_and_sympthomps": [],
+    "causes": [
+      "Kurang tidur",
+      "Lapar",
+      "Terlalu banyak konsumsi kafein",
+      "Sedang datang bulan",
+      "Gangguan bipolar",
+      "Gangguan siklotimik",
+      "Gangguan depresi mayor",
+      "Distimia atau gangguan depresi persisten",
+      "Gangguan kepribadian",
+      "Gangguan disregulasi suasana hati",
+      "Skizoprenia",
+      "Attention deficit hyperactivity disorder (ADHD)",
+      "Depresi",
+      "Gangguan kepribadian ambang",
+      "Demensia",
+      "Gegar otak",
+      "Stroke",
+      "Diabetes",
+      "Multiple sclerosis",
+      "Penyakit Parkinson",
+      "Tidur",
+      "Kelainan kelenjar tiroid",
+      "Alergi",
+      "Gangguan pada sistem kardiovaskular",
+      "Masalah pada paru-paru",
+      "Masalah pada sistem saraf pusat",
+      "Perubahan kadar hormon dalam tubuh",
+      "Pola makan",
+      "Pola tidur",
+      "Penyalahgunaan obat terlarang",
+      "Menjalani pengobatan tertentu"
+    ],
+    "diagnosis": [],
+    "complications": [
+      "Terlalu bersemangat atau tidak bisa mengendalikan diri saat menghabiskan uang",
+      "Tidak bisa mengendalikan emosi saat berhadapan dengan orang lain",
+      "Perilaku tidak terkendali sehingga berpotensi membahayakan diri sendiri dan orang lain",
+      "Memiliki kecenderungan untuk menyakiti diri sendiri atau bahkan bunuh diri",
+      "Bad mood membuat seseorang jadi penyendiri, tidak cukup tidur, enggan bekerja, atau bahkan bangkit dari tempat tidur"
+    ],
+    "how_to_treat": [],
+    "how_to_prevent": []
+  },
+
+  {
+    "name": "Bruxism",
+    "short_description": "Bruxism merupakan suatu kondisi ketika seseorang menggertakan, menggesekkan, atau mengatupkan gigi secara tidak sadar dan menjadi suatu kebiasaan.",
+    "types": [
+      { "name": "Bruxism primer", "short_description": "bruxism yang muncul bukan karena suatu kondisi medis tertentu" },
+      { "name": "Bruxism sekunder", "short_description": "bruxism yang muncul karena suatu kondisi medis tertentu" },
+      { "name": "Bruxism saat terjaga (awake bruxism)", "short_description": "terjadi saat sedang terjaga dan tidak disadari serta biasanya pada siang hari" },
+      { "name": "Bruxism saat tidur (sleep bruxism)", "short_description": "terjadi saat sedang tidur dan biasanya terjadi pada malam hari" }
+    ],
+    "signs_and_sympthomps": [
+      {
+        "points": "Beberapa tanda seseorang mengalami bruxism, antara lain:",
+        "description_points": [
+          "Gigi yang retak, patah, somplak atau longgar",
+          "Enamel gigi yang terkikis sampai memperlihatkan lapisan bagian dalam gigi",
+          "Rasa sakit pada gigi dan sensitivitas gigi yang meningkat",
+          "Terasa nyeri dan sakit di sekitar leher, rahang, dan wajah",
+          "Rasa sakit yang terasa seperti sakit telinga walaupun bukan berasal dari telinga",
+          "Gangguan tidur",
+          "Menggesekkan atau mengatupkan gigi yang cukup keras, sehingga menbangunkan orang lain",
+          "Otot-otot rahang yang kaku atau lelah sehingga sulit membuka atau menutup mulut",
+          "Kerusakan karena mengunyah bagian dalam pipi",
+          "Sakit kepala yang bermula dari pelipis"
+        ]
+      }
+    ],
+    "causes": [
+      "Kebanyakan penderita bruxism mengalami stres, kecemasan, kemarahan, rasa frustrasi dan kemarahan",
+      "Individu dengan gangguan tidur obstructive sleep apnea, berbicara saat tidur, agresif saat tidur (menendang-nendang atau memukul-mukul), halusinasi (psikosis) saat tidur, atau sleep paralysis, lebih mungkin untuk mengalami bruxism",
+      "Efek samping obat tertentu dapat menyebabkan bruxism, seperti obat antidepresan jenis SSRI (contohnya, paroxetine, fluoxetine, sertraline)",
+      "Pola hidup yang tidak sehat dapat meningkatkan risiko bruxism atau memperberat gejala menggeretakkan gigi. Misalnya, konsumsi alkohol, merokok, menggunakan narkoba, dan terlalu banyak mengonsumsi minuman yang mengandung kafein",
+      "Bruxism lebih sering terjadi pada anak-anak, tapi akan ghilang ketika mereka beranjak dewasa",
+      "Bruxism dalam tidur cenderung meningkat jika ada anggota keluarga dekat yang juga mengalami bruxism",
+      "Tipe kepribadian yang agresif, kompetitif, atau hiperaktif dapat meningkatkan risiko akan bruxism",
+      "Gangguan mental maupun fisik, seperti penyakit Parkinson, demensia, GERD, epilepsi, dan ADHD dapat meningkatkan risiko bruxism"
+    ],
+    "diagnosis": [
+      {
+        "point": "Pemeriksaan gigi dan rahang pasien untuk melihat tingkat kerusakan atau pengikisan pada gigi",
+        "description": "Jika pasien memiliki tanda atau gejala bruxism, evaluasi pada kunjungan selanjutnya akan dilakukan. Langkah ini bertujuan menentukan progresivitas dan perawatannya"
+      },
+      {
+          "point": "Dokter akan menanyakan riwayat kesehatan gigi, pengobatan, rutinitas sehari-hari dan kebiasaan tidur untuk mencari penyebab atau faktor risikonya",
+          "description": ""
+      },
+      {
+          "point": "untuk mengevaluasi tingkat keparahan bruxism, dokter akan memeriksa nyeri pada otot rahang, kerusakan pada gigi seperti patah atau ompong, kerusakan lain pada gigi, gusi, maupun pipi bagian dalam yang biasanya menggunakan x-ray",
+          "description": ""
+      },
+      {
+          "point": "Pasien yang menderita bruxism akibat kondisi psikologis, akan dirujuk ke psikolog, psikiater, atau ahli kesehatan mental lainnya untuk terapi atau konseling",
+          "description": ""
+      }
+    ],
+    "complications": [
+        "Kerusakan pada gigi, restorasi, mahkota atau rahang Anda",
+        "Sakit kepala tegang",
+        "Nyeri wajah atau rahang yang parah",
+        "Gangguan pada sendi temporomandibular (TMJ) yang mungkin terdengar seperti klik saat pasien membuka dan menutup mulut"
+    ],
+    "how_to_treat": [],
+    "how_to_prevent": [
+      "Hindari rokok, obat-obatan dan alkohol, yang dapat memperburuk bruxism tidur",
+      "Lakukan pemeriksaan gigi secara teratur",
+      "Atasi masalah gigi lain yang mungkin Anda miliki, termasuk gigi yang tidak sejajar atau tanggal"
+    ]
+  },
+
+  {
+    "name": "Bulimia Nervosa",
+    "short_description": "Bulimia adalah gangguan makan serius yang berpotensi mengancam nyawa. Penderita dengan kondisi bulimia mengalami dua periode.",
+    "types": [],
+    "signs_and_sympthomps": [
+      {
+        "point": "Berdasarkan Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5) yang menjadi panduan untuk Asosiasi Psikiater Amerika (American Psychiatrist Association), beberapa kriteria dari gangguan bulimia adalah:",
+        "description_points": [
+          "Bentuk badan dan berat badan yang memengaruhi pandangan terhhadap diri sendiri",
+          "Adanya kejadian-kejadian mengonsumsi makanan dalam jumlah banyak secara cepat dan tidak terkontrol (binge eating). Individu yang mengonsumsi makanan lebih dari kondisi normal dan dalam waktu dua jam diikuti dengan perasaan kehilangan kendali.",
+          "Adanya perilaku-perilaku kompensasi yang tidak sesuai untuk mengindari kenaikan berat badan secara terus-menerus. Misalnya, memuntahkan makanan, berolahraga secara berlebihan, pengunaan obat pencahar, puasa secara berlebihan, dan sebagainya.",
+          "Tidak muncul secara spesifik dengan kejadian anorexia nervosa",
+          "Perilaku makan yang diterapkan muncul setidaknya satu kali seminggu dalam periode tiga bulan."
+        ] 
+      },
+      {
+        "point": "Tanda-tanda lain yang dapat terlihat adalah:",
+        "description_points": [
+          "Terlalu memperhatikan atau khawatir dengan bentuk dan berat badan",
+          "Hidup dalam ketakutan akan bertambahnya berat badan",
+          "Memiliki gambaran tubuh yang negatif",
+          "Mengonsumsi makanan dengan jumlah yang tidak biasa dalam sekali makan, terutama yang biasanya jadi pantangan banyak orang",
+          "Tidak ingin makan di depan orang lain",
+          "Pergi ke kamar mandi setelah makan, di sela-sela waktu makan, atau ke kamar mandi untuk periode yang lama",
+          "Memiliki gigi dan gusi yang rusak, akibat seringnya terpapar cairan muntah"
+        ]
+      }
+    ],
+    "causes": [
+      "Orang dengan anggota keluarga yang mengidap gangguan makan",
+      "Individu dengan gangguan kecemasan, merasa rendah diri, atau perfeksionis",
+      "Stres dan kejadian traumatis",
+      "Individu dengan gangguan kesehatan mental atau pandangan yang menyimpang dari kenyataan",
+      "Individu dengan kebutuhan yang kuat untuk memenuhi harapan dan norma sosial",
+      "Individu yang sangat dipengaruhi oleh media",
+      "Individu dengan isu lain seperti susah mengendalikan rasa marah (anger issue), depresi, perfeksionis, maupun impulsif",
+      "Risiko bulimia bisa meningkat bagi orang yang menerima kritik mengenai bentuk badan dari orang-orang di sekitarnya atau tuntutan pekerjaan (contoh, model)"
+    ],
+    "diagnosis": [
+      { "point": "Pemeriksaan fisik", "description": "" },
+      { "point": "Menanyakan mengenai pola makan, metode penurunan berat badan dan gejala fisik yang dialami", "description": "" },
+      { "point": "Tes darah dan urine", "description": "" },
+      { "point": "Penggunaan electrocardiogram untuk mengidentifikasi masalah di jantung", "description": "" },
+      { "point": "Evaluasi psikologis yang meliputi diskusi mengenai sikap individu tentang tubuh dan berat badan", "description": "" },
+      { "point": "Evaluasi berdasarkan kriteria Diagnostik dan Statistik Gangguan Mental Edisi Kelima (DSM-5)", "description": "" },
+      { "point": "Tingkat keparahan ringan", "description": "1-3 episode per minggu binge eating dan purging atau keduanya" },
+      { "point": "Tingkat keparahan sedang", "description": "4-7 episode per minggu binge eating dan purging atau keduanya" },
+      { "point": "Tingkat keparahan parah", "description": "8-13 episode per minggu binge eating dan purging atau keduanya" },
+      { "point": "Tingkat keparahan ekstrim", "description": "14 episode atau lebih per minggu binge eating dan purging atau keduanya" }
+    ],
+    "complications": [
+      "Selalu merasa rendah diri dan bermasalah dengan hubungan dan fungsi sosial",
+      "Dehidrasi, yang dapat menyebabkan masalah medis lainnya, seperti gagal ginjal",
+      "Masalah jantung, seperti detak jantung tidak teratur atau gagal jantung",
+      "Kerusakan gigi dan penyakit gusi yang parah",
+      "Haid yang tidak teratur atau tidak terjadi sama sekali untuk pasien wanita",
+      "Masalah pencernaan",
+      "Gangguan kecemasan, depresi, gangguan kepribadian atau gangguan bipolar",
+      "Penyalahgunaan alkohol atau narkoba",
+      "Melukai diri sendiri, muncul pikiran untuk bunuh diri atau melakukan percobaan bunuh diri"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi", 
+        "description": "Psikoterapi bisa berupa terapi keluarga, psikoterapi interpersonal, dan terapi perilaku kognitif.",
+        "description_points": [
+          "Terapi keluarga",
+          "Psikoterapi interpersonal",
+          "Terapi perilaku kognitif (Cognitive Behavioral Therapy/CBT)"
+        ]
+      },
+      {
+        "point": "Medikasi",
+        "description": "Obat-obatan bisa meliputi antidepresan seperti fluoxetine. Obat ini dapat mengurangi gejala dari bulimia.",
+        "description_points": []
+      },
+      {
+        "point": "Rawat inap",
+        "description": "Bagi penderita yang sudah mengalami efek parah hingga memengaruhi fisiknya, seperti malnutrisi, dan sebagainya.",
+        "description_points": []
+      },
+      {
+        "point": "Edukasi nutrisi",
+        "description": "Bantuan dokter spesialis gizi klinis dapat membantu dalam membentuk pola makan yang benar.",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": [
+      "Jangan mendukung diet yang melibatkan perilaku mengontrol berat badan secara berlebihan, seperti berpuasa secara berlebihan, memuntahkan makanan, dan sebagainya.",
+      "Jangan terlalu sering membicaran berat badan di rumah, fokus ke pola hidup yang sehat.",
+      "Usahakan untuk mengadakan makan bersama satu keluarga.",
+      "Mengajarkan keluarga untuk mencintai diri sendiri apapun bentuknya",
+      "Bangun dan tekankan gambaran tubuh yang sehat kepada anak-anak Anda.",
+      "Ajak orang-orang terdekat Anda yang memiliki kemungkinan gangguan makan dan berikan dukungan kepadanya serta rujuk ke dokter dan ahli kesehatan mental lainnya.",
+      "Berdiskusi dengan dokter dan ahli kesehatan mental Anda untuk dapat mengetahui tanda-tanda dari gangguan makan."
+    ]
+  },
+
+  {
+    "name": "Delirium",
+    "short_description": "Delirium merupakan gangguan kemampuan mental yang ditandai dengan kebingungan dan menurunnya kesadaran (awareness) akan lingkungan sekitar yang dapat menyebabkan gangguan pada emosi.",
+    "types": [
+      {
+        "name": "Delirium hipoaktif (hypoactive delirium)",
+        "short_description": "Penderita akan cenderung tidur lebih banyak, tidak bisa berkonsentrasi, tidak dapat mengatur tugas-tugas sehari-harinya. Penderita dapat melewatkan waktu makan dan pertemuan-pertemuan dengan orang lain. Jenis ini adalah yang paling umum ditemui."
+      },
+      {
+        "name": "Delirium hiperaktif (hyperactive delirium)",
+        "short_description": "Penderita menjadi sangat penuh waspada dan tidak bisa diajak bekerja sama."
+      },
+      {
+        "name": "Delirium tremens",
+        "short_description": "Kondisi delirium yang terjadi saat individu berusaha berhenti minum alkohol setelah sudah meminum alkohol dalam jumlah yang banyak selama bertahun-tahun. "
+      }
+    ],
+    "signs_and_sympthomps": [
+      {
+        "point": "Berdasarkan Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5) yang menjadi panduan untuk Asosiasi Psikiater Amerika (American Psychiatrist Association), terdapat beberapa kriteria diagnosis untuk delirium, yaitu:",
+        "description_points": [
+          "Perubahan di kognisi (contoh, kurangnya memori, kekacauan dalam pemikiran (disorientasi), gangguan berbahasa, dan gangguan dalam penglihatan) yang tidak disebabkan karena demensia.",
+          "Adanya gangguan di atensi (contoh, berkurangnya kemampuan untuk mengarahkan, memusatkan, mempertahankan, dan mengganti perhatian) dan kesadaran.",
+          "Adanya bukti dari sejarah hidup, pemeriksaan fisik, atau penemuan-penemuan di laboratorium yang memperlihatkan bahwa gangguan disebabkan karena konsekuensi langsung secara fisiologis dari kondisi medis secara umum, keracunan zat-zat, penggunaan obat-obatan, atau lebih dari satu penyebab.",
+          "Gangguan berkembang dalam periode waktu yang singkat (biasanya beberapa jam atau hari) dan cenderung meningkat saat berlangsungnya hari-hari."
+        ]
+      },
+      {
+        "point": "Beberapa gejala-gejala delirium yang dapat terlihat adalah:",
+        "description_points": [
+          "Mudah terdistraksi oleh hal-hal lain",
+          "Sulit berkonsentrasi pada satu topik atau saat akan berganti topik",
+          "Menarik diri, tidak meresponi atau hanya merespon sedikit pada lingkungan sekitar",
+          "Tidak dapat berbicara atau berpikir dengan jelas",
+          "Kesulitan menulis dan membaca",
+          "Mungkin dapat mengalami halusinasi",
+          "Tidak tahu sedang ada di mana, atau tidak tahu siapa dirinya (disorientasi)",
+          "Lebih terpaku pada satu ide daripada meresponi pertanyaan atau percakapan",
+          "Bergerak lebih cepat ataupun lebih lambat dari biasanya",
+          "Sulit untuk berbicara atau mengingat kata-kata",
+          "Kesulitan untuk mengerti suatu percakapan",
+          "Cara berbicara yang tidak teratur atau tidak masuk akal",
+          "Mengalami perubahan suasana hati dan perilaku yang cepat dan tidak menentu, seperti depresi, gelisah, takut, cemas, dan sebagainya",
+          "Sensitif dan mudah marah",
+          "Menjadi apatis",
+          "Kehilangan kendali otot",
+          "Penurunan memori jangka pendek",
+          "Pola tidur yang buruk atau merasa ngantuk"
+        ]
+      }
+    ],
+    "causes": [
+      "Terganggunya pengiriman dan penerimaan sinyal di otak",
+      "Malnutrisi atau dehidrasi",
+      "Ketidakseimbangan metabolik, seperti kadar sodium atau kalsium yang rendah",
+      "Penyakit kronis atau terminal",
+      "Obat-obatan tertentu atau keracunan obat",
+      "Kondisi medis seperti serangan jantung, cedera akibat jatuh, stroke, dan sebagainya",
+      "Rasa sakit",
+      "Tekanan emosi yang berat atau kurang tidur",
+      "Paparan racun",
+      "Operasi atau prosedur medis lainnya yang melibatkan obat bius",
+      "Efek karena tidak lagi mengonsumsi alkohol atau narkotika",
+      "Infeksi akut, seperti pneumonia dan sebagainya."
+    ],
+    "diagnosis": [
+      { "point": "Menggunakan kriteria diagnosis dari DSM-5", "description": "" },
+      {
+        "point": "Pemeriksaan status mental dengan menilai kesadaran, atensi, dan cara berpikir individu",
+        "description": "Pemeriksaan dapat dilakukan melalui percakapan biasa, tes-tes yang berkisar pada kondisi mental, kebingungan, persepsi, dan memori, perubahan perilaku pada satu harian (terutama saat dirawat inap), serta pengambilan informasi dari anggota keluarga dan pengasuh individu."
+      },
+      {
+        "point": "Melakukan pemeriksaan fisik dan neurologis untuk melihat adanya kondisi medis tertentu yang menyebabkan delirium",
+        "description": "Tes neurologis dapat berupa pengecekan penglihatan, keseimbangan, koordinasi, dan gerak refleks."
+      }
+    ],
+    "complications": [],
+    "how_to_treat": [
+      {
+        "point": "Medikasi",
+        "description": "Dokter dapat memberikan beberapa obatan berupa:",
+        "description_points": [
+          "Obat penenang, untuk meringankan efek dari tidak mengonsumsi alkohol lagi",
+          "Antidepresan, untuk mengatasi depresi",
+          "Antibiotik, jika delirium disebabkan oleh infeksi bakteri",
+          "Obat thiamine, mengatasi kebingungan yang dialami",
+          "Peghalang dopamin, membantu keracunan obat-obatan tertentu"
+        ]
+      },
+      {
+        "point": "Konseling",
+        "description": "Membantu untuk mengatur pemikiran-pemikiran yang dialami dan membantu penderita untuk tidak mengonsumsi alkohol lagi jika penderita mengalami delirium karena penyalahgunaan alkohol atau narkotika.",
+        "description_points": []
+      },
+      {
+        "point": "Jika Anda mengalami delirium, beberapa hal yang dapat Anda lakukan adalah:",
+        "description": "",
+        "description_points": [
+          "Menerapkan teknik-teknik menangani stres dan relaksasi, seperti yoga, meditasi, dan sebagainya",
+          "Menjaga ketenangan dan keteraturan",
+          "Menerapkan pola hidup sehat dengan mengonsumsi makanan yang bergizi, istirahat yang cukup, dan olahraga yang teratur",
+          "Berbicara dengan orang-orang terdekat mengenai masalah yang dialami atau mengikuti komunitas-komunitas dengan orang-orang yang pernah mengalami masalah yang serupa agar dapat saling berdiskusi dan mendukung satu sama lainnya"
+        ]
+      },
+      {
+        "point": "Jika orang-orang terdekat Anda mengalami delirium, beberapa hal yang dapat dilakukan:",
+        "description": "",
+        "description_points": [
+          "Membantu mengatur medikasi penderita",
+          "Membantu penderita untuk tetap tenang"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Mengatur pola tidur yang tidak teratur",
+      "Mengatasi penyakit kronis dengan cepat sebelum mengarah ke komplikasi",
+      "Menyediakan lingkungan yang tidak memicu munculnya delirium (seperti pencahayaan yang kurang, suara-suara yang ribut, dan sebagainya)"
+    ]
+  },
+
+  {
+    "name": "Delusional",
+    "short_description": "Delusional adalah kondisi saat seseorang tidak bisa membedakan kenyataan maupun khayalan. Meskipun banyak bukti memperlihatkan pikirannya hanya khayalan, orang yang delusional akan kesulitan mengakuinya dan tetap meyakini hal tersebut sebagai kenyataan.",
+    "types": [
+      {
+        "name": "Erotomaniac",
+        "short_description": "Jenis delusional ini terjadi ketika seseorang percaya bahwa orang lain (umumnya tokoh terkemuka atau orang terkenal) jatuh cinta padanya atau merasa orang lain suka padanya. . Sering kali, penderita erotomaniac akan menghubungi orang yang dijadikan subjek delusi, bahkan hingga mengintai dan merusak privasi orang tersebut."
+      },
+      {
+        "name": "Grandiose",
+        "short_description": "Orang yang mengalami jenis delusional ini memiliki pemahaman akan identitas dirinya yang tidak nyata. Penderita kondisi ini biasanya meyakini memiliki bakat yang hebat atau telah membuat penemuan penting. Beberapa penderita mungkin menganggap diri sendiri mempunyai kekuatan super layaknya tokoh film."
+      },
+      {
+        "name": "Cemburu",
+        "short_description": "Seseorang dengan tipe delusi ini percaya bahwa pasangannya tidak setia dan selalu curiga akan gerak-gerik pasangannya."
+      },
+      {
+        "name": "Penganiayaan(persecutory delusion)",
+        "short_description": "Seseorang yang memiliki delusi jenis ini, percaya dirinya atau orang terdekat. Terkadang, penderita gangguan ini juga yakin ada seseorang yang sedang memata-matai atau berencana menyakitinya. Tak jarang beberapa dari penderita delusi ini sampai melapor kepada polisi meskipun hal hal tersebut tidak terbukti kebenarannya."
+      },
+      {
+        "name": "Somatik",
+        "short_description": "Mereka yang mengalami jenis delusi ini meyakini adanya cacat fisik atau kondisi medis tertentu pada diri sendiri, padahal sehat-sehat saja."
+      },
+      {
+        "name": "Campuran",
+        "short_description": "Pada beberapa kasus, seseorang dapat mengalami delusi berbagai tipe sekaligus."
+      }
+    ],
+    "signs_and_sympthomps": [],
+    "causes": [
+      "Skizofrenia",
+      "Gangguan bipolar",
+      "Depresi",
+      "Stres",
+      "Gangguan kecemasan",
+      "Depresi pascapersalinan",
+      "Obsessive Compulsive Disorder",
+      "Alzheimer",
+      "Delirium",
+      "Kurang tidur",
+      "HIV dan AIDS",
+      "Malaria",
+      "Sifilis",
+      "Parkinson",
+      "Hipoglikemia",
+      "Lupus",
+      "Multiple sclerosis",
+      "Tumor otak",
+      "Ensefalitis",
+      "Porfiria",
+      "Penyalahgunaan alkohol",
+      "Penyalahgunaan obat-obatan seperti kokain, amfetamin, MDMA dan obat-obatan terlarang lainnya"
+    ],
+    "diagnosis": [],
+    "complications": [],
+    "how_to_treat": [],
+    "how_to_prevent": []
+  },
+
+  {
+    "name": "Depresi",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Mudah menangis, merasa sedih, atau putus asa", "description_points": [] },
+      { "point": "Mudah marah atau frustrasi, bahkan untuk hal-hal kecil", "description_points": [] },
+      {
+        "point": "Kehilangan minat atau kesenangan dalam sebagian besar untuk melakukan aktivitas seperti biasa, misalnya melakukan hobi, atau olahraga",
+        "description_points": []
+      },
+      { "point": "Kesulitan berpikir, berkonsentrasi, membuat keputusan, dan mengingat sesuatu", "description_points": [] },
+      { "point": "Menderita gangguan tidur, seperti insomnia atau terlalu banyak tidur", "description_points": [] },
+      { "point": "Menderita masalah fisik yang tidak dapat dijelaskan, seperti sakit punggung atau sakit kepala", "description_points": [] },
+      { "point": "Kelelahan dan kekurangan energi, sehingga tugas-tugas kecil pun membutuhkan usaha ekstra", "description_points": [] },
+      { "point": "Berkurangnya nafsu makan dan penurunan berat badan atau meningkatnya keinginan untuk makan dan penambahan berat badan", "description_points": [] },
+      { "point": "Sering merasa cemas atau gelisah", "description_points": [] },
+      { "point": "Lambat berpikir, berbicara atau menggerakan tubuh", "description_points": [] },
+      { "point": "Memiliki perasaan tidak berharga atau bersalah, terpaku pada kegagalan masa lalu atau menyalahkan diri sendiri", "description_points": [] },
+      { "point": "Memliiki keinginan untuk mengakhiri hidup dengan bunuh diri dan sering melakukan usaha untuk bunuh diri", "description_points": [] }
+    ],
+    "causes": [
+      "Mengalami krisis kepercayaan diri. Seperti merasa tidak berharga, terlalu bergantung, dan pesimis",
+      "Mengalami peristiwa traumatis atau stres, seperti pelecehan fisik atau seksual, kematian atau kehilangan orang yang dicintai, hubungan yang sulit, atau masalah keuangan",
+      "Menderita penyakit serius atau kronis, termasuk kanker, stroke, sakit kronis atau penyakit jantung",
+      "Mengonsumsi obat-obatan tertentu, seperti beberapa obat tekanan darah tinggi atau obat tidur",
+      "Anggota keluarga ada yang memiliki riwayat depresi, gangguan bipolar, kecanduan alkohol, atau bunuh diri",
+      "Memiliki riwayat gangguan kesehatan mental lainnya, seperti gangguan kecemasan, gangguan makan, gangguan bipolar, atau gangguan stres pascatrauma",
+      "Penyalahgunaan alkohol atau obat-obatan terlarang"
+    ],
+    "diagnosis": [
+      {
+        "point": "Tanya jawab dan pemeriksaan fisik",
+        "description": "Dokter mungkin akan melakukan pemeriksaan fisik dan mengajukan pertanyaan tentang kesehatan Anda. Hal ini dilakukan dokter untuk mengetahui penyebab depresi. Karena dalam beberapa kasus, depresi disebabkan masalah kesehatan fisik"
+      },
+      {
+        "point": "Tes laboratorium",
+        "description": "Dokter mungkin akan menyarankan Anda melakukan tes darah yang disebut hitung darah lengkap atau menguji tiroid untuk memastikannya berfungsi dengan baik."
+      },
+      {
+        "point": "Evaluasi psikiatri",
+        "description": "Psikolog mungkin bertanya tentang gejala, pikiran, perasaan, dan pola perilaku Anda. Anda mungkin diminta untuk mengisi kuesioner untuk membantu menjawab pertanyaan-pertanyaan ini."
+      },
+      {
+        "point": "DSM-5",
+        "description": "Psikolog mungkin akan menggunakan kriteria depresi, Diagnostic and Statistical Manual of Mental Disorders (DSM-5), yang diterbitkan oleh American Psychiatric Association, untuk mendiagnosis."
+      }
+    ],
+    "complications": [
+      "Kelebihan berat badan atau obesitas, yang dapat menyebabkan penyakit jantung dan diabetes",
+      "Sakit fisik",
+      "Kematian dini karena kondisi medis",
+      "Mengonsumsi alkohol atau melakukan penyalahgunaan narkoba",
+      "Menderita kecemasan, gangguan panik, atau fobia sosial",
+      "Mengalami konflik keluarga, kesulitan hubungan, dan masalah pekerjaan atau sekolah",
+      "Isolasi sosial"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Konsumsi obat-obatan",
+        "description": "Beberapa obat yang biasanya disarankan dokter, yaitu:",
+        "description_points": [
+          "Antidepresan",
+          "Anti-kecemasan",
+          "Antipsikotik"
+        ]
+      },
+      {
+        "point": "Psikoterapi",
+        "description": "Berbicara dengan psikolog atau psikiater dapat membantu Anda untuk mempelajari keterampilan untuk mengatasi perasaan negatif. Anda juga dapat mengambil sesi psikoterapi keluarga atau kelompok.",
+        "description_points": []
+      },
+      {
+        "point": "Terapi cahaya",
+        "description": "Paparan dosis cahaya putih dari terapi cahaya dapat membantu mengatur suasana hati Anda dan memperbaiki gejala depresi.",
+        "description_points": []
+      },
+      {
+        "point": "Olahraga",
+        "description": "Olahraga 30 menit, 3 sampai 5 hari seminggu dapat meningkatkan produksi endorfin, yaitu hormon yang meningkatkan suasana hati.",
+        "description_points": []
+      },
+      {
+        "point": "Menghindari alkohol dan obat-obatan",
+        "description": "Minum atau menyalahgunakan obat-obatan dapat membuat Anda merasa lebih baik sebentar. Namun dalam jangka panjang, zat tersebut dapat memperburuk gejala depresi dan kecemasan.",
+        "description_points": []
+      },
+      {
+        "point": "Merawat diri sendiri",
+        "description": "Anda juga dapat memperbaiki gejala depresi dengan merawat diri sendiri, misalnya dengan istirahat yang cukup, mengonsumsi makanan yang sehat, menghindari orang negatif, dan berpartisipasi dalam kegiatan yang menyenangkan.",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": [
+      "Hilangkan stres",
+      "Rutin mengobrol dengan keluarga dan teman, terutama di saat krisis, untuk membantu Anda mengatasi masa sulit",
+      "Rajin olahraga",
+      "Cukupi kebutuhan tidur"
+    ]
+  },
+
+  {
+    "name": "Depresi Pasca-persalinan",
+    "short_description": "Postpartum depression (PPD) atau depresi pasca-persalinan adalah salah satu jenis depresi yang dialami oleh ibu setelah melahirkan. Jenis depresi ini tidak hanya terjadi pada para ibu tetapi juga dapat terjadi pada para ayah. Gejalanya biasa baru mulai pada 4 minggu setelah melahirkan.",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Merasa sedih atau sering menangis tanpa alasan yang jelas", "description_points": [] },
+      { "point": "Lelah, tetapi tidak bisa tidur", "description_points": [] },
+      { "point": "Tidur terlalu banyak", "description_points": [] },
+      { "point": "Tidak bisa berhenti makan, atau Anda tidak tertarik pada makanan sama sekali", "description_points": [] },
+      { "point": "Memiliki berbagai rasa sakit, nyeri, atau penyakit yang tidak dapat dijelaskan", "description_points": [] },
+      { "point": "Mudah tersinggung, cemas, atau marah tanpa alasan yang jelas", "description_points": [] },
+      { "point": "Suasana hati (mood) berubah secara tiba-tiba dan tanpa peringatan", "description_points": [] },
+      { "point": "Merasa di luar kendali", "description_points": [] },
+      { "point": "Merasa di luar kendali", "description_points": [] },
+      { "point": "Tidak dapat berkonsentrasi atau membuat keputusan sederhana", "description_points": [] },
+      { "point": "Tidak tertarik pada hal-hal yang dulu Anda sukai", "description_points": [] },
+      { "point": "Anda merasa terputus dari bayi Anda dan bertanya-tanya mengapa Anda tidak merasa gembira dengan kehadiran bayi", "description_points": [] },
+      { "point": "Merasa tidak bisa membuka diri kepada siapa pun karena orang lain akan menganggap Anda ibu yang buruk", "description_points": [] },
+      { "point": "Ingin melarikan diri dari semua orang dan segalanya", "description_points": [] },
+      { "point": "Memiliki pikiran mengganggu tentang menyakiti diri sendiri atau bayi Anda", "description_points": [] }
+    ],
+    "causes": [
+      "Pernah mengalami depresi atau gangguan suasana hati (mood) sebelumnya",
+      "Faktor keturunan, seperti ada anggota keluarga kandung yang pernah mengalami depresi",
+      "Menderita masalah kesehatan yang serius",
+      "Baru mengalami stres, akibat perceraian, kematian, atau penyakit serius yang diderita orang tersayang",
+      "Mengalami kehamilan yang tidak diinginkan",
+      "Memiliki anak kembar, kembar tiga, atau kelipatan lainnya",
+      "Memiliki bayi yang lahir prematur atau dengan masalah kesehatan",
+      "Berada dalam hubungan yang kasar atau tidak sehat",
+      "Kurangnya dukungan emosional dari orang terdekat",
+      "Mengonsumsi makanan yang kurang sehat",
+      "Menggunakan penyalahgunaan obat atau alkohol",
+      "Menggunakan penyalahgunaan obat atau alkohol"
+    ],
+    "diagnosis": [
+      {
+        "point": "Tanya jawab",
+        "description": "Dokter Anda biasanya akan bertanya tentang perasaan, pikiran, dan kesehatan mental Anda untuk mengetahui apakah Anda menderita baby blues pasca-persalinan jangka pendek atau depresi yang lebih parah."
+      },
+      {
+        "point": "Pemeriksaan tambahan",
+        "description": "Skrining depresi dengan cara mengisi kuesioner dan tes darah untuk menentukan apakah tiroid yang kurang aktif memicu tanda dan gejala pada depresi yang Anda rasakan."
+      }
+    ],
+    "complications": [
+      "Gangguan depresi kronis",
+      "Depresi lanjutan di masa mendatang",
+      "Komplikasi depresi pasca-persalinan juga bisa terjadi pada bayi, yaitu kesulitan tidur dan makan, menangis berlebihan, dan keterlambatan perkembangan bahasa."
+    ],
+    "how_to_treat": [
+      {
+        "point": "Perawatan di rumah",
+        "description": "Anda juga bisa mengatasi depresi pasca-persalinan di rumah, dengan beberapa cara berikut ini:",
+        "description_points": [
+          "Berbicara dengan keluarga dan teman-teman Anda tentang perasaan Anda dan apa yang dapat mereka lakukan untuk membantu",
+          "Meluangkan waktu untuk diri sendiri untuk melakukan hal-hal yang Anda sukai",
+          "Beristirahat kapan pun Anda mendapat kesempatan",
+          "Tidur sebanyak yang Anda bisa bisa di malam hari",
+          "Olahraga secara teratur",
+          "Konsumsi makanan yang sehat"
+        ]
+      },
+      {
+        "point": "Terapi psikologis",
+        "description": "Dokter mungkin akan menyarankan Anda melakukan terapi psikologi atau terapi perilaku kognitif (CBT).",
+        "description_points": []
+      },
+      {
+        "point": "Konsumsi obat",
+        "description": "Dokter biasanya akan memberikan Anda obat antidepresan jika depresi Anda lebih parah atau perawatan lain tidak membantu. Selain itu, dokter juga dapat meresepkan obat yang aman dikonsumsi saat menyusui.",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": [
+      "Minta pasangan untuk mau bergantian menjaga bayi ketika sudah lahir, sehingga Anda bisa mendapatkan istirahat yang cukup",
+      "Pertahankan pola makan yang sehat dan cobalah berolahraga setiap hari.",
+      "Jangan menarik diri dari aktivitas yang Anda sukai dan cobalah untuk banyak tidur.",
+      "Jaga komunikasi tetap terbuka dengan orang-orang terkasih."
+    ]
+  },
+
+  {
+    "name": "Fobia",
+    "short_description": "Fobia adalah ketakutan luar biasa yang berlebihan dan tidak masuk akal terhadap situasi atau objek tertentu. Kondisi ini memicu kecemasan dan membuat penderita berusaha untuk menghindari pemicunya dengan segala cara.",
+    "types": [
+      {
+        "name": "Fobia spesifik (sederhana)",
+        "short_description": "Fobia spesifik berhubungan dengan objek, hewan, situasi atau aktivitas tertentu. Biasanya, jenis fobia ini muncul saat anak-anak dan gejalanya makin berkurang seiring pertambahan usia"
+      },
+      {
+        "name": "Fobia kompleks",
+        "short_description": "Fobia kompleks umumnya lebih mengganggu daripada fobia spesifik. Fobia ini biasa berhubungan dengan ketakutan atau kecemasan yang mendalam terhadap situasi atau keadaan tertentu.Sebagian besar fobia kompleks berkembang saat penderita sudah dewasa dan biasanya dikaitkan dengan kecemasan yang terpendam."
+      }
+    ],
+    "signs_and_sympthomps": [
+      {
+        "point": "Reaksi fisik",
+        "description_points": [
+          "Jantung berdebar-debar",
+          "Sulit bernapas",
+          "Berkeringat",
+          "Mual",
+          "Pusing",
+          "Gemetaran"
+        ]
+      },
+      {
+        "point": "Menghindari objek atau situasi yang ditakuti",
+        "description_points": ["Penderita fobia akan menghindari objek atau situasi yang ditakuti dengan segala cara. Mereka juga bisa tetap menjalani semuanya, tapi mengalami rasa takut dan cemas yang luar biasa."]
+      },
+      {
+        "point": "Rasa takut yang berlebihan",
+        "description_points": ["Rasa takut yang berlebihan, cemas, dan panik ketika terpapar atau hanya memikirkan sumber fobia. Kecemasan akan memburuk ketika objek atau situasi pemicu mendekat."]
+      },
+      {
+        "point": "Tidak bisa mengendalikan diri",
+        "description_points": ["Penderita menyadari bahwa rasa takutnya berlebihan dan tidak masuk akal, tapi tetap tidak bisa mengendalikannya. Karena itu, penderita fobia akan kesulitan untuk melakukan rutinitasnya."]
+      },
+      {
+        "point": "Gejala fobia pada anak-anak",
+        "description_points": ["Pada anak-anak, gejala fobia yang terlihat dapat berupa menangis hebat, muncul tantrum, menolak dan menjauh dari orang tua, serta tidak mau mendekati objek atau situasi yang ditakuti."]
+      }
+    ],
+    "causes": [
+      "Faktor biologis, perubahan yang terjadi pada fungsi otak diperkirakan dapat menyebabkan munculnya fobia",
+      "Pengalaman buruk, fobia sering dikaitkan dengan peristiwa traumatis atau pengalaman buruk terhadap suatu objek, situasi, atau kejadian tertentu. Contohnya, terperangkap dalam lift, digigit anjing, dan lain-lain",
+      "Faktor genetik, fobia pun dapat muncul karena pengaruh faktor keturunan. Misalnya, memiliki keluarga kandung yang mengalami gangguan cemas",
+      "Usia, kaum wanita lebih berisiko untuk mengalami fobia daripada pria",
+      "Faktor risiko lain, memiliki status sosial dan ekonomi yang rendah, serta sifat yang lebih sensitif dan kaku juga dikatakan berpengaruh pada kemungkinan seseorang untuk mengalami fobia."
+    ],
+    "diagnosis": [
+      {
+        "point": "Wawancara psikiatri",
+        "description": "Pada tahap awal, dokter akan menanyakan riwayat penyakit pasien dan keluarga, kehidupan sosial, serta riwayat penggunaan obat-obatan. Dokter lalu menanyakan semua gejala yang muncul.Seteah itu, dokter akan menggunakan kriteria diagnostik Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5). Kriteria ini merupakan panduan yang disusun oleh Asosiasi Psikiater Amerika."
+      },
+      {
+        "point": "Pemeriksaan fisik",
+        "description": "Dokter akan melakukan pemeriksaan fisik untuk mencari gejala dari penyakit yang mungkin mendasari gangguan fobia maupun efek samping dari obat-obatan tertentu."
+      }
+    ],
+    "complications": [
+      "Isolasi sosial, di mana penderita menghindari benda dan tempat tertentu. Kondisi ini akan membatasi proses pengembangan diri pasien dan memicu masalah akademik, profesional, serta interaksi sosial",
+      "Gangguan mood, seperti depresi dan gangguan kecemasans",
+      "Penyalahgunaan obat",
+      "Bunuh diri. Beberapa jenis fobia spesifik dapat meningkatkan risiko percobaan bunuh diri apabila terus dibiarkan"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Jenis psikoterapi yang dapat diberikan untuk mengatasi fobia adalah: ",
+        "description_points": [
+          "Terapi perilaku kognitif (cognitive behavioral therapy/CBT), terapi perilaku kognitif biasanya dilakukan dengan pemaparan terhadap sumber fobia, lalu pengamatan terhadap pemikiran dan perasaan pasien yang berhubungan dengan fobia tersebut.",
+          "Terapi pemaparan (exposure therapy), terapi pemaparan bertujuan mengubah respons pasien terhadap sumber fobia. Proses paparan ini akan dilakukan secara bertahap agar tetap aman."
+        ]
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Penggunaan obat-obatan kadang diperlukan untuk mengendalikan rasa cemas atau panik serta gejala yang muncul. Pilihan obat-obatan yang biasanya diresepkan oleh dokter meliputi:",
+        "description_points": [
+          "Beta blockers, Beta blockers sejatinya berfungsi mengurangi kecepatan detak jantung dan menurunkan tekanan darah. Obat ini juga dapat digunakan untuk menangani kecemasan dan rasa panik.",
+          "Obat antidepresan, Obat antidepresan berperan mengurangi rasa cemas. Contohnya, duloxetine, venlafaxine, citalopram, escitalopram, dan paroxetine.",
+          "Obat sedatif, obat sedatif seperti benzodiazepine digunakan juga berfungsi mengurangi tingkat kecemasan supaya penderita merasa tenang."
+        ]
+      },
+      {
+        "point": "Hal yang dapat dilakukan di rumah",
+        "description": "Pasien juga bisa menerapkan sederet langkah berikut untuk membantu dalam mengatasi fobia:",
+        "description_points": [
+          "Mematuhi metode penanganan yang diberikan oleh dokter",
+          "Menerapkan pola hidup yang sehat, seperti mengonsumsi makanan dengan gizi seimbang, cukup istirahat, dan teratur berolahraga",
+          "Menghindari penggunaan alkohol, kafein, dan obat-obatan terlarang",
+          "Sebisa mungkin, jangan menjauhi objek atau situasi yang memicu fobia. Pasalnya,  ketakutan dan kecemasan akan makin menguat jika dihindari", 
+          "Mengurangi stres, misalnya melakukan meditasi, yoga, dan hobi",
+          "Bercerita dengan orang-orang terdekat mengenai masalah yang dihadapi. Pasien juga bisa bergabung dalam komunitas atau support group yang sesuai dengan fobianya. Dengan ini, ia dapat saling bertukar pikiran dan mendukung"
+        ]
+      }
+    ],
+    "how_to_prevent": ["Karena penyebab utamanya belum diketahui dengan pasti, cara mencegah fobia juga belum tersedia.Namun Anda sebaiknya segera berkonsultasi ke dokter spesialis kejiwaan atau psikolog jika Anda atau orang-orang terdekat Anda mengalami fobia tertentu. Dengan ini, gejala tidak semakin parah dan berujung pada komplikasi"]
+  },
+
+  {
+    "name": "Gagap",
+    "short_description": "Gagap adalah gangguan bicara yang ditandai dengan adanya pengulangan kata, suara, atau pelafalan saat berbicara. Kondisi ini dapat dialami oleh siapa saja. Namun, gagap paling umum terjadi pada anak-anak yang berusia dua sampai lima tahun.",
+    "types": [
+      { "name": "Neurogenic stuttering", "short_description": "Gagap yang terjadi karena adanya abnormalitas pada jaringan antara otak dan saraf atau otot." },
+      { "name": "Psychogenic stuttering", "short_description": "Jenis gagap ini berasal dari bagian otak yang mengatur pemikiran dan nalar." },
+      { "name": "Developmental stuttering", "short_description": "Umumnya terjadi pada anak-anak dibawah usia 5 tahun, terutama pada anak laki-laki. Jenis gagap ini muncul ketika anak-anak mulai mengembangkan kemampuan berbicara dan bahasanya. Biasanya jenis ini akan hilang dengan sendirinya tanpa penanganan tertentu." }
+    ],
+    "signs_and_sympthomps": [
+      { "point": "Memperpanjang kata atau suara di dalam sebuah kalimat", "description_points": [] },
+      { "point": "Kecemasan untuk berbicara", "description_points": [] },
+      { "point": "Kesulitan memulai kata, frasa, atau kalimat", "description_points": [] },
+      { "point": "Penambahan kata tambahan seperti 'hm' jika ada kesulitan untuk mengucapkan kata selanjutnya", "description_points": [] },
+      { "point": "Terdapat jeda singkat dalam mengucapkan suku kata atau kata-kata tertentu, atau ada jeda dalam satu kata (terbata-bata)", "description_points": [] },
+      { "point": "Ketegangan yang berlebihan atau adanya gerakan pada wajah saat ingin mengucapkan kata", "description_points": [] },
+      { "point": "Kemampuan komunikasi terbatas", "description_points": [] },
+      { "point": "Pengulangan suara, suku kata, atau kata", "description_points": [] },
+      { "point": "Pengaturan ulang kata-kata dalam satu kalimat", "description_points": [] },
+      { "point": "Menolak untuk berbicara", "description_points": [] },
+      { "point": "Frustrasi saat berusaha untuk berbicara", "description_points": [] },
+      { "point": "Ketegangan dalam suara", "description_points": [] },
+      { "point": "Tangan yang mengepal", "description_points": [] },
+      { "point": "Mata yang berkedip dengan cepat", "description_points": [] },
+      { "point": "Kepala yang menyentak", "description_points": [] },
+      { "point": "Bibir atau rahang yang bergetar", "description_points": [] },
+      { "point": "Pergerakan berulang-ulang pada wajah", "description_points": [] }
+    ],
+    "causes": [
+      "Faktor Kelainan pada kontrol motorik bicara",
+      "Faktor genetik",
+      "Perkembangan anak yang terlambat",
+      "Memiliki kerabat yang gagap",
+      "Stres"
+    ],
+    "diagnosis": [
+      { "point": "Riwayat kesehatan pasien", "description": "" },
+      { "point": "Kapan gagap mulai terjadi dan kapan gagap paling sering terjadi", "description": "" },
+      { "point": "Pengaruh gagap terhadap produktivitas hidup", "description": "" },
+      { "point": "Menyingkirkan penyebab lain yang dapat menyebabkan gagap seperti adanya kondisi medis tertentu, seperti Sindrom Tourette", "description": "" },
+      { "point": "Pada anak, dokter dan ahli kesehatan mental lainnya akan berbicara dengan anak dan meminta anak tersebut untuk membaca dengan bersuara serta mengamati perbedaan-perbedaan yang mungkin ada saat anak berbicara", "description": "" },
+      { "point": "Membedakan antara pengulangan dari suku kata dengan pengucapan yang salah dari sebuah kata yang merupakan proses normal dari seorang anak", "description": "" },
+      { "point": "Mencari tahu apakah gagap yang dialami dapat menjadi kondisi jangka panjang", "description": "" }
+    ],
+    "complications": [
+      "Terganggunya komunikasi dengan orang lain",
+      "Cemas saat bicara",
+      "Tidak berbicara atau menghindari situasi yang membutuhkan berbicara",
+      "Hilangnya partisipasi dan kesuksesan sosial, sekolah, atau pekerjaan",
+      "Ditindas atau diejek", 
+      "Rasa percaya diri yang rendah"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Perangkat elektronik",
+        "description": "Beberapa perangkat elektronik tersedia untuk meningkatkan kelancaran anak dalam berbicara. Penderita dapat berkonsultasi dengan dokter mengenai jenis perangkat elektronik yang baik untuk digunakan.",
+        "description_points": []
+      },
+      {
+        "point": "Terapi wicara",
+        "description": "",
+        "description_points": [
+          "Terapi berbicara dapat dilakukan untuk membantu memperbaiki pola bicara yang lebih alami, dengan memperlambat kecepatan bicara dan belajar untuk memperhatikan dan mengenali ketika Anda gagap",
+          "Terapi berbicara berfokus pada mengontrol pola berbicara anak dengan cara mendorong anak untuk dapat memperhatikan kecepatan berbicara, pernapasan, dan tekanan pada laring",
+          "Kandidat anak yang cocok untuk menjalani terapi bicara adalah anak yang sudah mengalami gagap selama tiga sampai enam bulan, memiliki kesulitan dalam pelafalan, mengalami kesulitan emosional karena gagap yang dialami, dan memiliki keluarga yang mengalami gagap",
+          "Terapis dapat mengajarkan orangtua kapan waktu yang tempat untuk mengoreksi pelafalan anak"
+        ]
+      },
+      {
+        "point": "Interaksi orangtua dengan anak",
+        "description": "Keterlibatan orangtua dalam membantu anak untuk berlatih berbicara di rumah dapat membantu anak untuk mengatasi gagapnya",
+        "description_points": []
+      },
+      {
+        "point": "Terapi perilaku kognitif",
+        "description": "Psikoterapi jenis ini dapat membantu seseorang mengidentifikasi dan mengubah cara berpikir yang mungkin membuat kegagapan menjadi lebih buruk",
+        "description_points": [
+          "Menunggu anak untuk mengucapkan kata yang ingin diucapkan",
+          "Berbicara secara pelan dan tidak terburu-buru kepada anak",
+          "Mendengarkan anak dengan penuh perhatian",
+          "Ciptakan atmosfer yang menenangkan anak",
+          "Luangkan waktu untuk berbicara dengan anak",
+          "Berikan pujian kepada anak ketika anak dapat berbicara secara jelas daripada memberikan kritikan kepada anak",
+          "Saling menunggu giliran untuk berbicara",
+          "Terima anak apa adanya dan berikan kasih sayang yang tidak bersyarat kepadanya",
+          "Jangan terlalu fokus kepada gagap yang dialami anak",
+          "Jangan menekan anak untuk dapat secepatnya berbicara di depan orang lain secara lancar",
+          "Memasukkan anak ke dalam komunitas dengan anak-anak yang juga mengalami gagap agar anak dapat bersosialisasi dan saling mendukung satu sama lainnya",
+          "Mengikuti komunitas-komunitas orangtua yang memiliki anak yang serupa agar dapat berdiskusi dan mendukung dengan satu sama lainnya"
+        ]
+      }
+    ],
+    "how_to_prevent": ["Cara mencegah gagap tidak diketahui hingga saat ini. Pasalnya, penyebabnya juga belum diketahui secara pasti"]
+  },
+
+  {
+    "name": "Gaming Disorder",
+    "short_description": "Gaming disorder adalah pola perilaku bermain game yang tidak terkendali hingga dapat mengganggu minat dan aktivitas sehari-hari. Kondisi ini kini telah dimasukkan ke dalam klasifikasi penyakit internasional keluaran terbaru (ICD-11).",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Bermain game dijadikan sebagai kegiatan utama. Selalu teringat game yang telah dimainkan sebelumnya dan selalu tidak sabar untuk kembali melanjutkan bermain game", "description_points": [] },
+      { "point": "Saat tidak sedang bermain game, mulai muncul rasa marah, sedih, atau gangguan kecemasan", "description_points": [] },
+      { "point": "Merasa butuh bermain game, sehingga menghabiskan banyak waktu untuk melakukannya", "description_points": [] },
+      { "point": "Tidak dapat mengendalikan keinginan untuk main game", "description_points": [] },
+      { "point": "Tidak tertarik untuk berinteraksi dengan orang lain, melakukan hobi lain yang sebelumnya dimiliki, maupun kegiatan menyenangkan selain bermain game", "description_points": [] },
+      { "point": "Tetap bermain game secara berlebihan meski tahu bahwa kegiatan tersebut dapat menyebabkan kecanduan dan menimbulkan masalah psikososial", "description_points": [] },
+      { "point": "Tidak mendengarkan nasihat dari keluarga, terapis, maupun teman mengenai kebiasaan bermain game yang sudah sampai pada tahap yang meresahkan", "description_points": [] },
+      { "point": "Menggunakan game sebagai satu-satunya cara untuk mengembalikan suasana hati yang buruk", "description_points": [] },
+      { "point": "Kebiasaan bermain game sudah memberikan dampak buruk terhadap hubungan dengan orang lain, pekerjaan, maupun pendidikan", "description_points": [] }
+    ],
+    "causes": ["Hingga saat ini, penyebab dari gaming disorder belum diketahui secara jelas. Tidak hanya itu, faktor yang menyebutkan siapa saja yang lebih berisiko terkena gaming disorder pun belum jelas diketahui"],
+    "diagnosis": [
+      {
+        "point": "Kuisioner dan wawancara terstruktur",
+        "description": "Kuesioner dan wawancara terstruktur untuk membantu menetapkan seseorang benar-benar menderita gaming disorder"
+      },
+      {
+        "point": "Memakai alat ukur yang serupa dengan Internet Gaming Disorder Scale",
+        "description": "Internet Gaming Disorder Scale yang digunakan untuk mengukur seberapa parah kecanduan komputer dan video game yang dialami"
+      }
+    ],
+    "complications": [],
+    "how_to_treat": [
+      {
+        "point": "Edukasi",
+        "description": "Perawatan dijalankan dengan memberikan pengetahuan mengenai bahaya kecanduan games terhadap kesehatan mental serta mengenai gaming disorder secara keseluruhan",
+        "description_points": []
+      },
+      {
+        "point": "Mencoba pengobatan yang umum digunakan untuk kondisi kecanduan",
+        "description": "Perawatan ini umumnya termasuk membantu penderita mengontrol keinginannya, bagaimana menghadapi pikiran-pikiran tidak rasional yang muncul, serta belajar untuk mencari solusi dari masalah yang dihadapi",
+        "description_points": []
+      },
+      {
+        "point": "Intrapersonal",
+        "description": "Perawatan ini akan membantu seseorang untuk menguasai identitas dirinya sendiri, membangun rasa percaya diri, dan meningkatkan kecerdasan emosional",
+        "description_points": []
+      },
+      {
+        "point": "Bantuan keluarga",
+        "description": "Apabila kecanduan game yang dialami membuat hubungan dengan keluarga semakin memburuk, keluarga juga dianjurkan untuk berpartisipasi dalam terapi tersebut",
+        "description_points": []
+      }, 
+      {
+        "point": "Menjalani gaya hidup baru",
+        "description": "Untuk mencegah terjadinya kecanduan bermain game, seseorang harus dapat mengenali kemampuan serta kelebihan yang dimilikinya dan menemukan kegiatan lain selain bermain game yang dianggap menyenangkan",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": [
+      "Anda disarankan untuk lebih memerhatikan durasi yang Anda habiskan untuk bermain game",
+      "Anda juga perlu lebih memerhatikan apakah kebiasaan tersebut mulai mengganggu kegiatan sehari-hari, memengaruhi kesehatan fisik dan mental, serta hubungan Anda dengan orang lain.",
+      "kebiasaan bermain game yang berlebihan terkadang merupakan cara yang Anda lakukan untuk menutupi kondisi lain yang dirasakan. Misalnya, depresi dan gangguan kecemasan. Mengobati kondisi yang mendasari tersebut dapat membantu Anda terhindar dari ketergantungan terhadap game."
+    ]
+  },
+
+  {
+    "name": "Bipolar",
+    "short_description": "Bipolar adalah gangguan mental yang ditandai dengan perubahan mood yang ekstrem. Gejala kelainan jiwa ini dibagi menjadi episode mania (senang berlebihan) dan episode depresi (sedih berlebihan).",
+    "types": [
+      {
+        "name": "Gangguan bipolar tipe 1",
+        "short_description": "Bila penderita mengalami setidaknya satu kali episode mania yang diikuti oleh hipomania atau depresi. Pada  beberapa kasus, episode mania dapat mencetuskan gejala psikosis seperti halusinasi"
+      },
+      {
+        "name": "Gangguan bipolar tipe 2",
+        "short_description": "Jika penderita mengalami setidaknya satu kali episode depresi dan setidaknya satu kali episode hipomania, namun tidak pernah mengalami episode mania"
+      },
+      {
+        "name": "Gangguan siklotimia",
+        "short_description": "Apabila penderita sering mengalami episode hipomania dan depresi ringan setidaknya selama dua tahun pada orang dewasa atau satu tahun pada anak-anak dan remaja"
+      }
+    ],
+    "signs_and_sympthomps": [
+      { 
+        "point": "Episode mania", 
+        "description_points": [
+          "Tidak bisa diam, misalnya sering mondar-mandir",
+          "Energi yang meningkat dan terkadang disertai rasa gelisah",
+          "Perasaan senang dan percaya diri yang berlebihan",
+          "Merasa tidak butuh tidur atau sulit tidur",
+          "Banyak bicara",
+          "Pola pikir yang beralih dari satu ide ke ide lain dengan cepat",
+          "Fokus yang mudah teralihkan",
+          "Kerap membuat keputusan tidak tepat, seperti membeli barang yang tidak dibutuhkan"
+        ] 
+      },
+      {
+        "point": "Episode depresi",
+        "description_points": [
+          "Merasa sedih dan tidak memiliki harapan",
+          "Merasa tidak berharga",
+          "Memiliki rasa bersalah yang berlebihan",
+          "Penurunan kemampuan berpikir atau konsentrasi",
+          "Sulit mengambil keputusan",
+          "Kehilangan ketertarikan akan hampir semua aktivitas maupun hobi",
+          "Penurunan atau peningkatan nafsu makan",
+          "Sulit tidur atau tidur berlebihan",
+          "Cepat lelah",
+          "Pada kasus berat, percobaan bunuh diri dapat terjadi"
+        ]
+      }
+    ],
+    "causes": [
+      "Faktor genetis atau keturunan. Bila orangtua atau saudara Anda mengalami gangguan bipolar, Anda juga memiliki kemungkinan lebih tinggi untuk mengidap kondisi serupa",
+      "Gangguan struktur dan fungsi otak",
+      "Faktor lingkungan, misalnya stres yang parah dan berkepanjangan (seperti ditinggalkan oleh orang yang disayangi), pengalaman yang menyebabkan trauma (seperti pelecehan seksual), dan gangguan kesehatan",
+      "Penyalahgunaan obat-obatan maupun alkohol"
+    ],
+    "diagnosis": [
+      { "point": "Wawancara mengenai gejala yang dialami oleh pasien", "description": "" },
+      { "point": "Pemeriksaan fisik lengkap", "description": "" },
+      { "point": "Pemeriksaan penunjang. Dokter dapat menganjurkan pasien untuk menjalani tes darah atau tes urine, serta pencitraan bila diperlukan", "description": "" },
+      { "point": "Menggunakan kriteria diagnosis menurut buku panduan diagnostic and statistical manual of mental disorder (DSM). Dokter dapat menegakkan diagnosis bipolar sesuai kriteria yang tercantum dalam panduan ini", "description": "" }
+    ],
+    "complications": [
+      "Mengidap kecanduan obat dan alkohol",
+      "Melakukan percobaan bunuh diri",
+      "Melukai orang lain",
+      "Terlibat dalam masalah hukum dan keuangan",
+      "Mengalami masalah sosial, seperti asmara atau hubungan dengan orang lain",
+      "Mengalami masalah yang berhubungan dengan pekerjaan atau sekolah"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Obatan-obatan",
+        "description": "Obat bipolar yang diresepkan oleh dokter biasanya meliputi:",
+        "description_points": [
+          "Mood-stabilizer seperti lithium",
+          "Obat antipsikotik seperti olanzapin",
+          "Kombinasi obat antidepresan dan antipsikotik seperti fluoxetin dan olanzapin",
+          "Obat antidepresan golongan benzodiazepin seperti alprazolam"
+        ]
+      },
+      {
+        "point": "Psikoterapi",
+        "description": "Pilihan psikoterapi yang dapat dianjurkan adalah sebagai berikut:",
+        "description_points": [
+          "Edukasi, langkah ini merupakan teknik konseling yang membantu penderita dan orang-orang terdekatnya dalam memahami arti gangguan bipolar",
+          "Cognitive behavioral therapy (CBT), dokter atau terapis akan membantu penderita bipolar untuk memahami pola pikir dan cara menghadapi gejala yang muncul",
+          "Interpersonal and social rhythm therapy (IPSRT), IPSRT berfokus mengajarkan cara mengatur kebiasaan sehari-hari pada pengidap bipolar. Contohnya, pola tidur, pola makan, dan olahraga"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Memahami gangguan bipolar dengan saksama",
+      "Mencegah stres berlebihan",
+      "Mencari dukungan dari orang-orang di sekitarnya",
+      "Melakukan pola hidup sehat",
+      "Rutin memantau perubahan mood"
+    ]
+  },
+
+  {
+    "name": "Dismorfik Tubuh",
+    "short_description": "Gangguan dismorfik tubuh (Body Dysmorphic Disorder/BDD) adalah gangguan mental yang ditandai dengan perasaan terlalu mengkhawatirkan penampilan tidak sempurna ataupun cacat yang sebenarnya tidak terlihat oleh orang lain",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Sering melihat diri sendiri dalam cermin atau tidak ingin melihat cermin sama sekali", "description_points": [] },
+      { 
+        "point": "Mengkhawatirkan penampilan area tertentu pada bagian tubuh secara berlebihan, serta yakin kalau kekurangan dalam penampilan tersebut membuat jelek atau merupakan kelainan", 
+        "description_points": [] 
+      },
+      {
+        "point": "Sangat berusaha untuk menyembunyikan ataupun menghilangkan kekurangan pada tubuh, misalnya dengan menggunakan riasan atau melakukan operasi plastik",
+        "description_points": []
+      },
+      { "point": "Sering membandingkan penampilan diri sendiri dengan penampilan orang lain", "description_points": [] },
+      { 
+        "point": "Terlalu fokus pada penampilan sehingga menyebabkan stres atau gangguan dalam melakukan aktivitas sehari-hari, seperti bekerja atau bersosialisasi",
+        "description_points": [] 
+      }, 
+      { "point": "Beranggapan bahwa penampilannya selalu dinilai buruk atau diejek oleh orang lain", "description_points": [] }
+    ],
+    "causes": [
+      "Struktur otak yang abnormal",
+      "Genetik yang dapat diturunkan",
+      "Pengaruh lingkungan, misalnya: pengabaian, komentar negatif tentang tubuh dan citra diri, hingga pelecehan"
+    ],
+    "diagnosis": [
+      { "point": "Membantu cara yang efektif untuk mencegah perilaku melihat atau berkaca di cermin secara berlebihan", "description": "" },
+      { "point": "Membantu belajar mengatasi pikiran negatif dan reaksi emosional yang dapat membuat gejala semakin parah", "description": "" },
+      { "point": "Meningkatkan kesehatan mental dengan terapi perilaku tertentu", "description": "" }
+    ],
+    "complications": [],
+    "how_to_treat": [
+      {
+        "point": "Terapi kognitif",
+        "description": "Gangguan dismorfik tubuh dapat diobati dengan terapi kognitif yang berfungsi untuk:",
+        "description_points": [
+          "Membantu cara yang efektif untuk mencegah perilaku melihat atau berkaca di cermin secara berlebihan",
+          "Membantu belajar mengatasi pikiran negatif dan reaksi emosional yang dapat membuat gejala semakin parah",
+          "Meningkatkan kesehatan mental dengan terapi perilaku tertentu"
+        ]
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Seperti SSRI atau obat lainnya",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": ["Tidak ada cara untuk mencegah gangguan dismorfik tubuh. Namun, jika Anda merasakan gejala-gejala yang disebutkan, segera hubungi dokter untuk mendapat penanganan"]
+  },
+
+  {
+    "name": "Identitas Disosiatif (Kepribadian Ganda)",
+    "short_description": "Gangguan identitas disosiatif (ganguan kepribadian ganda) adalah salah satu jenis penyakit mental yang menunjukkan adanya disosiasi atau ketidaksesuaian hubungan antara pikiran, ingatan, lingkungan, tindakan, serta identitas diri.",
+    "types": [],
+    "signs_and_sympthomps": [
+      { 
+        "point": "Ada dua identitas atau lebih dalam satu orang, yang memengaruhi perilaku. Tiap identitas memiliki memori, perilaku, dan pemikiran yang berbeda-beda. Perubahan ini mungkin dapat dilaporkan oleh penderita atau diobservasi oleh orang lain", 
+        "description_points": [] 
+      },
+      { "point": "Adanya memori yang tidak diingat dalam aktivitas sehari-hari, informasi diri, dan/atau kejadian traumatis yang dialami", "description_points": [] },
+      { "point": "Merasa seperti terdapat orang lain di dalam tubuh", "description_points": [] },
+      { "point": "Berperilaku di luar karakter sebenarnya", "description_points": [] },
+      { "point": "Merasa asing dengan diri sendiri", "description_points": [] },
+      { "point": "Seolah-olah menjadi orang lain", "description_points": [] },
+      { "point": "Menyebut diri sendiri dengan 'kami' atau 'kita'", "description_points": [] },
+      { "point": "Dapat menulis dengan gaya tulisan tangan yang berbeda", "description_points": [] },
+      { "point": "Tidak mampu mengatasi emosi dengan baik", "description_points": [] },
+      { "point": "Penyalahgunaan alkohol dan narkotika", "description_points": [] },
+      { "point": "Mengalami depresi, kecemasan, dan berpikir atau melakukan percobaan bunuh diri", "description_points": [] },
+      { "point": "Gangguan tidur, seperti insomnia, night terror, dan sleepwalking", "description_points": [] },
+      { "point": "Perilaku-perilaku yang kompulsif", "description_points": [] },
+      { "point": "Kecemasan, serangan panik (panic attack), dan fobia (kilas balik, reaksi dari hal-hal yang berkaitan dengan trauma)", "description_points": [] },
+      { "point": "Pergantian suasana hati yang tidak menentu (mood swings)", "description_points": [] },
+      { "point": "Gejala-gejala seperti psikosis", "description_points": [] },
+      { "point": "Gangguan makan", "description_points": [] } 
+    ],
+    "causes": [
+      "Penyebab ganguan kepribadian ganda umumnya adalah trauma masa lalu. Kelainan ini merupakan mekanisme pertahanan psikologis saat mengatasi trauma",
+      "Pemicu kondisi ini mungkin muncul karena faktor lingkungan seperti kejadian yang mengancam nyawa, bencana alam, dan stres",
+      "Perilaku orangtua yang tidak menentu dan menimbulkan ketakutan bisa juga menjadi penyebabnya"
+    ],
+    "diagnosis": [
+      { "point": "Terdapat dua atau lebih identitas atau kepribadian yang muncul, setiap identitas atau kepribadian memiliki pola persepsi, berhubungan, dan berpikir mengenai lingkungan dan diri yang berbeda-beda", "description": "" },
+      { "point": "Adanya amnesia yang didefinisikan sebagai memori-memori yang hilang mengenai kejadian sehari-hari, informasi pribadi yang penting, dan/atau kejadian-kejadian traumatis yang dialami", "description": "" },
+      { "point": "Individu harus merasa terganggu dengan gangguan yang dialami dan kesulitan dalam satu atau lebih aspek kehidupannya (contoh, aspek sosial dan pekerjaan)", "description": "" },
+      { "point": "Gangguan yang dialami bukanlah bagian dari norma budaya ataupun praktik-praktik keagamaan", "description": "" },
+      { "point": "Gejala-gejala yang dialami bukan karena efek fisiologis dari zat-zat tertentu (contoh, alkohol) ataupun kondisi medis secara umum (contoh, kejang-kejang partial yang kompleks)", "description": "" },
+      { 
+        "point": "Pemeriksaan fisik", 
+        "description": "Pemeriksaan ini akan dilakukan dengan pemeriksaan fisik dan wawancara mendalam untuk mengetahui kondisi fisik atau masalah medis lain seperti trauma kepala, gangguan tidur, atau efek samping dari obat-obatan tertentu" 
+      },
+      {
+        "point": "Pemeriksaan psikiatri",
+        "description": "Dokter akan mengajukan pemeriksaan psikis ini dengan mengajukan pertanyaan. Adapaun hal yang ditanyakan adalah tentang pikiran, perasaan, dan perilaku serta membahas gejala yang dimiliki"
+      },
+      {
+        "point": "Kriteria diagnostik DSM-5",
+        "description": "Penggunaan metode diagnosis selanjutnya adalah membandingkan gejala yang muncul dengan kriteria diagnosis dari DSM-5"
+      }
+    ],
+    "complications": [
+      "Punya keinginan melukai diri sendiri atau mutilasi",
+      "Memiliki pola pikir atau keinginan dan perilaku bunuh diri",
+      "Disfungsi seksual",
+      "Alkoholisme dan gangguan penggunaan narkoba",
+      "Gangguan depresi dan kecemasan",
+      "Gangguan stres pascatrauma",
+      "Gangguan kepribadian",
+      "Gangguan tidur, termasuk mimpi buruk, insomnia, dan berjalan dalam tidur",
+      "Gangguan Makan",
+      "Gejala fisik seperti pusing atau kejang non-epilepsi", 
+      "Penderita merasa kesulitan dalam hubungan pribadi dan di tempat kerja"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Konseling, terapi perilaku kognitif (cognitive behavioral therapy), dan terapi psikososial.",
+        "description_points": []
+      },
+      {
+        "point": "Obat yang diresepkan oleh dokter atau psikiater",
+        "description": "Berupa antidepresa untuk mengatasi depresi, serangan panik, dan kecemasan.",
+        "description_points": []
+      },
+      {
+        "point": "Hipnoterapi",
+        "description": "Hipnoterapi dapat digunakan untuk membantu mengakses ingatan yang disembunyikan dan mengelola beberapa perilaku yang bermasalah serta mengintegrasikan kepribadian menjadi tahu.",
+        "description_points": []
+      },
+      {
+        "point": "Terapi tambahan",
+        "description": "Terapi tambahan bisa berupa terapi seni atau gerakan guna membantu orang terhubung dengan bagian pikiran mereka yang disembunyikan karena trauma.",
+        "description_points": []
+      },
+      {
+        "point": "Mengikuti komunitas-komunitas dengan dengan kepribadian ganda atau kondisi yang serupa",
+        "description": "Mengikuti komunitas-komunitas dengan dengan kepribadian ganda atau kondisi yang serupa agar dapat saling berdiskusi dan mendukung satu sama lainnya.",
+        "description_points": []
+      }
+    ],
+    "how_to_prevent": [
+      "Riwayat trauma masa kecil dapat meningkatkan risiko gangguan identitas disosiatif. Jika anak Anda telah mengalami peristiwa yang traumatis atau menyebabkan stres yang berat, segeralah berkonsultasi dengan dokter dan ahli kesehatan mental lainnya untuk mencegah perkembangan dari gangguan ini",
+      "Bagi para orangtua, Anda dapat mempelajari keterampilan-keterampilan dalam mendidik dan mengasuh anak yang efektif dan sehat"
+    ]
+  },
+
+  {
+    "name": "Kecemasan Sosial",
+    "short_description": "Gangguan kecemasan sosial adalah gangguan mental yang menyebabkan kecemasan, takut, atau rasa malu yang sangat intens terhadap interaksi sehari-hari.",
+    "types": [],
+    "signs_and_sympthomps": [
+      {
+        "point": "Berdasarkan Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5) yang menjadi panduan untuk Asosiasi Psikiater Amerika (American Psychiatrist Association), gangguan kecemasan sosial atau fobia sosial memiliki kriteria berikut ini:",
+        "description_points": [
+          "Memiliki ketakutan bahwa orang lain akan memberikan penilaian negatif terhadap perilaku maupun kecemasan diri sendiri",
+          "Mengalami ketakutan maupun kecemasan hamper pada setiap situasi sosial. Pada anak-anak, kecemasan tersebut diekspresikan dalam bentuk kemarahan (tantrum), tangisan, menjadi diam, menciutkan tubuh, tidak mampu berbicara, dan mengenggam erat orang yang dikenal (clingy) dalam situasi-situasi sosial",
+          "Ketakutan atau kecemasan yang jelas terhadap satu atau lebih situasi sosial yang akhirnya memancing kritik orang lain. Pada anak-anak, kecemasan harus muncul di situasi saat anak bersama dengan teman-teman sebayanya dan tidak hanya dalam interaksi bersama orang dewasa",
+          "Mengalami ketakutan berlebihan dan tidak masuk akal. Pada anak-anak, kriteria ini mungkin tidak terlihat",
+          "Memiliki ketakutan maupun kecemasan yang menarik diri dari situasi sosial",
+          "Mengalami ketakutan, kecemasan, maupun menghindari berbagai hal sebagai efek fisiologis dari zat-zat atau kondisi medis lainnya",
+          "Mengalami ketakutan, kecemasan, atau menghindari sesuatu dan kondisi tersebut tidak berhubungan dengan masalah medis lain",
+          "Mengalami kecemasan, ketakutan, dan menghindar dari berbagai hal, akibat ancaman nyata yang terjadi di situasi sosial dan pada konteks sosial budaya",
+          "Ketakutan, kecemasan, atau perilaku menghindar akhirnya menyebabkan gangguan pada aspek sosial, pekerjaan, dan aspek-aspek kehidupan lainnya",
+          "Ketakutan, kecemasan, atau perilaku menghindar terus-menerus muncul dan bertahan hingga 6 bulan atau lebih",
+          "Ketakutan, kecemasan, atau penghindaran tidak dapat dijelaskan oleh gejala dari gangguan mental lainnya"
+        ]
+      },
+      {
+        "point": "Gejala fisik",
+        "description_points": [
+          "Gemetar",
+          "Pipi memerah",
+          "Gangguan pada perut atau mual",
+          "Berkeringat",
+          "Detak jantung cepat",
+          "Kekakuan pada otot",
+          "Pusing atau pening",
+          "Kesulitan untuk bernapas",
+          "Pikiran menjadi kosong"
+        ]
+      }
+    ],
+    "causes": [
+      "Struktur otak, amigdala (bagian otak yang mengendalikan respon rasa takut) yang terlalu aktif merespons rasa takut, bisa mengakibatkan gangguan kecemasan sosial",
+      "Faktor genetik, gangguan kecemasan sosial bisa jadi diturunkan dalam garis keluarga. Selain itu, anak-anak yang pemalu cenderung rentan mengalami kecemasan sosial",
+      "Faktor lingkungan, gangguan kecemasan sosial bisa jadi muncul karena adanya suatu kejadian yang membuat merasa dipermalukan atau menjadi tidak nyaman di situasi sosial, orangtua yang terlalu mengontrol, orang-orang di sekitar yang cenderung pencemas (contohnya, orangtua), pernah mengalami pelecehan ataupun intimidasi dari orang lain",
+      "Riwayat keluarga, peluang terkena gangguan kecemasan sosial lebih besar jika ada anggota keluarga yang mengalami kondisi ini",
+      "Pengalaman negatif, anak-anak yang mengalami ejekan, bullying, penolakan, atau penghinaan lebih rentan terkena gangguan kecemasan sosial. Selain itu, konflik keluarga, trauma atau pelecehan dapat memicu terjadinya gangguan kecemasan sosial",
+      "Sifat dan perilaku, anak-anak yang secara alami bersifat pemalu, penakut, lebih senang menyendiri atau terkekang ketika menghadapi situasi atau orang baru, berisiko lebih besar terkena gangguan kecemasan sosial",
+      "Lingkungan yang baru, gejala gangguan kecemasan sosial biasanya dimulai pada masa remaja, tetapi bisa juga muncul pada orang dewasa yang kerap bertemu orang baru, berpidato di depan umum atau membuat presentasi penting untuk pekerjaan",
+      "Penampilan atau kondisi yang menarik perhatian, beberapa kondisi seperti memiliki cacat pada wajah, gagap atau gemetar karena penyakit Parkinson dapat memicu gangguan kecemasan sosial pada beberapa orang"
+    ],
+    "diagnosis": [
+      { "point": "Pemeriksaan fisik", "description": "" },
+      { "point": "Wawancara dan diskusi mengenai gejala yang dialami, meninjau ulang daftar situasi-situasi yang dapat yang dapat menimbulkan kecemasan", "description": "" },
+      { "point": "Pengisian kuesioner mengenai gejala-gejala gangguan kecemasan sosial yang diisi oleh penderita", "description": "" },
+      { 
+        "point": "Mencocokkan gejala", 
+        "description": "Mencocokkan gejala yang dialami dengan kriteria gangguan kecemasan sosial berdasarkan panduan DSM-5 yang telah disebutkan sebagai gejala gangguan kecemasan sosial. Bebagai gejala yang sesuai dengan kriteria DSM-5 harus dialami selama 6 bulan atau lebih, untuk bisa dinyatakan sebagai gangguan kecemasan sosial." 
+      },
+      {
+        "point": "Diagnosis gangguan lain",
+        "description": "Memastikan pasien menderita gangguan kecemasan sosial dan bukan gangguan mental lainnya. Diagnosis tersebut meliputi pemeriksaan spektrum autisme, skizofrenia, gangguan panik, agoraphobia, gangguan depresi, gangguan terkait zat adiktif, gangguan dismorfik tubuh dan gangguan kepribadian seperti skizoid."
+      }
+    ],
+    "complications": [
+      "Kepercayaan diri yang rendah",
+      "Sulit menyuarakan keinginan diri sendiri",
+      "Sering berpikiran negatif terhadap diri sendiri",
+      "Sangat sensitif ketika dikritik",
+      "Kemampuan bersosialisasi yang buruk",
+      "Prestasi yang buruk di sekolah atau tempat kerja",
+      "Konsumsi alkohol yang mengarah pada penyalahgunaan alkohol untuk mengatasi kecemasan",
+      "Penyalahgunaan obat-obatan",
+      "Kesulitan membentuk dan memelihara hubungan",
+      "Pendidikan atau kesempatan kerja menjadi terbatas",
+      "Depresi",
+      "Pikiran untuk bunuh diri",
+      "Isolasi dari keluarga, teman sebaya, dan komunitas"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi berupa terapi perilaku kognitif (cognitive behavioral therapy)",
+        "description": "Terapi ini dapat membantu penderita mengenali dan mengubah pikiran negatif mengenai dirinya dan mengembangkan keterampilan untuk menjadi percaya diri dalam situasi sosial.",
+        "description_points": []
+      },
+      {
+        "point": "Pemberian obat-obatan",
+        "description": "Gangguan kecemasan sosial juga dapat diatasi melalui pemberian obat-obatan seperti:",
+        "description_points": [
+          "Selective Serotonin Reuptake Inhibitors (SSRI), contohnya fluoxetine, paroxetine atau sertraline",
+          "Serotonin and norepinephrine reuptake inhibitor (SNRI), contohnya duloxetine atau venlafaxine",
+          "Obat anticemas, berupa benzodiazepine, yang bekerja dengan cepat dalam menurunkan tingkat kecemasan. Namun, pengunaan obat jenis ini hanya untuk jangka pendek karena bersifat sedatif dan menimbulkan ketergantungan",
+          "Obat golongan penghambat reseptor-beta, yang bekerja dengan mengurangi kecepatan denyut jantung, tekanan darah dan jantung berdebar (deg-degan), suara atau anggota tubuh lain yang gemetar. Meski begitu, obat ini hanya diberikan untuk situasi tertentu dan tidak untuk diminum rutin",
+          "Obat antidepresan lainnya"
+        ]
+      },
+      {
+        "point": "Tips mengatasi kecemasan",
+        "description": "Jika mengalami gangguan kecemasan sosial, terdapat beberapa hal yang bisa Anda lakukan, yaitu:",
+        "description_points": [
+          "Tetap sabar menjalani perawatan",
+          "Menjaga kesehatan dengan istirahat yang cukup, menjalani pola makan yang sehat, dan berolahraga secara teratur",
+          "Menghindari alkohol dan kafein",
+          "Bercerita dengan orang-orang tedekat untuk mencari dukungan, maupun mengikuti komunitas-komunitas dengan gangguan serupa atau support group",
+          "Melakukan hal-hal yang membuat Anda rileks saat sedang cemas, misalnya melukis",
+          "Membuat target-target kecil yang berkembang menjadi tujuan harian atau tujuan bulanan dalam usaha untuk melakukan interaksi sosial, misalnya menyapa orang lain terlebih dahulu",
+          "Fokus pada kualitas diri yang positif",
+          "Mempersiapkan bahan-bahan obrolan",
+          "Mempelajari cara-cara untuk menangani stres, misalnya bermeditasi"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Gangguan kecemasan sosial tidak dapat dicegah. Segera berkonsultasi dengan dokter dan ahli kesehatan mental lainnya jika merasakankan gejala-gejalanya",
+      "Anda dapat mengurangi dampak dari gangguan yang dialami dengan meluangkan waktu untuk relaksasi, mencatat situasi-situasi apa yang dapat memicu kecemasan dan mendiskusikannya dengan dokter dan ahli kesehatan mental lainnya, serta menghindari konsumsi alkohol, narkotika, rokok, maupun kafein"
+    ]
+  },
+
+  {
+    "name": "Kecemasan Umum",
+    "short_description": "Gangguan kecemasan umum adalah gangguan mental yang ditandai dengan munculnya rasa cemas dan khawatir yang berlebihan tanpa alasan yang jelas. Gangguan ini dapat dialami oleh anak-anak ataupun orang dewasa.",
+    "types": [],
+    "signs_and_sympthomps": [
+      { "point": "Adanya kecemasan yang berlebihan dan terlihat jelas mengenai berbagai topik, kejadian, atau aktivitas selama kurang lebih enam bulan.", "description_points": [] },
+      { "point": "Kecemasan yang dirasakan sulit untuk dikendalikan dan dapat berpindah-pindah dari satu topik ke topik lainnya", "description_points": [] }, 
+      { 
+        "point": "Kecemasan yang dirasakan juga diikuti oleh setidaknya tiga (satu pada anak-anak) gejala dari gejala-gejala fisik dan kognitif di bawah ini:", 
+        "description_points": [
+          "Cepat capek atau lebih lelah dari biasanya",
+          "Meningkatkan nyeri otot",
+          "Lebih mudah cemas dan gelisah",
+          "Mudah kesal (bisa jadi tidak terlihat secara jelas)",
+          "Konsentrasi yang terganggu atau pikiran menjadi kosong",
+          "Kesulitan tidur (kesulitan untuk tidur, tetap tertidur, gelisah di malam hari, atau merasa tidak tidur nyenyak)"
+        ] 
+      }
+    ],
+    "causes": [
+      "Genetik, GAD mungkin dapat diturunkan dari keluarga jika terdapat anggota keluarga yang pernah mengalami GAD",
+      "Faktor lingkungan dan pengalaman hidup, peristiwa traumatis yang berkepanjangan seperti menjadi korban pelecehan, perlakuan kejam semasa kecil, kekerasan dalam rumah tangga, kehilangan orang yang dicintai, penyakit yang berlangsung lama, atau penghinaan (bullying) berpotensi menyebabkan GAD",
+      "Jenis kelamin, wanita dua kali lebih rentan untuk menderita gangguan ini dibandingkan pria",
+      "Kepribadian, orang dengan kepribadian yang kaku dan cenderung berpikiran negatif atau menghindari segala sesuatu dengan potensi bahaya, lebih berisiko mengalami GAD. Persepsi yang berbeda dalam melihat ancaman juga dapat mungkin dapat menyebabkan GAD"
+    ],
+    "diagnosis": [
+      { "point": "Melakukan pemeriksaan fisik, untuk mencari kemungkinan efek dari obat-obatan atau kondisi medis lainnya", "description": "" },
+      { "point": "Merekomendasikan tes laboratorium seperti tes darah, tes urine, tes hormon, maupun X-ray", "description": "" },
+      { "point": "Menanyakan secara rinci mengenai gejala yang dialami dan riwayat penyakit Anda", "description": "" },
+      { "point": "Menggunakan kuesioner psikologi untuk membantu menentukan diagnosis", "description": "" },
+      { "point": "Menggunakan kriteria Diagnosis and Statistic Manual of Mental Disorders (DSM) untuk mendiagnosis gangguan ini. Pada saat ini revisi paling terbaru adalah DSM edisi kelima (DSM-5)", "description": "" }
+    ],
+    "complications": [
+      "Penurunan kemampuan untuk melakukan tugas dengan cepat dan efisien karena sulit berkonsentrasi",
+      "Waktu dan perhatian yang teralihkan dari aktivitas utama",
+      "Rasa cepat lelah",
+      "Peningkatan risiko depresi", 
+      "Masalah pencernaan seperti iritasi usus besar atau tukak usus",
+      "Sakit kepala dan migrain",
+      "Gangguan tidur termasuk insomnia",
+      "Masalah kesehatan jantung",
+      "Peningkatan risiko gangguan mental lain seperti fobia, gangguan obsesif kompulsif, depresi, pikiran untuk bunuh diri",
+      "Penyalahgunaan obat",
+      "Bunuh diri"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Jenis psikoterapi yang paling efektif adalah terapi perilaku kognitif atau Cognitive Behavioral Therapy (CBT). Terapi ini adalah lini pengobatan pertama pada pasien GAD.",
+        "description_points": []
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Meskipun bukan pilihan utama dalam pengobatan gangguan kecemasan umum, ada obat-obatan yang dapat membantu mengurangi gejala yang dirasakan pasien GAD. Pengobatan tersebut dapat dilakukan dalam jangka pendek maupun jangka panjang. Dokter akan meninjau rencana pengobatan berdasarkan tingkat keparahan GAD yang dimiliki pasien.",
+        "description_points": [
+          "Pengobatan jangka pendek, biasanya obat alprazolam, clonazepam atau lorazepam, diberikan untuk perawatan dalam jangka pendek. Tujuannya, untuk mengurangi beberapa gejala fisik yang muncul karena GAD, seperti ketegangan otot dan kram perut",
+          "Pengobatan jangka panjang, obat-obat dari golongan berikut umumnya diresepkan untuk penggunaan jangka panjang pada pasien GAD",
+          "Obat antidepresan, dari golongan selective serotonin reuptake inhibitor (SSRI) dan norepinephrine reuptake inhibitor (SNRI). Contohnya, Fluoxetine, fluvoxamine, escitalopram, duloxetine, venlafaxine, dan paroxetine. Obat-obatan tersebut hanya bisa didapat dengan resep dokter. Penggunaannya akan dipantau dalam kunjungan teratur yang telah dijadwalkan oleh dokter",
+          "Obat antikecemasan (ansiolitik), seperti buspiron untuk mengurangi rasa mudah gelisah, sulit tidur dan gejala-gejala lainnya dari gangguan kecemasan umum. Pasien mungkin membutuhkan waktu beberapa minggu untuk mulai merasakan manfaat obat-obatan tersebut. Obat-obatan ini juga dapat memberikan efek samping berupa mulut kering, mual, dan diare" 
+        ]
+      },
+      {
+        "point": "Mengatur gaya hidup",
+        "description": "Jika tidak ditangani dengan baik, gangguan kecemasan umum dapat menyebabkan komplikasi berupa:",
+        "description_points": [
+          "Menerapkan pola makan yang sehat, berolahraga secara teratur, dan istirahat yang cukup",
+          "Menerapkan teknik-teknik relaksasi untuk mengatasi stres yang dialami, seperti meditasi dan yoga",
+          "Menghindari zat-zat dan obat-obatan yang dapat memicu rasa cemas, seperti alkohol, kopi, maupun rokok",
+          "Berbicara dengan orang-orang terdekat tentang masalah yang Anda hadapi atau bergabung dengan komunitas-komunitas yang terdiri dari orang-orang dengan kondisi serupa, agar bisa berdiskusi dan saling mendukung"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Membuat prioritas dalam hidup serta mengatur waktu dengan cermat",
+      "Menghindari pengunaan zat-zat atau obat-obatan yang dapat memicu rasa cemas, seperti rokok, alkohol, narkotika, dan sebagainya",
+      "Berkonsultasi dengan dokter dan ahli kesehatan lainnya dengan segera ketika merasakan gejala-gejala gangguan kecemasan umum",
+      "Membuat jurnal tentang aktivitas sehari-hari, sehingga dapat mengenal faktor pemicu dan kondisi yang meringankan gejala",
+      "Melakukan teknik-teknik untuk mengatasi stres, seperti meditasi",
+      "Menerapkan pola hidup sehat, seperti beristirahat dengan cukup, pola makan bergizi seimbang, dan berolahraga secara teratur"
+    ]
+  },
+
+  {
+    "name": "Gangguan Kepribadian",
+    "short_description": "Gangguan kepribadian merupakan gangguan kesehatan mental yang dicirikan dengan pola pikir, perilaku, dan perasaan yang terganggu dan tidak disadari oleh penderita. Terkadang penderita juga menyalahkan orang lain atas pemikiran atau perilaku yang dilakukan.",
+    "types": [
+      {
+        "name": "Kategori A: Pemikiran dan/atau perilaku yang tidak wajar atau nyentrik",
+        "short_description": "Gangguan kepribadian schizoid, paranoid dan schizotypal"
+      },
+      {
+        "name": "Kategori B: Pemikiran dan/atau perilaku yang dramatis, terlalu emosional, atau tidak dapat diprediksi",
+        "short_description": "Gangguan kepribadian antisosial, ambang, histrionik dan narsistik"
+      },
+      {
+        "name": "Kategori C: Pemikiran dan/atau perilaku yang penuh kecemasan dan ketakutan",
+        "short_description": "Gangguan kepribadian dependen, avoidant dan obsesif-kompulsif"
+      }
+    ],
+    "signs_and_sympthomps": [
+      {
+        "point": "Kategori A: Pemikiran dan/atau perilaku yang tidak wajar atau nyentrik",
+        "description_points": [
+          "Gangguan kepribadian schizoid (schizoid personality disorder), gejala berupa sedikitnya minat untuk membangun hubungan sosial dengan orang lain, tidak menangkap isyarat sosial yang normal, serta memiliki emosional yang dingin.",
+          "Gangguan kepribadian schizotypal (schizotypal personality disorder), Gejala berupa kepercayaan bahwa dirinya dapat memengaruhi pikiran atau peristiwa tertentu, sering salah menafsirkan perilaku orang lain dan pada akhirnya memberikan respon emosi yang tidak sesuai, mengalami sensasi indera yang tidak wajar (contohnya, mendengarkan namanya dibisikkan di telinga), serta cenderung untuk menghindari berhubungan secara dekat dengan orang lain",
+          "Gangguan kepribadian paranoid (paranoid personality disorder), gejala berupa tidak memercayai orang lain dan curiga terhadap motif di balik perilaku orang lain secara tidak beralasan, merasa bahwa orang lain akan menipu atau mencederai individu meskipun tidak terbukti, serta cenderung menyimpan dendam"
+        ]
+      },
+      {
+        "point": "Kategori B: Pemikiran dan/atau perilaku yang dramatis, terlalu emosional, atau tidak dapat diprediksi",
+        "description_points": [
+          "Gangguan kepribadian histrionik (histrionic personality disorder), gejala berupa sering mencoba mendapatkan perhatian banyak orang dengan cara yang dramatis atau menjadi provokatif secara seksual, sangat mudah dipengaruhi oleh orang lain, sangat sensitif terhadap kritikan serta penolakan, serta merasa bahwa hubungannya dengan orang lain lebih dekat dari yang sebenarnya",
+          "Gangguan kepribadian antisosial (antisocial personality disorder), gejala berupa kecenderungan memanipulasi atau memperlakukan orang lain dengan kasar tanpa merasa menyesal atas tindakannya dan tidak memedulikan perasaan orang lain. Gejala lainnya adalah berlaku agresif dan impulsif tanpa mementingkan keselamatan dirinya dan orang lain, Penderita ini juga kerap mencuri, berbohong, atau menyalahgunakan alkohol dan obat-obatan",
+          "Gangguan kepribadian narsistik (naricissistic personality disorder), gejala berupa kepercayaan bahwa dirinya lebih penting daripada orang lain, melebih-lebihkan dan mengumbar-umbar kesuksesan, daya tarik, prestasi serta pencapaiannya, memiliki keinginan untuk dikagumi, dan kurang berempati terhadap orang lain serta cenderung mengambil keuntungan dari orang lain. Penderita juga mungkin iri kepada orang lain atau merasa orang lain iri kepadanya",
+          "Gangguan Kepribadian ambang (borderline personality disorder), gejala berupa merasa kosong dan ditinggalkan meskipun terdapat dukungan dari keluarga atau komunitas, memiliki persepsi terhadap diri dan orang lain yang berubah-ubah,memiliki kesulitan dalam menghadapi hal-hal yang membuat stres, mungkin dapat mengalami paranoia, dan melakukan perilaku yang impulsif dan berisiko seperti seks tanpa pengaman, penyalahgunaan alkohol, dan berjudi"
+        ]
+      },
+      {
+        "point": "Kategori C: Pemikiran dan/atau perilaku yang penuh kecemasan dan ketakutan",
+        "description_points": [
+          "Gangguan kepribadian dependen (dependent personality disorder), gejala berupa sangat bergantung dengan orang lain untuk memenuhi kebutuhan emosi dan fisik, memiliki ketakutan untuk menjadi mandiri, menghindari kesendirian, cenderung dapat mentoleransi pelecehan fisik maupun verbal yang diberikan, tidak memiliki kepercayaan diri, dan tidak dapat membuat keputusan sendiri",
+          "Gangguan kepribadian obsesif-kompulsif (obsessive-compulsive personality disorder), Gejala berupa keinginan yang besar terhadap keteraturan, detail, dan aturan, tidak nyaman dengan ketidaksempurnaan, kadar perfeksionis yang berlebihan atau ekstrem, sangat mengikuti aturan, keras kepala dan tidak fleksibel, merasa tidak nyaman jika tidak mencapai kesempurnaan, serta cenderung dapat mengabaikan hubungan pribadi demi kesempurnaan suatu proyek. Namun, perlu diketahui, gangguan kepribadian obsesif-kompulsif berbeda dengan gangguan obsesif-kompulsif (obsessive-compulsive disorder) yang masuk dalam kategori gangguan kecemasan",
+          "Gangguan kepribadian avoidant (avoidant personality disorder), gejala berupa merasa rendah diri, tidak mampu melakukan apapun, dan merasa dirinya tidak menarik, serta menghindari segala bentuk kegiatan sosialisasi dengan orang lain. Penderita juga sangat sensitif dan terlalu memikirkan kritikan dari orang lain serta memiliki ketakutan tidak disetujui dan dipermalukan oleh orang lain"
+        ]
+      }
+    ],
+    "causes": [
+      "Lingkungan, meliputi tempat seseorang tumbuh besar, peristiwa-peritiwa hidup, serta hubungan dengan anggota keluarga dan orang lain",
+      "Genetik, Beberapa kepribadian tertentu dapat diturunkan oleh orangtua secara genetik dan biasa disebut sebagai tempramen"
+    ],
+    "diagnosis": [
+      { 
+        "point": "Melakukan pemeriksaan kondisi fisik dan evaluasi pertanyaan kuesioner", 
+        "description": "Dokter dan ahli kesehatan mental lainnya mungkin akan melakukan pemeriksaan kondisi fisik, evaluasi psikiatri yang meliputi pertanyaan-pertanyaan ataupun kuesioner mengenai pemikiran, perasaan, dan perilaku individu, dan diagnosis menggunakan Diagnostic and Statistical Manual of Mental Disorders (DSM) yang merupakan panduan untuk Asosiasi Psikiater Amerika (American Psychiatrist Association). Untuk saat ini DSM dengan revisi yang paling baru adalah DSM edisi kelima (DSM-5)." 
+      },
+      { 
+        "point": "Menurut DSM-5, individu mengalami gangguan kepribadian jika terdapat penyimpangan jangka panjang dari norma budaya yang menyebabkan tekanan dan masalah yang signifikan pada setidaknya dua dari kategori", 
+        "description": "Sikap seseorang ketika berhadapan dengan orang lain, kesesuaian dalam respons emosional, kemampuan dalam mengontrol keinginan atau hasrat dan cara seseorang mempersepsikan dan memahami diri sendiri dan orang lain" 
+      },
+      {
+        "point": "Melakukan tes darah dan pengunaan alkohol atau obat-obatan",
+        "description": "Dalam beberapa kasus, dokter akan melakukan tes darah untuk menentukan kondisi medis yang dapat menyebabkan gejala. Dokter juga bisa memberikan tes untuk melihat ada tidaknya pengunaan alkohol dan obat-obatan."
+      } 
+    ],
+    "complications": [],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Dalam psikoterapi, penderita akan belajar tentang kondisi dirinya. Penderita akan diajak untuk berbicara dan berbagi tentang suasana hati (mood), perasaan, pikiran dan perilaku yang dilakukan. Penderita juga akan belajar cara mengatasi stres dan mengendalikan gangguan kepribadian yang diderita. Psikoterapi dapat dijalankan sendiri, dengan grup ataupun bersama keluarga atau teman.",
+        "description_points": []
+      },
+      {
+        "point": "Medikasi",
+        "description": "Sampai saat ini belum ada obat yang secara spesifik digunakan dalam pengobatan gangguan kepribadian. Namun, beberapa jenis obat tertentu dapat membantu dalam menangani gejala gangguan kepribadian, seperti:",
+        "description_points": [
+          "Obat untuk menstabilkan suasana hati (mood stabilizers), digunakan untuk mencegah terjadinya perubahan suasana hati yang ekstrem (mood swing), mengurangi agresi dan kekesalan",
+          "Antidepresan, digunakan pada orang dengan gejala depresi, kemarahan, atau perilaku impulsif",
+          "Obat anticemas, membantu meringankan kecemasan, agitasi, atau insomnia (sulit tidur)",
+          "Obat-obatan antipsikotik atau neuroleptics, digunakan pada situasi saat penderita tidak lagi dapat mengenali realita (psikosis) tetapi dalam beberapa kasus, obat ini juga digunakan untuk mengatasi masalah kecemasan atau kemarahan"
+        ]
+      },
+      {
+        "point": "Beberapa hal yang dapat mengurangi gangguan kepribadian",
+        "description": "",
+        "description_points": [
+          "Tetap mengikuti penanganan yang diberikan",
+          "Berolahraga secara teratur",
+          "Lakukan pemeriksaan medis secara rutin",
+          "Pelajari tentang kondisi yang Anda alami",
+          "Hindari alkohol dan narkotika"
+        ]
+      }
+    ],
+    "how_to_prevent": []
+  }
+]

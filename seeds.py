@@ -4,7 +4,7 @@ from faker import Faker
 
 from datetime import datetime
 from itertools import count
-import random
+import random, json
 
 from extensions import bcrypt, mongo
 from utilities.helpers import default_img, datetime_format
@@ -447,74 +447,94 @@ def run_admin_user_seeder():
         print('Seeding users(admin) collection failed...')
         print('error', ex)
 
+#seeds mental_disorder
+@seed_cli.command('mental_disorder_seeder')
+def run_mental_disorder_seeder():
+    mongo.db.mental_disorders.delete_many({})
+
+    try:
+        f= open('./seed_data/mental_disorders.json')
+        mental_disorders= json.load(f)
+        result= mongo.db.mental_disorders.insert_many(mental_disorders)
+
+        if len(result.inserted_ids) == 0:
+            print('Seeding mental_disorders collection failed...')
+            return
+        
+        print('Seeding mental_disorders collection succeed...')
+    except Exception as ex:
+        print('Seeding mental_disorders collection failed...')
+        print('error', ex)
+
 #seeds theme
 @seed_cli.command('theme_seeder')
 def run_theme_seeder():
     mongo.db.themes.delete_many({})
 
+    themes= [
+        {
+            'name': 'Comfort Light Green',
+            'colors': {
+                'primary': '#aed9b2',
+                'primary_rgb': '174, 217, 178',
+                'primary_contrast': '#ffffff',
+                'primary_contrast_rgb': '255, 255, 255',
+                'primary_shade': '#99bf9d',
+                'primary_tint': '#b6ddba'
+            },
+            'is_active': True
+        },
+        {
+            'name': 'Pink Dogwood',
+            'colors': {
+                'primary': '#f7d1d1',
+                'primary_rgb': '247, 209, 209',
+                'primary_contrast': '#ffffff',
+                'primary_contrast_rgb': '255, 255, 255',
+                'primary_shade': '#d9b8b8',
+                'primary_tint': '#f8d6d6'
+            },
+            'is_active': True
+        },
+        {
+            'name': 'Bright Pastel Orange',
+            'colors': {
+                'primary': '#ffb650',
+                'primary_rgb': '255, 182, 80',
+                'primary_contrast': '#ffffff',
+                'primary_contrast_rgb': '2555, 255, 255',
+                'primary_shade': '#e0a046',
+                'primary_tint': '#ffbd62'
+            },
+            'is_active': True
+        },
+        {
+            'name': 'Red Shimmer',
+            'colors': {
+                'primary': '#f5595c',
+                'primary_rgb': '245, 89, 92',
+                'primary_contrast': '#ffffff',
+                'primary_contrast_rgb': '255, 255, 255',
+                'primary_shade': '#d84e51',
+                'primary_tint': '#f66a6c'
+            },
+            'is_active': True
+        },
+        {
+            'name': 'Purple Rose',
+            'colors': {
+                'primary': '#b09fca',
+                'primary_rgb': '176, 159, 202',
+                'primary_contrast': '#ffffff',
+                'primary_contrast_rgb': '255, 255, 2555',
+                'primary_shade': '#9b8cb2',
+                'primary_tint': '#b8a9cf'
+            },
+            'is_active': True
+        },
+    ]
+
     try:
-        themes= [
-            {
-                'name': 'Comfort Light Green',
-                'colors': {
-                    'primary': '#aed9b2',
-                    'primary_rgb': '174, 217, 178',
-                    'primary_contrast': '#ffffff',
-                    'primary_contrast_rgb': '255, 255, 255',
-                    'primary_shade': '#99bf9d',
-                    'primary_tint': '#b6ddba'
-                },
-                'is_active': True
-            },
-            {
-                'name': 'Pink Dogwood',
-                'colors': {
-                    'primary': '#f7d1d1',
-                    'primary_rgb': '247, 209, 209',
-                    'primary_contrast': '#ffffff',
-                    'primary_contrast_rgb': '255, 255, 255',
-                    'primary_shade': '#d9b8b8',
-                    'primary_tint': '#f8d6d6'
-                },
-                'is_active': True
-            },
-            {
-                'name': 'Bright Pastel Orange',
-                'colors': {
-                    'primary': '#ffb650',
-                    'primary_rgb': '255, 182, 80',
-                    'primary_contrast': '#ffffff',
-                    'primary_contrast_rgb': '2555, 255, 255',
-                    'primary_shade': '#e0a046',
-                    'primary_tint': '#ffbd62'
-                },
-                'is_active': True
-            },
-            {
-                'name': 'Red Shimmer',
-                'colors': {
-                    'primary': '#f5595c',
-                    'primary_rgb': '245, 89, 92',
-                    'primary_contrast': '#ffffff',
-                    'primary_contrast_rgb': '255, 255, 255',
-                    'primary_shade': '#d84e51',
-                    'primary_tint': '#f66a6c'
-                },
-                'is_active': True
-            },
-            {
-                'name': 'Purple Rose',
-                'colors': {
-                    'primary': '#b09fca',
-                    'primary_rgb': '176, 159, 202',
-                    'primary_contrast': '#ffffff',
-                    'primary_contrast_rgb': '255, 255, 2555',
-                    'primary_shade': '#9b8cb2',
-                    'primary_tint': '#b8a9cf'
-                },
-                'is_active': True
-            },
-        ]
 
         result= mongo.db.themes.insert_many(themes)
 
