@@ -90,6 +90,8 @@ def habits_reminder():
 
             if reminder_time == current_time:
                 habits_tracks_to_remind.append(habit['_id'])
+            else:
+                mongo.db.habits.find_one_and_update({ '_id': habit['_id'] }, { '$set': { 'is_notified': False } })
         else:
             mongo.db.habits.find_one_and_update({ '_id': habit['_id'] }, { '$set': { 'is_notified': False } })
     
