@@ -146,7 +146,7 @@ class RequestResetPassword(graphene.Mutation):
             'email': user['email'],
             'token': token,
             'token_expiry': token_expiry
-        });
+        })
 
         if result.inserted_id is None:
             return RequestResetPassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));

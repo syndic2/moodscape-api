@@ -21,6 +21,8 @@ def re_structure_habit_input(fields, operation= 'create'):
             'end': datetime.datetime.strptime(fields.goal_dates.end, datetime_format('date'))
         },
         'reminder_time': fields['reminder_time'],
+        'is_reminder': fields['is_reminder'],
+        'is_notified': False,
         'label_color': fields['label_color']
     }
 
@@ -47,7 +49,7 @@ def re_structure_habit_output(fields, track_fields= None):
 
     if fields['reminder_time'] != '':
         fields['reminder_time']= str(fields['reminder_time'].time())[:-3]
-    
+
     if track_fields is not None:
         fields['track']= {
             'total_completed': track_fields['total_completed'],
@@ -99,6 +101,7 @@ class HabitAbstract(graphene.AbstractType):
     day= graphene.String()
     goal= graphene.Int()
     reminder_time= graphene.String()
+    is_reminder= graphene.Boolean()
     label_color= graphene.String()
 
 class HabitInput(HabitAbstract, graphene.InputObjectType):

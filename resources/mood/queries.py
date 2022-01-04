@@ -148,7 +148,7 @@ class GetUserMoods(graphene.AbstractType):
         filter_conditions= []
 
         if filters.emoticon_name != '':
-            filter_conditions.append({ 'emoticon.name': filters.emoticon_name });
+            filter_conditions.append({ 'emoticon.name': filters.emoticon_name })
         if filters.parameters.internal is True:
             filter_conditions.append({ 'parameters.internal': { '$regex': filters.search_text, '$options': 'i' } })
         if filters.parameters.external is True:

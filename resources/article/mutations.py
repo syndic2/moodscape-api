@@ -1,6 +1,5 @@
-import os, graphene
+import os, datetime, graphene
 from graphene_file_upload.scalars import Upload
-from datetime import datetime
 from flask import request
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
@@ -38,7 +37,7 @@ class CreateArticle(graphene.Mutation):
             'title': fields['title'],
             'short_summary': fields['short_summary'],
             'author': fields['author'],
-            'posted_at': datetime.strptime(fields.posted_at, datetime_format('date')),
+            'posted_at': datetime.datetime.strptime(fields.posted_at, datetime_format('date')),
             'reviewed_by': fields['reviewed_by'],
             'header_img': default_img,
             'content': fields['content'],
@@ -91,7 +90,7 @@ class UpdateArticle(graphene.Mutation):
                 response= ResponseMessage(text= 'Judul sudah terpakai, artikel gagal diperbarui', status= False)
             )
 
-        fields['posted_at']= datetime.strptime(fields.posted_at, datetime_format('date'))
+        fields['posted_at']= datetime.datetime.strptime(fields.posted_at, datetime_format('date'))
         
         if header_img_upload.filename != 'default':
             file_name= formatted_file_name(header_img_upload.filename)

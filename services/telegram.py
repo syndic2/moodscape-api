@@ -7,9 +7,9 @@ from bson.objectid import ObjectId
 from utilities.helpers import telegram_sessions_path
 from extensions import mongo
 
-telegram_api= Blueprint('telegram_api', __name__)
+telegram_service_api= Blueprint('telegram_api', __name__)
 
-@telegram_api.route('/auth', methods= ['POST'])
+@telegram_service_api.route('/auth', methods= ['POST'])
 async def auth_phone():
     loop= asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -51,7 +51,7 @@ async def auth_phone():
         elif isinstance(ex, FloodWaitError):
             return jsonify(message= f'Kode verifikasi OTP menunggu {ex.seconds} detik untuk pengiriman selanjutnya'), 500
 
-@telegram_api.route('/otp-verification', methods= ['POST'])
+@telegram_service_api.route('/otp-verification', methods= ['POST'])
 async def auth_code():
     loop= asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -104,7 +104,7 @@ async def auth_code():
         elif isinstance(ex, PhoneCodeInvalidError):
             return jsonify(message= 'Kode verifikasi OTP tidak valid'), 500
 
-@telegram_api.route('/auth/logout', methods= ['POST'])
+@telegram_service_api.route('/auth/logout', methods= ['POST'])
 async def logout():
     loop= asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -135,7 +135,7 @@ async def logout():
     except Exception as ex:
         return jsonify(message= ex)
 
-@telegram_api.route('/chat-emotions/<user_id>')
+@telegram_service_api.route('/chat-emotions/<user_id>')
 async def get_messages(user_id):
     loop= asyncio.new_event_loop()
     asyncio.set_event_loop(loop)

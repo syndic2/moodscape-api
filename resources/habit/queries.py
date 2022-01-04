@@ -24,11 +24,11 @@ class GetUserHabits(graphene.AbstractType):
             )
 
         #filters_query= { '_id': { '$in': user_habit['habits'] } }
-#
+
         #if day != '':
         #    filters_query['day']= day
 
-        habits= list(mongo.db.habits.find({ '_id': { '$in': user_habit['habits'] } }))
+        habits= list(mongo.db.habits.find({ '_id': { '$in': user_habit['habits'] } }).sort('_id', -1))
 
         for habit in habits:
             habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': habit['_id'] })

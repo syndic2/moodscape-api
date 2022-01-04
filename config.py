@@ -15,8 +15,11 @@ class BaseConfig:
     JWT_ACCESS_TOKEN_EXPIRES= datetime.timedelta(days= 30) 
     JWT_REFRESH_TOKEN_EXPIRES= datetime.timedelta(days= 35) 
 
+    FCM_SERVER_KEY= ENV.get('FCM_SERVER_KEY')
+
     UPLOAD_FOLDER= upload_path
-    
+    SCHEDULER_TIMEZONE= 'Asia/Jakarta'
+
 class DevelopmentConfig(BaseConfig):
     MONGO_URI= 'mongodb://localhost:27017/moodscape'
 
