@@ -31,6 +31,10 @@ class MoodParametersFilterInput(graphene.InputObjectType):
     internal= graphene.Boolean()
     external= graphene.Boolean()
 
+class MoodCreatedDateFilterInput(graphene.InputObjectType):
+    start= graphene.String()
+    end= graphene.String()
+
 class MoodAbstract(graphene.AbstractType):
     activities= graphene.List(Activity)
     note= graphene.String()
@@ -48,6 +52,7 @@ class MoodFilterInput(graphene.InputObjectType):
     parameters= MoodParametersFilterInput()
     activity_ids= graphene.List(graphene.Int)
     note= graphene.Boolean()
+    created_date= MoodCreatedDateFilterInput()
 
 class Mood(MoodAbstract, graphene.ObjectType): 
     _id= graphene.Int()

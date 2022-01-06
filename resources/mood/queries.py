@@ -2,10 +2,20 @@ import graphene
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
+import datetime
+
 from extensions import mongo
-from utilities.helpers import get_month_name
+from utilities.helpers import validate_datetime, datetime_format, get_month_name
 from ..utility_types import ResponseMessage
-from .types import MoodFilterInput, MoodResponse, UserMoods, UserMoodsChart, ProtectedUserMoods, ProtectedUserMoodsChart, ProtectedMood
+from .types import (
+    MoodFilterInput, 
+    MoodResponse, 
+    UserMoods, 
+    UserMoodsChart, 
+    ProtectedUserMoods, 
+    ProtectedUserMoodsChart, 
+    ProtectedMood
+)
 
 class GetUserMoods(graphene.AbstractType):
     get_user_moods= graphene.Field(ProtectedUserMoods)
@@ -157,7 +167,15 @@ class GetUserMoods(graphene.AbstractType):
             filter_conditions.append({ 'activities._id': { '$all': filters.activity_ids } })
         if filters.note is True:
             filter_conditions.append({ 'note': { '$regex': filters.search_text, '$options': 'i' } })
-        
+        if ((filters.created_date.start != '' and filters.created_date.end != '') and
+            (validate_datetime(filters.created_date.start, 'date') and validate_datetime(filters.created_date.end, 'date'))):
+            filter_conditions.append({
+                '$and': [
+                    { 'created_at': { '$gte': datetime.datetime.strptime(f'{filters.created_date.start} 23:59', datetime_format('datetime')) } },
+                    { 'created_at': { '$lte': datetime.datetime.strptime(f'{filters.created_date.end} 23:59', datetime_format('datetime')) } }
+                ]
+            })
+
         user_moods= mongo.db.user_moods.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if user_moods is None or not user_moods['moods']:
