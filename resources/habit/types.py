@@ -107,6 +107,14 @@ class HabitAbstract(graphene.AbstractType):
 class HabitInput(HabitAbstract, graphene.InputObjectType):
     goal_dates= HabitGoalDatesInput()
 
+class HabitFilterInput(graphene.InputObjectType):
+    name= graphene.String()
+    type= graphene.String()
+    start_date= graphene.String()
+    end_date= graphene.String()
+    reminder_time= graphene.String()
+    label_color= graphene.String()
+
 class Habit(HabitAbstract, graphene.ObjectType):
     _id= graphene.Int()
     created_at= graphene.Field(Timestamps)

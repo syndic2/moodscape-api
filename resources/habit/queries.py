@@ -2,16 +2,27 @@ import graphene
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
+import datetime
+
 from extensions import mongo
-from utilities.helpers import get_month_name
+from utilities.helpers import datetime_format, validate_datetime, get_month_name
 from ..utility_types import ResponseMessage
-from .types import re_structure_habit_output, UserHabits, UserHabitsChart, HabitResponse, ProtectedUserHabits, ProtectedUserHabitsChart, ProtectedHabit
+from .types import (
+    re_structure_habit_output, 
+    UserHabits, 
+    UserHabitsChart,
+    HabitFilterInput, 
+    HabitResponse, 
+    ProtectedUserHabits, 
+    ProtectedUserHabitsChart, 
+    ProtectedHabit
+)
 
 class GetUserHabits(graphene.AbstractType):
     get_user_habits= graphene.Field(ProtectedUserHabits)
     get_user_habits_chart= graphene.Field(ProtectedUserHabitsChart)
     get_user_habit= graphene.Field(ProtectedHabit, _id= graphene.Int())
-    get_filtered_user_habits= graphene.Field(ProtectedUserHabits)
+    get_filtered_user_habits= graphene.Field(ProtectedUserHabits, filters= graphene.Argument(HabitFilterInput))
 
     @query_header_jwt_required
     def resolve_get_user_habits(self, info):
@@ -131,11 +142,59 @@ class GetUserHabits(graphene.AbstractType):
             response= ResponseMessage(text= 'Berhasil mengembalikan habit', status= True)
         )
 
-    def resolve_get_filtered_user_habits(self, info):
+    def resolve_get_filtered_user_habits(self, info, filters):
+        filter_conditions= []
+
+        if filters.name != '':
+            filter_conditions.append({ 'name': { '$regex': filters.name, '$options': 'i' } })
+        if filters.type != '':
+            filter_conditions.append({ 'type': filters.type })
+        
+        if filters.start_date != '' and filters.end_date == '' and validate_datetime(filters.start_date, 'date'):
+            filter_conditions.append({ 'goal_dates.start': datetime.datetime.strptime(filters.start_date, datetime_format('date')) })
+        elif filters.start_date == '' and filters.end_date != '' and validate_datetime(filters.end_date, 'date'):
+            filter_conditions.append({ 'goal_dates.end': datetime.datetime.strptime(filters.end_date, datetime_format('date')) })
+        elif ((filters.start_date != '' and filters.end_date != '') and
+            validate_datetime(filters.start_date, 'date') and validate_datetime(filters.end_date, 'date')):
+            #below works too
+            # filter_conditions.append({ 
+            #     'goal_dates.start': { '$gte': datetime.datetime.strptime(filters.start_date, datetime_format('date')) },
+            #     'goal_dates.end': { '$lte': datetime.datetime.strptime(filters.end_date, datetime_format('date')) }
+            # })
+            filter_conditions.append({
+                '$and': [
+                    { 'goal_dates.start': { '$gte': datetime.datetime.strptime(filters.start_date, datetime_format('date')) } },
+                    { 'goal_dates.end': { '$lte': datetime.datetime.strptime(filters.end_date, datetime_format('date')) } }
+                ]
+            })
+
+        if filters.reminder_time != '':
+            filter_conditions.append({ 'reminder_time': filters.reminder_time })
+
+        if filters.label_color != '':
+            filter_conditions.append({ 'label_color': f'#{filters.label_color}' })
+
+        user_habits= mongo.db.user_habits.find_one({ 'user_id': ObjectId('61cc241b75fcbe2e9ff93323') })
+
+        if UserHabits is None or not user_habits['habits']:
+            return UserHabits(
+                habits= [],
+                response= ResponseMessage(text= 'Belum memiliki habit yang tersimpan', status= False)
+            )
+
+        habits= []
+
+        if len(filter_conditions) > 0:
+             habits= list(mongo.db.habits.find({ '_id': { '$in': user_habits['habits'] }, '$and': filter_conditions }).sort('_id', 1))
+
+        for habit in habits:
+            habit_track= mongo.db.habit_tracks.find_one({ 'habit_id': habit['_id'] })
+            habit= re_structure_habit_output(habit, habit_track)
+
         return UserHabits(
-            _id= 0,
-            user_id= '',
-            habits= [],
+            _id= user_habits['_id'],
+            user_id= ObjectId('61cc241b75fcbe2e9ff93323'),
+            habits= habits,
             response= ResponseMessage(text= 'Berhasil mengembalikan hasil pencarian habit pengguna', status= True)
         )
 

@@ -168,7 +168,8 @@ class GetUserMoods(graphene.AbstractType):
 
         moods= []
 
-        if len(filter_conditions) > 0: moods= list(mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] }, '$and': filter_conditions }).sort('created_at', -1))
+        if len(filter_conditions) > 0: 
+            moods= list(mongo.db.moods.find({ '_id': { '$in': user_moods['moods'] }, '$and': filter_conditions }).sort('created_at', -1))
 
         for mood in moods:
             mood['created_at']= {
