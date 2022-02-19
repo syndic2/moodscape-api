@@ -447,6 +447,164 @@ def run_admin_user_seeder():
         print('Seeding users(admin) collection failed...')
         print('error', ex)
 
+#seeds brief_cope_results
+@seed_cli.command('brief_cope_result_seeder')
+def run_brief_cope_result_seeder():
+    mongo.db.brief_cope_results.delete_many({})
+
+    brief_cope_results= [
+        {
+            'user_id': '1',
+            'coping_strategy': 'Problem-focused',
+            'problem_focused': {
+                'average': 2.75,
+                'categories': {
+                    'active_coping': 3,
+                    'use_of_informational_support': 2,
+                    'positive_reframing': 3,
+                    'planning': 3
+                }
+            },
+            'emotion_focused': {
+                'average': 2.58,
+                'coping_strategy': 'Problem-focused',
+                'categories': {
+                    'emotional_support': 3,
+                    'venting': 2,
+                    'humour': 1.5,
+                    'acceptance': 3,
+                    'self_blame': 3,
+                    'religion': 3
+                }
+            },
+            'avoidant': {
+                'average': 2.5,
+                'coping_strategy': 'Problem-focused',
+                'categories': {
+                    'self_distraction': 3,
+                    'substance_use': 1.5, 
+                    'denial': 2,
+                    'behavioural_disengagement': 3.5
+                }
+            },
+            'created_at': datetime.strptime('2021-12-1', datetime_format('date'))
+        },
+        {
+            'user_id': '1',
+            'coping_strategy': 'Problem-focused',
+            'problem_focused': {
+                'average': 2.75,
+                'categories': {
+                    'active_coping': 3,
+                    'use_of_informational_support': 2,
+                    'positive_reframing': 3,
+                    'planning': 3
+                }
+            },
+            'emotion_focused': {
+                'average': 2.58,
+                'categories': {
+                    'emotional_support': 3,
+                    'venting': 2,
+                    'humour': 1.5,
+                    'acceptance': 3,
+                    'self_blame': 3,
+                    'religion': 3
+                }
+            },
+            'avoidant': {
+                'average': 2.5,
+                'categories': {
+                    'self_distraction': 3,
+                    'substance_use': 1.5, 
+                    'denial': 2,
+                    'behavioural_disengagement': 3.5
+                }
+            },
+            'created_at': datetime.strptime('2021-12-10', datetime_format('date'))
+        },
+        {
+            'user_id': '1',
+            'coping_strategy': 'Problem-focused',
+            'problem_focused': {
+                'average': 2.75,
+                'categories': {
+                    'active_coping': 3,
+                    'use_of_informational_support': 2,
+                    'positive_reframing': 3,
+                    'planning': 3
+                }
+            },
+            'emotion_focused': {
+                'average': 2.58,
+                'categories': {
+                    'emotional_support': 3,
+                    'venting': 2,
+                    'humour': 1.5,
+                    'acceptance': 3,
+                    'self_blame': 3,
+                    'religion': 3
+                }
+            },
+            'avoidant': {
+                'average': 2.5,
+                'categories': {
+                    'self_distraction': 3,
+                    'substance_use': 1.5, 
+                    'denial': 2,
+                    'behavioural_disengagement': 3.5
+                }
+            },
+            'created_at': datetime.strptime('2022-1-1', datetime_format('date'))
+        },
+        {
+            'user_id': '1',
+            'coping_strategy': 'Problem-focused',
+            'problem_focused': {
+                'average': 2.75,
+                'categories': {
+                    'active_coping': 3,
+                    'use_of_informational_support': 2,
+                    'positive_reframing': 3,
+                    'planning': 3
+                }
+            },
+            'emotion_focused': {
+                'average': 2.58,
+                'categories': {
+                    'emotional_support': 3,
+                    'venting': 2,
+                    'humour': 1.5,
+                    'acceptance': 3,
+                    'self_blame': 3,
+                    'religion': 3
+                }
+            },
+            'avoidant': {
+                'average': 2.5,
+                'categories': {
+                    'self_distraction': 3,
+                    'substance_use': 1.5, 
+                    'denial': 2,
+                    'behavioural_disengagement': 3.5
+                }
+            },
+            'created_at': datetime.strptime('2022-2-17', datetime_format('date'))
+        }
+    ]
+
+    try:
+        result= mongo.db.brief_cope_results.insert_many(brief_cope_results)
+
+        if len(result.inserted_ids) == 0:
+            print('Seeding brief_cope_results collection failed...')
+            return
+        
+        print('Seeding brief_cope_results collection succeed...')
+    except Exception as ex:
+        print('Seeding brief_cope_results collection failed...')
+        print('error', ex)
+
 #seeds mental_disorder
 @seed_cli.command('mental_disorder_seeder')
 def run_mental_disorder_seeder():

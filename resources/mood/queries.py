@@ -5,16 +5,18 @@ from bson.objectid import ObjectId
 import datetime
 
 from extensions import mongo
-from utilities.helpers import validate_datetime, datetime_format, get_month_name
+from utilities.helpers import validate_datetime, lesser_comparison_datetime, datetime_format, get_month_name
 from ..utility_types import ResponseMessage
 from .types import (
     MoodFilterInput, 
     MoodResponse, 
     UserMoods, 
-    UserMoodsChart, 
+    UserMoodsChart,
     ProtectedUserMoods, 
     ProtectedUserMoodsChart, 
-    ProtectedMood
+    ProtectedMood,
+    TotalMoodGroupByType,
+    MoodsGrowthByYear
 )
 
 class GetUserMoods(graphene.AbstractType):
@@ -202,5 +204,65 @@ class GetUserMoods(graphene.AbstractType):
             response= ResponseMessage(text= 'Berhasil mengembalikan hasil pencarian mood pengguna', status= True)
         ) 
 
-class MoodQuery(GetUserMoods, graphene.AbstractType):
+class GetMoodCharts(graphene.AbstractType):
+    get_total_mood_group_by_type= graphene.Field(TotalMoodGroupByType)
+    get_moods_growth_by_year= graphene.List(MoodsGrowthByYear, start_date= graphene.String(), end_date= graphene.String())
+
+    def resolve_get_total_mood_group_by_type(self, info):
+        moods= list(mongo.db.moods.find())
+        very_happy= []
+        happy= []
+        netral= []
+        sad= []
+        very_sad= []
+
+        for mood in moods:
+            if mood['emoticon']['value'] == 5: very_happy.append(mood)
+            elif mood['emoticon']['value'] == 4: happy.append(mood)
+            elif mood['emoticon']['value'] == 3: netral.append(mood)
+            elif mood['emoticon']['value'] == 2 : sad.append(mood)
+            elif mood['emoticon']['value'] == 1: very_sad.append(mood)
+
+        return TotalMoodGroupByType(
+            very_happy= len(very_happy),
+            happy= len(happy),
+            netral= len(netral),
+            sad= len(sad),
+            very_sad= len(very_sad)
+        )
+    
+    def resolve_get_moods_growth_by_year(self, info, **kwargs):
+        start_date= kwargs.get('start_date')
+        end_date= kwargs.get('end_date')
+
+        if lesser_comparison_datetime(start_date, end_date, 'date') is False:
+            return []
+
+        if validate_datetime(start_date, 'date') is False or validate_datetime(end_date, 'date') is False:
+            return []
+        
+        start_date= datetime.datetime.strptime(start_date, datetime_format('date'))
+        end_date= datetime.datetime.strptime(end_date, datetime_format('date'))
+
+        moods= list(mongo.db.moods.find({ 'created_at': { '$gte': start_date, '$lte': end_date } }))
+        moods_growth_by_year= []
+
+        for number in range(12):
+            moods_growth_by_year.append(MoodsGrowthByYear(
+                month= get_month_name(number),
+                mood_count= 0,
+                mood_average= 0
+            ))
+
+        for mood in moods:
+            month= mood['created_at'].date().month
+            moods_growth_by_year[month-1].mood_count+= 1
+            moods_growth_by_year[month-1].mood_average+= mood['emoticon']['value']
+
+        for mood_growth in moods_growth_by_year:
+            if mood_growth.mood_count > 0: mood_growth.mood_average/= mood_growth.mood_count
+
+        return moods_growth_by_year
+
+class MoodQuery(GetUserMoods, GetMoodCharts, graphene.AbstractType):
     pass

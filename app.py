@@ -8,6 +8,7 @@ from config import config
 from seeds import seed_cli
 from extensions import cors, auth, bcrypt, mail, mongo, scheduler
 from resources.schema import main_schema, auth_schema
+from services.brief_cope_evaluation import brief_cope_evaluation_api
 from services.mental_disorders import mental_disorder_api
 from services.telegram import telegram_service_api
 from services.firebase_cloud_messaging import fcm_service_api, send_notification
@@ -37,6 +38,7 @@ app.add_url_rule('/api/auth', view_func= GraphQLView.as_view(
     graphiql= True
 ))
 
+app.register_blueprint(brief_cope_evaluation_api, url_prefix= '/api/brief-cope-evaluation')
 app.register_blueprint(mental_disorder_api, url_prefix= '/api/mental-disorders')
 app.register_blueprint(telegram_service_api, url_prefix= '/services/telegram')
 app.register_blueprint(fcm_service_api, url_prefix= '/services/fcm')

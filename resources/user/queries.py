@@ -20,6 +20,7 @@ class UserQuery(graphene.AbstractType):
 
         for user in users:
             if 'date_of_birth' in user and user['date_of_birth'] is not None: user['date_of_birth']= user['date_of_birth'].date()
+            
             user['joined_at']= user['joined_at'].date()
             
             #if user['img_url'] != default_img and is_uploaded_file_exist(user['img_url'].split('/')[-1]) is False:

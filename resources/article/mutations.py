@@ -178,7 +178,6 @@ class ArchiveArticle(graphene.Mutation):
             ) 
         
         articles= list(mongo.db.articles.find({ '_id': { '$in': article_ids } }))
-        
         is_user_articles_exist= mongo.db.user_articles.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if is_user_articles_exist is None:

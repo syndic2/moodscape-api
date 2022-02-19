@@ -89,7 +89,7 @@ class UpdateUser(graphene.Mutation):
         if validate_datetime(fields['date_of_birth'], 'date') is False:
             return UpdateUser(
                 updated_user= None,
-                response= ResponseMessage(text= 'Format tanggal tidak sesuai, pengguna gagal diperbarui', stauts= False)
+                response= ResponseMessage(text= 'Format tanggal tidak sesuai, pengguna gagal diperbarui', status= False)
             )
 
         if 'date_of_birth' in fields:

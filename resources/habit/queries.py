@@ -142,6 +142,7 @@ class GetUserHabits(graphene.AbstractType):
             response= ResponseMessage(text= 'Berhasil mengembalikan habit', status= True)
         )
 
+    @query_header_jwt_required
     def resolve_get_filtered_user_habits(self, info, filters):
         filter_conditions= []
 
@@ -174,7 +175,7 @@ class GetUserHabits(graphene.AbstractType):
         if filters.label_color != '':
             filter_conditions.append({ 'label_color': f'#{filters.label_color}' })
 
-        user_habits= mongo.db.user_habits.find_one({ 'user_id': ObjectId('61cc241b75fcbe2e9ff93323') })
+        user_habits= mongo.db.user_habits.find_one({ 'user_id': ObjectId(get_jwt_identity()) })
 
         if UserHabits is None or not user_habits['habits']:
             return UserHabits(
@@ -193,7 +194,7 @@ class GetUserHabits(graphene.AbstractType):
 
         return UserHabits(
             _id= user_habits['_id'],
-            user_id= ObjectId('61cc241b75fcbe2e9ff93323'),
+            user_id= ObjectId(get_jwt_identity()),
             habits= habits,
             response= ResponseMessage(text= 'Berhasil mengembalikan hasil pencarian habit pengguna', status= True)
         )

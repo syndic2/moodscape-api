@@ -70,7 +70,7 @@ class MoodResponse(graphene.ObjectType):
     mood= graphene.Field(Mood)
     response= graphene.Field(ResponseMessage)
 
-#User moods chart
+#User moods charts
 class MoodAverageByRangeDate(graphene.ObjectType):
     start_date= graphene.Int()
     end_date= graphene.Int()
@@ -88,6 +88,19 @@ class MoodsAverageGroupByMonth(graphene.ObjectType):
 class UserMoodsChart(graphene.ObjectType):
     user_id= graphene.String()
     moods_chart= graphene.List(MoodsAverageGroupByMonth)
+
+#Mood charts
+class TotalMoodGroupByType(graphene.ObjectType):
+    very_happy= graphene.Int()
+    happy= graphene.Int()
+    netral= graphene.Int()
+    sad= graphene.Int()
+    very_sad= graphene.Int()
+
+class MoodsGrowthByYear(graphene.ObjectType):
+    month= graphene.String()
+    mood_count= graphene.Int()
+    mood_average= graphene.Int()
 
 #Mood/Auth
 class ProtectedUserMoods(graphene.Union):
