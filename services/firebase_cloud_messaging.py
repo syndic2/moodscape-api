@@ -84,6 +84,4 @@ def send_notification(token, notification, data= {}):
     )
     response= notify.json()
 
-    print('response', response);
-
     return response

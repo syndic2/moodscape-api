@@ -1,10 +1,11 @@
 import datetime, graphene
 from flask import render_template
 from flask_graphql_auth import get_jwt_identity, create_access_token, create_refresh_token, mutation_jwt_refresh_token_required
-from flask_bcrypt import check_password_hash
+from flask_bcrypt import check_password_hash, generate_password_hash
 from flask_mail import Message
 from bson import ObjectId
 
+from os import environ as ENV
 import datetime
 import secrets
 
@@ -152,13 +153,13 @@ class RequestResetPassword(graphene.Mutation):
             return RequestResetPassword(response= ResponseMessage(text= 'Terjadi kesalahan pada server, permintaan ubah kata sandi gagal', status= False));
         
         try:
-            message= Message('Permintaan ubah kata sandi', sender= 'moodscape.app@gmail.com', recipients= [user['email']])
+            message= Message('Permintaan ubah kata sandi', sender= ENV.get('MAIL_USERNAME'), recipients= [user['email']])
             message.html= render_template('emails/reset-password.html', name= user['first_name'], reset_token= token)
             mail.send(message)
         except Exception as ex:
             return RequestResetPassword(response= ResponseMessage(text= str(ex), status= False))
 
-        return RequestResetPassword(reset_url= f"https://moodscape.netlify.app/reset-password/{token}", response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
+        return RequestResetPassword(reset_url= f"https://moodscape-app.web.app/reset-password/{token}", response= ResponseMessage(text= 'Berhasil melakukan permintaan ubah kata sandi', status= True))
 
 class ResetPassword(graphene.Mutation):
     class Arguments:
@@ -179,7 +180,7 @@ class ResetPassword(graphene.Mutation):
 
         result= mongo.db.users.find_one_and_update(
             { 'email': requested_reset['email'] },
-            { '$set': { 'password': new_password, 'last_password_changed_at': datetime.datetime.utcnow() } }
+            { '$set': { 'password': generate_password_hash(new_password), 'last_password_changed_at': datetime.datetime.utcnow() } }
         )
         clear_requests_reset= mongo.db.reset_passwords.delete_many({ 'email': result['email'] })
 
