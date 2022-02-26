@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, render_template, send_file
 from flask_graphql import GraphQLView
 from graphene_file_upload.flask import FileUploadGraphQLView
+import nltk
 
 import datetime
+import logging
 
 from config import config
 from seeds import seed_cli
@@ -25,6 +27,8 @@ mail.init_app(app)
 mongo.init_app(app)
 scheduler.init_app(app)
 scheduler.start()
+
+nltk.download('omw-1.4', quiet= True)
 
 app.add_url_rule('/api/graphql', view_func= FileUploadGraphQLView.as_view(
     'graphql',
@@ -75,7 +79,7 @@ def display_uploaded_image(file_name):
 #    return jsonify(data)
 
 #this must be refactor with proper filter query in the future
-@scheduler.task(trigger= 'interval', id= 'habits_reminder', seconds= 1)
+@scheduler.task(trigger= 'interval', id= 'habits_reminder', seconds= 1, )
 def habits_reminder():
     current_datetime= datetime.datetime.now()
     current_date= current_datetime.date()
@@ -160,6 +164,12 @@ def habits_reminder():
                     }
                 )
                 mongo.db.habits.find_one_and_update({ '_id': habit['_id'] }, { '$set': { 'is_notified': True } })
+
+class NoRunningFilter(logging.Filter):
+    def filter(self, record):
+        return not record.msg.startswith('Execution of job')
+
+logging.getLogger('apscheduler.scheduler').addFilter(NoRunningFilter())
 
 if __name__ == '__main__':
     app.run(debug= True)
