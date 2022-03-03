@@ -15,9 +15,6 @@ from .mood.mutations import MoodMutation
 from .habit.queries import HabitQuery
 from .habit.mutations import HabitMutation
 
-from .psychology_disease.queries import PsychologyDiseaseQuery
-from .psychology_disease.mutations import PsychologyDiseaseMutation
-
 from .article.queries import ArticleQuery
 from .article.mutations import ArticleMutation
 
@@ -32,7 +29,6 @@ class QueryRoot(
         MoodQuery,
         HabitQuery,
         ActivityQuery,
-        PsychologyDiseaseQuery, 
         ArticleQuery,
         ThemeQuery,
         FeedbackQuery,
@@ -45,7 +41,6 @@ class MutationRoot(
         MoodMutation,
         HabitMutation,
         ActivityMutation,
-        PsychologyDiseaseMutation,
         ArticleMutation,
         ThemeMutation,
         FeedbackMutation,

@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, render_template, send_file
 from flask_graphql import GraphQLView
 from graphene_file_upload.flask import FileUploadGraphQLView
-import nltk
 
+import nltk
 import datetime
 import logging
 

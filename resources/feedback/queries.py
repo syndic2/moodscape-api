@@ -3,13 +3,14 @@ from bson.objectid import ObjectId
 
 from extensions import mongo
 from utilities.helpers import get_month_name, calculate_age, validate_datetime, datetime_format, lesser_comparison_datetime
-from .types import AppFeedback, AppFeedbackUsers, AppFeedbacksGroupByRating, AppFeedbacksGrowthByYear
+from .types import AppFeedback, AppFeedbackUsers, AppFeedbacksGroupByRating, AppFeedbacksGrowthByYear, ChatbotFeedback
 
 class FeedbackQuery(graphene.AbstractType):
     get_app_feedbacks= graphene.List(AppFeedback)
     get_app_feedbacks_group_by_rating= graphene.Field(AppFeedbacksGroupByRating)
     get_app_feedbacks_growth_by_year= graphene.List(AppFeedbacksGrowthByYear, start_date= graphene.String(), end_date= graphene.String())
     get_app_feedback= graphene.Field(AppFeedback, _id= graphene.String())
+    get_chatbot_feedbacks= graphene.List(ChatbotFeedback)
 
     def resolve_get_app_feedbacks(self, info):
         feedbacks= list(mongo.db.app_feedbacks.aggregate([
@@ -28,7 +29,7 @@ class FeedbackQuery(graphene.AbstractType):
             feedback['user']= feedback['user'][0]
             feedback['created_at']= {
                 'date': feedback['created_at'].date(),
-                'time': feedback['created_at'].time()
+                'time': str(feedback['created_at'].time())[:-7]
             }
 
         return feedbacks
@@ -51,8 +52,9 @@ class FeedbackQuery(graphene.AbstractType):
         very_useless= AppFeedbackUsers(group= 'Sangat tidak membantu', users= [], user_average_age= 0)  
         
         for feedback in feedbacks:
-            age= calculate_age(feedback['user'][0]['date_of_birth'].date())
-
+            if 'date_of_birth' in feedback['user'][0] and feedback['user'][0]['date_of_birth'] is not None:
+                age= calculate_age(feedback['user'][0]['date_of_birth'].date())
+            
             if feedback['rating'] == 5: 
                 very_useful.users.append(feedback['user'][0])
                 very_useful.user_average_age+= age
@@ -116,7 +118,6 @@ class FeedbackQuery(graphene.AbstractType):
 
         return feedbacks_growth_by_year
 
-
     def resolve_get_app_feedback(self, info, _id):
         feedback= list(mongo.db.app_feedbacks.aggregate([
             {
@@ -144,3 +145,27 @@ class FeedbackQuery(graphene.AbstractType):
         }
 
         return feedback[0]
+
+    def resolve_get_chatbot_feedbacks(self, info):
+        feedbacks= list(mongo.db.chatbot_feedbacks.aggregate([
+            {
+                '$lookup':  {
+                    'from': 'users',
+                    'localField': 'user_id',
+                    'foreignField': '_id',
+                    'as': 'user'
+                }
+            },
+            { '$sort': { 'created_at': -1 } }
+        ]))
+
+        for feedback in feedbacks:
+            if len(feedback['user']) > 0:
+                feedback['user']= feedback['user'][0]
+            
+            feedback['created_at']= {
+                'date': feedback['created_at'].date(),
+                'time': str(feedback['created_at'].time())[:-7]
+            }
+        
+        return feedbacks

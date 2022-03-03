@@ -32,7 +32,7 @@ def save_token():
         return jsonify(
             token= token,
             message=  'FCM token sudah tersimpan'
-        )
+        ), 409
 
     result= mongo.db.fcm_tokens.insert_one({
         'user_id': ObjectId(user_id),

@@ -29,12 +29,17 @@ async def auth_phone():
             code= await client.send_code_request(phone, force_sms= True)
             await client.disconnect()
 
-            return jsonify(phone_code_hash= code.phone_code_hash, message= f'Berhasil mengirimkan kode OTP verifikasi ke nomor {phone}')
+            return jsonify(
+                status= True,
+                phone_code_hash= code.phone_code_hash, 
+                message= f'Berhasil mengirimkan kode OTP verifikasi ke nomor {phone}'
+            )
         else:
             user= await client.get_me() 
             await client.disconnect()
 
             return jsonify(
+                status= True,
                 user= {
                     'id': user.id,
                     'username': user.username,
@@ -49,9 +54,11 @@ async def auth_phone():
         await client.disconnect()
         
         if isinstance(ex, PhoneNumberInvalidError):
-            return jsonify(message= f'Format nomor HP tidak valid'), 500
+            return jsonify(status= False, message= f'Format nomor HP tidak valid'), 500
         elif isinstance(ex, FloodWaitError):
-            return jsonify(message= f'Kode verifikasi OTP menunggu {ex.seconds} detik untuk pengiriman selanjutnya'), 500
+            return jsonify(status= False, message= f'Kode verifikasi OTP menunggu {ex.seconds} detik untuk pengiriman selanjutnya'), 500
+        else:
+            return jsonify(status= False, message= str(ex)), 500
 
 @telegram_service_api.route('/otp-verification', methods= ['POST'])
 async def auth_code():
@@ -86,20 +93,22 @@ async def auth_code():
                 })
 
                 if result.inserted_id is None:
-                    return jsonify(message= f'Terjadi kesalahan pada server, gagal login menggunakan Telegram dengan nomor {phone}'), 500
+                    return jsonify(status= False, message= f'Terjadi kesalahan pada server, gagal login menggunakan Telegram dengan nomor {phone}'), 500
 
-            return jsonify(verify_success= True, message= f'Berhasil melakukan login ke dalam Telegram dengan nomor {phone}')
+            return jsonify(status= True, verify_success= True, message= f'Berhasil melakukan login ke dalam Telegram dengan nomor {phone}')
         else:
             await client.disconnect()
 
-            return jsonify(verify_success= False, message= f'Nomor {phone} sudah terverifikasi')
+            return jsonify(status= False, verify_success= False, message= f'Nomor {phone} sudah terverifikasi')
     except (PhoneCodeExpiredError, PhoneCodeInvalidError) as ex:
         await client.disconnect()
 
         if isinstance(ex, PhoneCodeExpiredError):
-            return jsonify(message= 'Kode verifikasi OTP sudah tidak berlaku'), 500
+            return jsonify(status= False, message= 'Kode verifikasi OTP sudah tidak berlaku'), 500
         elif isinstance(ex, PhoneCodeInvalidError):
-            return jsonify(message= 'Kode verifikasi OTP tidak valid'), 500
+            return jsonify(status= False, message= 'Kode verifikasi OTP tidak valid'), 500
+        else:
+            return jsonify(status= False, message= str(ex)), 500
 
 @telegram_service_api.route('/auth/logout', methods= ['POST'])
 async def logout():
@@ -107,14 +116,14 @@ async def logout():
     asyncio.set_event_loop(loop)
 
     if 'user_id' not in request.json or  ObjectId.is_valid(request.json['user_id']) is False:
-        return jsonify(message= 'Object Id tidak valid'), 500
+        return jsonify(status= False, message= 'Object Id tidak valid'), 500
 
     user_id= request.json['user_id']
 
     is_chat_emotions_exist= mongo.db.telegram_chat_emotions.find_one({ 'user_id': ObjectId(user_id) })
 
     if is_chat_emotions_exist is None:
-        return jsonify(is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
+        return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
 
     try:
         client= TelegramClient(f'{telegram_sessions_path}/phone_{is_chat_emotions_exist["phone"]}.session', os.environ.get('TELEGRAM_API_ID'), os.environ.get('TELEGRAM_API_HASH'), loop= loop)
@@ -128,12 +137,12 @@ async def logout():
 
             return jsonify(status= True, message= 'Berhasil melakukan logout dari Telegram')
         
-        return jsonify(message= 'Pengguna belum melakukan login ke dalam Telegram')
+        return jsonify(status= True, message= 'Pengguna belum melakukan login ke dalam Telegram')
     except Exception as ex:
-        return jsonify(message= ex)
+        return jsonify(status= False, message= str(ex)), 500
 
 @telegram_service_api.route('/chat-emotions/<user_id>')
-async def get_messages(user_id):
+async def get_chat_emotions(user_id):
     loop= asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     
@@ -143,7 +152,7 @@ async def get_messages(user_id):
     chat_emotions= mongo.db.telegram_chat_emotions.find_one({ 'user_id': ObjectId(user_id) })
     
     if chat_emotions is None:
-        return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram')
+        return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
 
     try:
         client= TelegramClient(f'{telegram_sessions_path}/phone_{chat_emotions["phone"]}.session', os.environ.get('TELEGRAM_API_ID'), os.environ.get('TELEGRAM_API_HASH'), loop= loop)
@@ -152,7 +161,7 @@ async def get_messages(user_id):
             await client.connect()
 
         if not await client.is_user_authorized():
-            return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram')
+            return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
         else:
             entities= await client.get_dialogs()
             messages= []
@@ -161,7 +170,7 @@ async def get_messages(user_id):
                 message_container= client.iter_messages(entity)
 
                 async for message_object in message_container:
-                    if message_object.out is True and message_object.message is not None:
+                    if message_object.out is True and message_object.message is not None and message_object.message != '':
                         chat_with= await client.get_entity(message_object.peer_id)
                         messages.append({
                             'chat_with': {
@@ -207,7 +216,7 @@ async def get_messages(user_id):
             if chat_emotions['emotions'] != emotions_total:
                 result= mongo.db.telegram_chat_emotions.find_one_and_update(
                     { 'user_id': ObjectId(user_id) },
-                    { '$set': { 'emotions': emotions_total } }
+                    { '$set': { 'emotions': dict(emotions_total) } }
                 )
                 
                 if result is None:
@@ -222,9 +231,9 @@ async def get_messages(user_id):
         await client.disconnect()
 
         if isinstance(ex, FloodWaitError):
-            return jsonify(status= False, message= f'Kode verifikasi OTP menunggu {ex.seconds} detik untuk pengiriman selanjutnya')
+            return jsonify(status= False, message= f'Kode verifikasi OTP menunggu {ex.seconds} detik untuk pengiriman selanjutnya'), 500
         else:
-            return jsonify(status= False, message= ex)
+            return jsonify(status= False, message= str(ex)), 500
 
 #@telegram_api.route('/send-messages', methods= ['POST'])
 #async def test_messages():
