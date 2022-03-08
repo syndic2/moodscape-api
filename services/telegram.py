@@ -152,7 +152,7 @@ async def get_chat_emotions(user_id):
     chat_emotions= mongo.db.telegram_chat_emotions.find_one({ 'user_id': ObjectId(user_id) })
     
     if chat_emotions is None:
-        return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
+        return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram')
 
     try:
         client= TelegramClient(f'{telegram_sessions_path}/phone_{chat_emotions["phone"]}.session', os.environ.get('TELEGRAM_API_ID'), os.environ.get('TELEGRAM_API_HASH'), loop= loop)
@@ -161,7 +161,7 @@ async def get_chat_emotions(user_id):
             await client.connect()
 
         if not await client.is_user_authorized():
-            return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram'), 401
+            return jsonify(status= False, is_authorized= False, message= 'Belum melakukan login ke dalam Telegram')
         else:
             entities= await client.get_dialogs()
             messages= []
@@ -176,7 +176,7 @@ async def get_chat_emotions(user_id):
                             'chat_with': {
                                 'user_id': chat_with.id,
                                 'first_name': chat_with.first_name,
-                                'phone': '+'+chat_with.phone
+                                'phone': '+'+str(chat_with.phone)
                             },
                             'data': {
                                 'message_id': message_object.id,
