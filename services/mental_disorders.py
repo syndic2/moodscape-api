@@ -27,7 +27,7 @@ def get_mental_disorders_list():
 
 @mental_disorder_api.route('/by-name/<mental_disorder_name>', methods= ['GET'])
 def get_mental_disorder(mental_disorder_name):
-    mental_disorder= mongo.db.mental_disorders.find_one({ 'name': mental_disorder_name.capitalize()  })
+    mental_disorder= mongo.db.mental_disorders.find_one({ 'name': mental_disorder_name.title() })
 
     if mental_disorder is None:
         return jsonify(status= False, message= 'Data gangguan mental tidak ditemukan'), 404
