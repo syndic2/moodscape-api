@@ -16,6 +16,38 @@ def get_month_name(month_number):
 
     return months[month_number]
 
+def get_months_between(start_date, end_date):
+    """
+    Given two instances of ``datetime.date``, generate a list of dates on
+    the 1st of every month between the two dates (inclusive).
+
+    e.g. "5 Jan 2020" to "17 May 2020" would generate:
+
+        1 Jan 2020, 1 Feb 2020, 1 Mar 2020, 1 Apr 2020, 1 May 2020
+
+    """
+    # if start_date > end_date:
+    #     raise ValueError(f"Start date {start_date} is not before end date {end_date}")
+
+    year = start_date.year
+    month = start_date.month
+
+    while (year, month) <= (end_date.year, end_date.month):
+        yield datetime.date(year, month, 1)
+
+        # Move to the next month.  If we're at the end of the year, wrap around
+        # to the start of the next.
+        #
+        # Example: Nov 2017
+        #       -> Dec 2017 (month += 1)
+        #       -> Jan 2018 (end of year, month = 1, year += 1)
+        #
+        if month == 12:
+            month = 1
+            year += 1
+        else:
+            month += 1
+
 def calculate_age(date_of_birth):
     today= datetime.date.today()
     age= today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))

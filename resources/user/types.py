@@ -38,7 +38,9 @@ class UsersGroupByAge(graphene.ObjectType):
     above_elderly= graphene.Field(UserAgeGroup)
 
 class UsersGrowthByYear(graphene.ObjectType):
-    month= graphene.String()
+    month_name= graphene.String()
+    month_number= graphene.Int()
+    year= graphene.Int()
     users= graphene.List(User)
 
 class UserResponse(graphene.ObjectType):

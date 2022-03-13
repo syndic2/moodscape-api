@@ -2,7 +2,14 @@ import datetime, graphene
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from utilities.helpers import get_month_name, calculate_age, validate_datetime, datetime_format, lesser_comparison_datetime
+from utilities.helpers import (
+    get_month_name, 
+    calculate_age, 
+    validate_datetime, 
+    datetime_format, 
+    lesser_comparison_datetime, 
+    get_months_between
+)
 from .types import AppFeedback, AppFeedbackUsers, AppFeedbacksGroupByRating, AppFeedbacksGrowthByYear, ChatbotFeedback
 
 class FeedbackQuery(graphene.AbstractType):
@@ -101,20 +108,25 @@ class FeedbackQuery(graphene.AbstractType):
         feedbacks= list(mongo.db.app_feedbacks.find({ 'created_at': { '$gte': start_date, '$lte': end_date } }))
         feedbacks_growth_by_year= []
 
-        for number in range(12):
+        for date in list(get_months_between(start_date, end_date)):
             feedbacks_growth_by_year.append(AppFeedbacksGrowthByYear(
-                month= get_month_name(number),
+                month_name= get_month_name(date.month-1),
+                month_number= date.month,
+                year= date.year,
                 feedbacks= [],
                 average_rating= 0
             ))
 
-        for feedback in feedbacks:
-            month= feedback['created_at'].date().month
-            feedbacks_growth_by_year[month-1].feedbacks.append(feedback)
-            feedbacks_growth_by_year[month-1].average_rating+= feedback['rating']
+        for growth in feedbacks_growth_by_year:
+            for feedback in feedbacks:
+                created_at= feedback['created_at'].date()
 
-        for object in feedbacks_growth_by_year:
-            if len(object.feedbacks) > 0: object.average_rating/= len(object.feedbacks)
+                if (created_at.month, created_at.year) == (growth.month_number, growth.year):
+                    growth.feedbacks.append(feedback)
+                    growth.average_rating+= feedback['rating']
+
+        for growth in feedbacks_growth_by_year:
+            if len(growth.feedbacks) > 0: growth.average_rating/= len(growth.feedbacks)
 
         return feedbacks_growth_by_year
 

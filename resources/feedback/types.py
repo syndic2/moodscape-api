@@ -32,7 +32,9 @@ class AppFeedbacksGroupByRating(graphene.ObjectType):
     very_useless= graphene.Field(AppFeedbackUsers)
 
 class AppFeedbacksGrowthByYear(graphene.ObjectType):
-    month= graphene.String()
+    month_name= graphene.String()
+    month_number= graphene.Int()
+    year= graphene.Int()
     feedbacks= graphene.List(AppFeedback)
     average_rating= graphene.Int()
 

@@ -98,7 +98,9 @@ class TotalMoodGroupByType(graphene.ObjectType):
     very_sad= graphene.Int()
 
 class MoodsGrowthByYear(graphene.ObjectType):
-    month= graphene.String()
+    month_name= graphene.String()
+    month_number= graphene.Int() 
+    year= graphene.Int()
     mood_count= graphene.Int()
     mood_average= graphene.Int()
 

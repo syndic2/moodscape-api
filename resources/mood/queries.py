@@ -5,7 +5,13 @@ from bson.objectid import ObjectId
 import datetime
 
 from extensions import mongo
-from utilities.helpers import validate_datetime, lesser_comparison_datetime, datetime_format, get_month_name
+from utilities.helpers import (
+    validate_datetime, 
+    lesser_comparison_datetime, 
+    datetime_format, 
+    get_month_name, 
+    get_months_between
+)
 from ..utility_types import ResponseMessage
 from .types import (
     MoodFilterInput, 
@@ -247,20 +253,30 @@ class GetMoodCharts(graphene.AbstractType):
         moods= list(mongo.db.moods.find({ 'created_at': { '$gte': start_date, '$lte': end_date } }))
         moods_growth_by_year= []
 
-        for number in range(12):
+        for date in list(get_months_between(start_date, end_date)):
             moods_growth_by_year.append(MoodsGrowthByYear(
-                month= get_month_name(number),
+                month_name= get_month_name(date.month-1),
+                month_number= date.month,
+                year= date.year,
                 mood_count= 0,
                 mood_average= 0
             ))
 
-        for mood in moods:
-            month= mood['created_at'].date().month
-            moods_growth_by_year[month-1].mood_count+= 1
-            moods_growth_by_year[month-1].mood_average+= mood['emoticon']['value']
+        for growth in moods_growth_by_year:
+            for mood in moods:
+                created_at= mood['created_at'].date()
 
-        for mood_growth in moods_growth_by_year:
-            if mood_growth.mood_count > 0: mood_growth.mood_average/= mood_growth.mood_count
+                if (growth.month_number, growth.year) == (created_at.month, created_at.year):
+                    growth.mood_count+= 1
+                    growth.mood_average+= mood['emoticon']['value']
+        
+        # for mood in moods:
+        #     month= mood['created_at'].date().month
+        #     moods_growth_by_year[month-1].mood_count+= 1
+        #     moods_growth_by_year[month-1].mood_average+= mood['emoticon']['value']
+
+        for growth in moods_growth_by_year:
+            if growth.mood_count > 0: growth.mood_average/= growth.mood_count
 
         return moods_growth_by_year
 

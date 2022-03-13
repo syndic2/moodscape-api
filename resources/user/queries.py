@@ -3,7 +3,14 @@ from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from utilities.helpers import default_img, is_uploaded_file_exist, get_month_name, calculate_age, datetime_format, validate_datetime, lesser_comparison_datetime
+from utilities.helpers import (
+    get_month_name, 
+    get_months_between,
+    calculate_age, 
+    datetime_format, 
+    validate_datetime, 
+    lesser_comparison_datetime
+)
 from resources.utility_types import ResponseMessage
 from .types import User, UserResponse, UsersGroupByGender, UserAgeGroup, UsersGroupByAge, UsersGrowthByYear, ProtectedUser
 
@@ -91,15 +98,24 @@ class UserQuery(graphene.AbstractType):
         users= list(mongo.db.users.find({ 'joined_at': { '$gte': start_date, '$lte': end_date }, 'is_admin': False }))
         users_growth_by_year= []
 
-        for number in range(12):
+        for date in list(get_months_between(start_date, end_date)):
             users_growth_by_year.append(UsersGrowthByYear(
-                month= get_month_name(number),
+                month_name= get_month_name(date.month-1),
+                month_number= date.month,
+                year= date.year,
                 users= []
             ))
 
-        for user in users:
-            month= user['joined_at'].date().month
-            users_growth_by_year[month-1].users.append(user)
+        for growth in users_growth_by_year:
+            for user in users:
+                joined_at= user['joined_at'].date()
+
+                if (growth.month_number, growth.year) == (joined_at.month, joined_at.year):
+                    growth.users.append(user)
+
+        # for user in users:
+        #     month= user['joined_at'].date().month
+        #     users_growth_by_year[month-1].users.append(user)
             
         return users_growth_by_year
 
