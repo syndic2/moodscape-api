@@ -110,7 +110,7 @@ class GetUserHabits(graphene.AbstractType):
         #caluclate average percentage
         for month_group in habits_chart:
             for year_group in month_group['habit_average_group_by_year']:
-                if year_group['average'] > 0: year_group['average']/= len(year_group['habits'])*100
+                if year_group['average'] > 0: year_group['average']= (year_group['average']/len(year_group['habits']))*100
 
         return UserHabitsChart(
             user_id= user_habits['user_id'],

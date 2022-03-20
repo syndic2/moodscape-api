@@ -79,7 +79,7 @@ def display_uploaded_image(file_name):
 #    return jsonify(data)
 
 #this must be refactor with proper filter query in the future
-@scheduler.task(trigger= 'interval', id= 'habits_reminder', seconds= 1, )
+@scheduler.task(trigger= 'interval', id= 'habits_reminder', seconds= 5)
 def habits_reminder():
     current_datetime= datetime.datetime.now()
     current_date= current_datetime.date()
