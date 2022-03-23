@@ -11,8 +11,13 @@ class GetTheme(graphene.AbstractType):
 
     def resolve_get_themes(self, info):
         themes= list(mongo.db.themes.find({}))
+        filtered_themes= []
 
-        return themes
+        for theme in themes:
+            if 'is_deleted' not in theme or theme['is_deleted'] is False:
+                filtered_themes.append(theme)
+
+        return filtered_themes
 
     def resolve_get_active_themes(self, info):
         themes= list(mongo.db.themes.find({ 'is_active': True }))

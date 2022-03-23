@@ -87,14 +87,15 @@ class UpdateTheme(graphene.Mutation):
 class RemoveThemes(graphene.Mutation):
 	class Arguments:
 		theme_ids= graphene.List(graphene.String)
-	
+		is_soft_delete= graphene.Boolean()
+
 	removed_themes= graphene.List(graphene.String)
 	response= graphene.Field(ResponseMessage)
 
-	def mutate(self, info, theme_ids):
+	def mutate(self, info, theme_ids, is_soft_delete):
 		themes= [str(theme['_id']) for theme in mongo.db.themes.find({})]
 		is_theme_ids_exist= all(_id in themes for _id in theme_ids)
-		
+
 		if is_theme_ids_exist is False:
 			return RemoveThemes(
 				removed_themes= [],
@@ -104,13 +105,25 @@ class RemoveThemes(graphene.Mutation):
 		for i in range(len(theme_ids)):
 			theme_ids[i]= ObjectId(theme_ids[i])
 
-		result= mongo.db.themes.delete_many({ '_id': { '$in': theme_ids } })
+		if is_soft_delete is True:
+			result= mongo.db.themes.update_many(
+				{ '_id': { '$in': theme_ids } },
+				{ '$set': { 'is_deleted': True } }
+			)
 
-		if result.deleted_count == 0:
-			return RemoveThemes(
-				removed_themes= [],
-				response= ResponseMessage(text= 'Terjadi kesalahan pada server, tema gagal terhapus', status= False)
-			) 
+			if result.modified_count == 0:
+				return RemoveThemes(
+					removed_themes= [],
+					response= ResponseMessage(text= 'Terjadi kesalahan pada server, tema gagal terhapus', status= False)
+				)
+		else:
+			result= mongo.db.themes.delete_many({ '_id': { '$in': theme_ids } })
+
+			if result.deleted_count == 0:
+				return RemoveThemes(
+                    removed_themes= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, tema gagal terhapus', status= False)
+                )
 
 		return RemoveThemes(
 			removed_themes= theme_ids,

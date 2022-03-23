@@ -98,11 +98,12 @@ class HandleChatbotFeedback(graphene.Mutation):
 class RemoveChatbotFeedbacks(graphene.Mutation):
     class Arguments:
         feedback_ids= graphene.List(graphene.String)
+        is_soft_delete= graphene.Boolean()
 
     removed_feedbacks= graphene.List(graphene.String)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, info, feedback_ids):
+    def mutate(self, info, feedback_ids, is_soft_delete):
         feedbacks= [str(feedback['_id']) for feedback in mongo.db.chatbot_feedbacks.find({})]
 
         if len(feedback_ids) == 0:
@@ -122,13 +123,25 @@ class RemoveChatbotFeedbacks(graphene.Mutation):
         for i in range(len(feedback_ids)):
             feedback_ids[i]= ObjectId(feedback_ids[i])
 
-        result= mongo.db.chatbot_feedbacks.delete_many({ '_id': { '$in': feedback_ids } })
+        if is_soft_delete is True:
+            result= mongo.db.chatbot_feedbacks.update_many(
+				{ '_id': { '$in': feedback_ids } },
+				{ '$set': { 'is_deleted': True } }
+			)
 
-        if result.deleted_count == 0:
-            return RemoveChatbotFeedbacks(
-                removed_feedbacks= [],
-                response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
-            )
+            if result.modified_count == 0:
+                return RemoveChatbotFeedbacks(
+                    removed_feedbacks= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
+                )
+        else:
+            result= mongo.db.chatbot_feedbacks.delete_many({ '_id': { '$in': feedback_ids } })
+
+            if result.deleted_count == 0:
+                return RemoveChatbotFeedbacks(
+                    removed_feedbacks= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
+                )
 
         return RemoveChatbotFeedbacks(
             removed_feedbacks= feedback_ids,
@@ -220,11 +233,12 @@ class HandleAppFeedback(graphene.Mutation):
 class RemoveAppFeedbacks(graphene.Mutation):
     class Arguments:
         feedback_ids= graphene.List(graphene.String)
-    
+        is_soft_delete= graphene.Boolean()
+
     removed_feedbacks= graphene.List(graphene.String)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, info, feedback_ids):
+    def mutate(self, info, feedback_ids, is_soft_delete):
         feedbacks= [str(feedback['_id']) for feedback in mongo.db.app_feedbacks.find({})]
 
         if len(feedback_ids) == 0:
@@ -244,13 +258,25 @@ class RemoveAppFeedbacks(graphene.Mutation):
         for i in range(len(feedback_ids)):
             feedback_ids[i]= ObjectId(feedback_ids[i])
 
-        result= mongo.db.app_feedbacks.delete_many({ '_id': { '$in': feedback_ids } })
+        if is_soft_delete is True:
+            result= mongo.db.app_feedbacks.update_many(
+				{ '_id': { '$in': feedback_ids } },
+				{ '$set': { 'is_deleted': True } }
+			)
 
-        if result.deleted_count == 0:
-            return RemoveAppFeedbacks(
-                removed_feedbacks= [],
-                response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
-            )
+            if result.modified_count == 0:
+                return RemoveAppFeedbacks(
+                    removed_feedbacks= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
+                )
+        else:
+            result= mongo.db.app_feedbacks.delete_many({ '_id': { '$in': feedback_ids } })
+
+            if result.deleted_count == 0:
+                return RemoveAppFeedbacks(
+                    removed_feedbacks= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, umpan balik gagal terhapus', status= False)
+                )
 
         return RemoveAppFeedbacks(
             removed_feedbacks= feedback_ids,
@@ -258,9 +284,9 @@ class RemoveAppFeedbacks(graphene.Mutation):
         )
 
 class FeedbackMutation(graphene.AbstractType):
-    create_chatbot_feedback= CreateChatbotFeedback.Field()
-    handle_chatbot_feedback= HandleChatbotFeedback.Field()
-    remove_chatbot_feedbacks= RemoveChatbotFeedbacks.Field()
     create_app_feedback= CreateAppFeedback.Field()
     handle_app_feedback= HandleAppFeedback.Field()    
     remove_app_feedbacks= RemoveAppFeedbacks.Field()
+    create_chatbot_feedback= CreateChatbotFeedback.Field()
+    handle_chatbot_feedback= HandleChatbotFeedback.Field()
+    remove_chatbot_feedbacks= RemoveChatbotFeedbacks.Field()

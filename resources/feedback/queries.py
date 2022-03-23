@@ -13,11 +13,39 @@ from utilities.helpers import (
 from .types import AppFeedback, AppFeedbackUsers, AppFeedbacksGroupByRating, AppFeedbacksGrowthByYear, ChatbotFeedback
 
 class FeedbackQuery(graphene.AbstractType):
+    get_chatbot_feedbacks= graphene.List(ChatbotFeedback)
     get_app_feedbacks= graphene.List(AppFeedback)
     get_app_feedbacks_group_by_rating= graphene.Field(AppFeedbacksGroupByRating)
     get_app_feedbacks_growth_by_year= graphene.List(AppFeedbacksGrowthByYear, start_date= graphene.String(), end_date= graphene.String())
     get_app_feedback= graphene.Field(AppFeedback, _id= graphene.String())
-    get_chatbot_feedbacks= graphene.List(ChatbotFeedback)
+
+    def resolve_get_chatbot_feedbacks(self, info):
+        feedbacks= list(mongo.db.chatbot_feedbacks.aggregate([
+            {
+                '$lookup':  {
+                    'from': 'users',
+                    'localField': 'user_id',
+                    'foreignField': '_id',
+                    'as': 'user'
+                }
+            },
+            { '$sort': { 'created_at': -1 } }
+        ]))
+        filtered_feedbacks= []
+
+        for feedback in feedbacks:
+            if len(feedback['user']) > 0:
+                feedback['user']= feedback['user'][0]
+            
+            feedback['created_at']= {
+                'date': feedback['created_at'].date(),
+                'time': str(feedback['created_at'].time())[:-7]
+            }
+
+            if 'is_deleted' not in feedback or feedback['is_deleted'] is False:
+                filtered_feedbacks.append(feedback)
+        
+        return filtered_feedbacks
 
     def resolve_get_app_feedbacks(self, info):
         feedbacks= list(mongo.db.app_feedbacks.aggregate([
@@ -31,6 +59,7 @@ class FeedbackQuery(graphene.AbstractType):
             },
             { '$sort': { 'created_at': -1 } }
         ]))
+        filtered_feedbacks= []
 
         for feedback in feedbacks:
             feedback['user']= feedback['user'][0]
@@ -39,7 +68,10 @@ class FeedbackQuery(graphene.AbstractType):
                 'time': str(feedback['created_at'].time())[:-7]
             }
 
-        return feedbacks
+            if 'is_deleted' not in feedback or feedback['is_deleted'] == False:
+                filtered_feedbacks.append(feedback)
+
+        return filtered_feedbacks
     
     def resolve_get_app_feedbacks_group_by_rating(self, info):
         feedbacks= mongo.db.app_feedbacks.aggregate([
@@ -157,27 +189,3 @@ class FeedbackQuery(graphene.AbstractType):
         }
 
         return feedback[0]
-
-    def resolve_get_chatbot_feedbacks(self, info):
-        feedbacks= list(mongo.db.chatbot_feedbacks.aggregate([
-            {
-                '$lookup':  {
-                    'from': 'users',
-                    'localField': 'user_id',
-                    'foreignField': '_id',
-                    'as': 'user'
-                }
-            },
-            { '$sort': { 'created_at': -1 } }
-        ]))
-
-        for feedback in feedbacks:
-            if len(feedback['user']) > 0:
-                feedback['user']= feedback['user'][0]
-            
-            feedback['created_at']= {
-                'date': feedback['created_at'].date(),
-                'time': str(feedback['created_at'].time())[:-7]
-            }
-        
-        return feedbacks
