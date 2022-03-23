@@ -21,6 +21,7 @@ class GetArticle(graphene.ObjectType):
             fields['title']= { '$regex': title, '$options': 'i' }
         
         articles= list(mongo.db.articles.find(fields).sort('_id', -1))
+        filtered_articles= []
 
         for article in articles:
             article['posted_at']= article['posted_at'].date()
@@ -35,8 +36,11 @@ class GetArticle(graphene.ObjectType):
                     return []
                 
                 article['header_img']= default_img
+            
+            if 'is_deleted' not in article or article['is_deleted'] is False:
+                filtered_articles.append(article)
 
-        return articles
+        return filtered_articles
 
     def resolve_get_article_pagination(self, info, **kwargs):
         fields= {}

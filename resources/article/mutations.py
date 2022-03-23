@@ -133,11 +133,12 @@ class UpdateArticle(graphene.Mutation):
 class RemoveArticles(graphene.Mutation):
     class Arguments:
         article_ids= graphene.List(graphene.Int)
+        is_soft_delete= graphene.Boolean()
 
     removed_articles= graphene.List(graphene.Int)
     response= graphene.Field(ResponseMessage)
 
-    def mutate(self, info, article_ids):
+    def mutate(self, info, article_ids, is_soft_delete):
         articles= [article['_id'] for article in list(mongo.db.articles.find({}))]
         is_article_ids_exist= all(_id in articles for _id in article_ids)
 
@@ -147,13 +148,25 @@ class RemoveArticles(graphene.Mutation):
                 response= ResponseMessage(text= 'Artikel tidak ditemukan, artikel gagal terhapus', status= False)
             ) 
         
-        result= mongo.db.articles.delete_many({ '_id': { '$in': article_ids } })
+        if is_soft_delete is True:
+            result= mongo.db.articles.update_many(
+				{ '_id': { '$in': article_ids } },
+				{ '$set': { 'is_deleted': True } }
+			)
 
-        if result.deleted_count == 0:
-            return RemoveArticles(
-                removed_articles= [],
-                response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal terhapus', status= False)
-            ) 
+            if result.modified_count == 0:
+                return RemoveArticles(
+                    removed_articles= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal terhapus', status= False)
+                )
+        else:
+            result= mongo.db.articles.delete_many({ '_id': { '$in': article_ids } })
+
+            if result.deleted_count == 0:
+                return RemoveArticles(
+                    removed_articles= [],
+                    response= ResponseMessage(text= 'Terjadi kesalahan pada server, artikel gagal terhapus', status= False)
+                ) 
     
         return RemoveArticles(
             removed_articles= article_ids,
