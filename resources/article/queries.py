@@ -3,7 +3,6 @@ from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from bson.objectid import ObjectId
 
 from extensions import mongo
-from utilities.helpers import default_img, is_uploaded_file_exist
 from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article, ArticlePagination, UserArticles, ProtectedUserArticles
 
@@ -26,16 +25,16 @@ class GetArticle(graphene.ObjectType):
         for article in articles:
             article['posted_at']= article['posted_at'].date()
 
-            if article['header_img'] != default_img and is_uploaded_file_exist(article['header_img'].split('/')[-1]) is False:
-                result= mongo.db.articles.update_one(
-                    { '_id': article['_id'] },
-                    { '$set': { 'header_img': default_img } }
-                )
+            # if article['header_img'] != default_img and is_uploaded_file_exist(article['header_img'].split('/')[-1]) is False:
+            #     result= mongo.db.articles.update_one(
+            #         { '_id': article['_id'] },
+            #         { '$set': { 'header_img': default_img } }
+            #     )
 
-                if result.modified_count == 0:
-                    return []
+            #     if result.modified_count == 0:
+            #         return []
                 
-                article['header_img']= default_img
+            #     article['header_img']= default_img
             
             if 'is_deleted' not in article or article['is_deleted'] is False:
                 filtered_articles.append(article)
@@ -47,7 +46,7 @@ class GetArticle(graphene.ObjectType):
         offset= kwargs.get('offset')
         limit= kwargs.get('limit')
 
-        articles= list(mongo.db.articles.find({}))
+        articles= list(mongo.db.articles.find())
         total_articles= len(articles)
 
         #PAGINATE   
@@ -61,7 +60,9 @@ class GetArticle(graphene.ObjectType):
 
         for i in range(offset, len(articles))[:limit]:
             articles[i]['posted_at']= articles[i]['posted_at'].date()
-            paginated_articles.append(articles[i])
+            
+            if 'is_deleted' not in articles[i] or articles[i]['is_deleted'] == False:
+                paginated_articles.append(articles[i])
 
         return ArticlePagination(
             offset= offset,

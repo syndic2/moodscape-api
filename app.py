@@ -2,9 +2,15 @@ from flask import Flask, jsonify, render_template, send_file
 from flask_graphql import GraphQLView
 from graphene_file_upload.flask import FileUploadGraphQLView
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 import nltk
 import datetime
 import logging
+
+from os import environ as ENV
 
 from config import config
 from seeds import seed_cli
@@ -29,6 +35,13 @@ scheduler.init_app(app)
 scheduler.start()
 
 nltk.download('omw-1.4', quiet= True)
+
+cloudinary.config( 
+  cloud_name = ENV.get('CLOUDINARY_NAME'), 
+  api_key = ENV.get('CLOUDINARY_KEY'), 
+  api_secret = ENV.get('CLOUDINARY_SECRET'),
+  secure = True
+)
 
 app.add_url_rule('/api/graphql', view_func= FileUploadGraphQLView.as_view(
     'graphql',

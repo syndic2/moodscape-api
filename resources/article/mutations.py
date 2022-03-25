@@ -1,11 +1,11 @@
-import os, datetime, graphene
+import datetime, graphene
 from graphene_file_upload.scalars import Upload
-from flask import request
 from flask_graphql_auth import get_jwt_identity, mutation_header_jwt_required
 from bson.objectid import ObjectId
+import cloudinary
 
 from extensions import mongo
-from utilities.helpers import default_img, is_uploaded_file_exist, upload_path, formatted_file_name, datetime_format, validate_datetime, get_sequence
+from utilities.helpers import default_img, datetime_format, validate_datetime, get_sequence
 from ..utility_types import ResponseMessage
 from .types import ArticleInput, Article
 
@@ -46,9 +46,11 @@ class CreateArticle(graphene.Mutation):
         }
 
         if header_img_upload.filename != 'default':
-            file_name= formatted_file_name(header_img_upload.filename)
-            fields['header_img']= f"{request.host_url}uploads/images/{file_name}"
-            header_img_upload.save(os.path.join(f"{upload_path}/images", file_name))
+            upload_result= cloudinary.uploader.upload(header_img_upload)
+            fields['header_img']= upload_result['secure_url']
+            
+            # file_name= formatted_file_name(header_img_upload.filename)
+            # header_img_upload.save(os.path.join(f"{upload_path}/images", file_name))
 
         result= mongo.db.articles.insert_one(dict(fields))
 
@@ -93,9 +95,11 @@ class UpdateArticle(graphene.Mutation):
         fields['posted_at']= datetime.datetime.strptime(fields.posted_at, datetime_format('date'))
         
         if header_img_upload.filename != 'default':
-            file_name= formatted_file_name(header_img_upload.filename)
-            fields['header_img']= f"{request.host_url}uploads/images/{file_name}"
-            header_img_upload.save(os.path.join(f"{upload_path}/images", file_name))
+            upload_result= cloudinary.uploader.upload(header_img_upload)
+            fields['header_img']= upload_result['secure_url']
+            
+            # file_name= formatted_file_name(header_img_upload.filename)
+            # header_img_upload.save(os.path.join(f"{upload_path}/images", file_name))
 
         result= mongo.db.articles.find_one_and_update(
             { '_id': _id },
@@ -111,19 +115,19 @@ class UpdateArticle(graphene.Mutation):
         updated_article= mongo.db.articles.find_one({ '_id': _id })
         updated_article['posted_at']= updated_article['posted_at'].date()
 
-        if updated_article['header_img'] != default_img and is_uploaded_file_exist(updated_article['header_img'].split('/')[-1]) is False:
-            result= mongo.db.articles.update_one(
-                { '_id': _id },
-                { '$set': { 'header_img': default_img } }
-            )
+        # if updated_article['header_img'] != default_img and is_uploaded_file_exist(updated_article['header_img'].split('/')[-1]) is False:
+        #     result= mongo.db.articles.update_one(
+        #         { '_id': _id },
+        #         { '$set': { 'header_img': default_img } }
+        #     )
 
-            if result.modified_count == 0:
-                return UpdateArticle(
-                    updated_article= None, 
-                    response= ResponseMessage(text= 'Terjadi kesalahan pada gambar artikel, artikel gagal diperbarui', status= False)
-                )
+        #     if result.modified_count == 0:
+        #         return UpdateArticle(
+        #             updated_article= None, 
+        #             response= ResponseMessage(text= 'Terjadi kesalahan pada gambar artikel, artikel gagal diperbarui', status= False)
+        #         )
 
-            updated_article['header_img']= default_img
+        #     updated_article['header_img']= default_img
 
         return UpdateArticle(
             updated_article= updated_article, 
