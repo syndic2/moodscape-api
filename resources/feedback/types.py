@@ -44,6 +44,7 @@ class ChatbotMessageAbstract(graphene.AbstractType):
     sender= graphene.String()
     recipient_id= graphene.String()
     text= graphene.String()
+    image_url= graphene.String()
     video_url= graphene.String()
 
 class ChatbotMessageInput(graphene.InputObjectType, ChatbotMessageAbstract):
