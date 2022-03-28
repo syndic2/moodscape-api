@@ -110,13 +110,9 @@ class UserQuery(graphene.AbstractType):
             for user in users:
                 joined_at= user['joined_at'].date()
 
-                if (growth.month_number, growth.year) == (joined_at.month, joined_at.year):
+                if growth.month_number == joined_at.month and growth.year == joined_at.year:
                     growth.users.append(user)
 
-        # for user in users:
-        #     month= user['joined_at'].date().month
-        #     users_growth_by_year[month-1].users.append(user)
-            
         return users_growth_by_year
 
     def resolve_get_user(self, info, _id):

@@ -153,7 +153,7 @@ class FeedbackQuery(graphene.AbstractType):
             for feedback in feedbacks:
                 created_at= feedback['created_at'].date()
 
-                if (created_at.month, created_at.year) == (growth.month_number, growth.year):
+                if growth.month_number == created_at.month and growth.year == created_at.year:
                     growth.feedbacks.append(feedback)
                     growth.average_rating+= feedback['rating']
 

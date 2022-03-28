@@ -266,7 +266,7 @@ class GetMoodCharts(graphene.AbstractType):
             for mood in moods:
                 created_at= mood['created_at'].date()
 
-                if (growth.month_number, growth.year) == (created_at.month, created_at.year):
+                if growth.month_number == created_at.month and growth.year == created_at.year:
                     growth.mood_count+= 1
                     growth.mood_average+= mood['emoticon']['value']
         
