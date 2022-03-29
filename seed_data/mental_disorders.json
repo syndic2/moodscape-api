@@ -688,6 +688,7 @@
 
   {
     "name": "Depresi",
+    "short_description": "Depresi adalah gangguan suasana hati (mood) yang ditandai dengan perasaan sedih, kehilangan, atau marah dan dapat mengganggu aktivitas sehari-hari seseorang. Kondisi ini juga disebut gangguan depresi mayor atau depresi klinis yang dapat memengaruhi perasaan, cara berpikir, dan berperilaku",
     "types": [],
     "signs_and_sympthomps": [
       { "point": "Mudah menangis, merasa sedih, atau putus asa", "description_points": [] },
@@ -1653,5 +1654,237 @@
       }
     ],
     "how_to_prevent": []
+  },
+
+  {
+    "name": "Gangguan Kepribadian Ambang",
+    "short_description": "Gangguan kepribadian ambang (borderline personality disorder) adalah salah satu jenis gangguan mental. Gangguan kepribadian ambang ditandai dengan ketidakstabilan akan gambaran diri, hubungan interpersonal, dan emosi inidividu",
+    "types": [],
+    "signs_and_sympthomps": [
+      {
+        "point": "Paranoid yang berhubungan dengan stres, sulit membedakan realita dan imajinasi (psikosis) selama beberapa menit atau jam",
+        "description_points": []
+      },
+      {
+        "point": "Perasaan kosong yang berlangsung lama dan berulang",
+        "description_points": []
+      },
+      {
+        "point": "Perubahan pada identitas dan gambaran diri, seperti pergantian nilai-nilai dan tujuan, melihat diri sebagai orang yang buruk, atau merasa tidak hidup",
+        "description_points": []
+      },
+      {
+        "point": "Ketidakstabilan hubungan dengan orang lain yang intens, seperti pada satu waktu dapat mengidolakan orang tersebut tetapi pada waktu lain merasa orang tersebut tidak peduli dan jahat",
+        "description_points": []
+      },
+      {
+        "point": "Melakukan perilaku yang impulsif dan berisiko, seperti berjudi, seks tanpa pengaman, penyalahgunaan obat-obatan, dan sebagainya",
+        "description_points": []
+      },
+      {
+        "point": "Perasaan ketakutan akan ditinggalkan secara berlebihan dan berulang",
+        "description_points": []
+      },
+      {
+        "point": "Berpikir untuk bunuh diri, melukai diri sendiri ketika merasa ditolak atau ditinggalkan",
+        "description_points": []
+      },
+      {
+        "point": "Sering hilang kesabaran yang mengakibatkan kemarahan yang intens dan berulang",
+        "description_points": []
+      }
+    ],
+    "causes": [
+      "Faktor kelainan pada otak, terutama kelainan otak bagian tertentu yang biasanya mengatur emosi, suasana hati, dan agresi. Selain masalah pada otak, gangguan tersebut dapat juga disebabkan oleh zat-zat kimia di otak untuk membantu mengatur emosi yang tidak berfungsi dengan baik",
+      "Faktor genetik, ketika penderita memiliki keluarga sedarah ataupun orangtua dengan gangguan kepribadian ini, maka keturunannya juga kemungkinan besar mengalami hal sama",
+      "Faktor lingkungan, seperti pernah mengalami pelecehan secara seksual, fisik, maupun emosional, terpapar dengan rasa takut, kemarahan, dan stres yang kronis saat masih anak-anak, diabaikan oleh salah satu atau kedua orangtuanya, dan tinggal bersama anggota keluarga yang memiliki masalah mental (termasuk gangguan bipolar, penyalahgunaan alkohol, dan sebagainya)"
+    ],
+    "diagnosis": [
+      {
+        "point": "Berdasarkan Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5)",
+        "description": [
+          "1. Pola ketidakstabilan yang meluas pada hubungan interpersonal, gambaran diri, dan emosi individu",
+          "2. Adanya impulsi yang muncul dari saat individu berada di tahapan perkembangan dewasa muda dan muncul di berbagai konteks"
+        ]
+      },
+      {
+        "point": "Selain itu, DSM-5 juga memberikan kriteria-kriteria diagnosis yang setidaknya harus terpenuhi lima dari sembilan kriteria",
+        "description": [
+          "Terdapat usaha-usaha yang dilakukan dalam kepanikan untuk menghindari tindakan pengabaian yang dilakukan oleh orang lain. Tindakan pengabaian bisa saja sesuai realita atau bisa saja diimajinasikan",
+          "Ketidakstabilan gambaran diri yang terlihat secara nyata dan terus-menerus",
+          "Adanya perilaku impulsif di dua area yang berpotensi untuk merusak diri sendiri (berbelanja secara berlebihan, makan secara berlebihan, mengendarai mobil secara ugal-ugalan, dan penyalahgunaan obat-obatan); area tidak termasuk perilaku memutilasi diri dan bunuh diri",
+          "Perasaan kosong yang kronis",
+          "Pemikiran paranoid atau gejala disasosiasi yang parah. Hal ini terjadi karena stres dan berlangsung sementara",
+          "Pola yang tidak stabil dan intens dalam hubungan interpersonal individu yang dicirikan dengan adanya pergantian antara perasaan mengidolakan dan merendahkan secara ekstrem",
+          "Kemarahan yang intens dan tidak sesuai atau kesulitan dalam mengontrol kemarahan (sering memperlihatkan kemarahan, kemarahan yang konstan, pertengkaran fisik yang muncul secara terus-menerus)",
+          "Perilaku, ancaman, atau gestur bunuh diri, atau perilaku mutilasi diri"
+        ]
+      }
+    ],
+    "complications": [
+      "Perubahan atau kehilangan pekerjaan yang berulang",
+      "Tidak menyelesaikan pendidikan",
+      "Berbagai masalah hukum",
+      "Hubungan yang penuh konflik, tekanan perkawinan atau perceraian",
+      "Melukai diri sendiri, seperti memotong atau membakar tubuh, dan sering dirawat di rumah sakit",
+      "Keterlibatan dalam hubungan yang tidak sehat", 
+      "Kehamilan yang tidak direncanakan, infeksi menular seksual, kecelakaan kendaraan bermotor dan perkelahian fisik karena perilaku impulsif dan berisiko",
+      "Pemikiran, percobaan, maupun tindakan bunuh diri"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Terapi dapat membantu penderita belajar mengelola emosi, mengamati perasaan, meningkatkan hubungan dengan orang lain, dan mempelajari kepribadian ambang. Ada beberapa terapi yang bisa dijalankan, yaitu",
+        "description_points": [
+          "Dialectical Behavior Therapy (DBT), Dalam terapi ini, pasien akan belajar bagaimana mengelola tekanan dan keterampilan untuk membantu mereka mengatasi emosi kuat yang biasa mereka miliki",
+          "Terapi berdasarkan mentalisasi (MBT), MBT didasarkan pada konsep bahwa orang dengan gangguan kepribadian ambang memiliki kapasitas mental yang buruk. Mentalisasi adalah kemampuan untuk berpikir. Dalam proses mentalisasi, pola pikir dan keyakinan pasien akan sesuatu dapat dibentuk",
+          "Psikoterapi transference-focused (TFP), Psikoterapi yang berfokus pada pemanfaatan hubungan antara klien dan terapis sehingga terapis dapat melihat bagaimana klien berhubungan dengan orang lain",
+          "Pelatihan sistem prediktabilitas emosi dan pemecahan masalah (STEPPS), STEPPS adalah perawatan kelompok psikoedukasi yang dilakukan dalam durasi 20 minggu. Terapi ini menggabungkan pelatihan keterampilan dengan teknik perilaku kognitif. Selain pasien, terapi ini juga melibatkan pelatihan anggota keluarga, teman, dan orang lain yang penting bagi pasien"
+        ]
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Meskipun saat ini tidak ada obat resmi untuk gangguan kepribadian ambang, penelitian telah menunjukkan bahwa beberapa obat dapat mengurangi gejala tertentu dari penyakit ini. Penggunaan obat-obatan biasanya dilakukan bersamaan dengan jalannya psikoterapi",
+        "description_points": [
+          "Antidepresan, yang dapat membantu meringankan perasaan depresi dan kecemasan",
+          "Antipsikotik, untuk membantu mengendalikan rasa marah, impulsif maupun pemikiran paranoid yang biasa dialami pasien gangguan kepribadian ambang",
+          "Obat penstabil suasana hati (mood)",
+          "Ansiolitik (obat anti cemas)"
+        ]
+      },
+      {
+        "point": "Bersabar dalam proses mengendalikan emosi, pemikiran, dan perilaku",
+        "description": "Jika mengalami gangguan kepribadian ambang, maka Anda harus selalu mengingat bahwa mengendalikan emosi, pemikiran, dan perilaku dapat membutuhkan waktu yang lama. Anda juga dapat merasakan perbaikan maupun perburukan gejala. Kesabaran adalah sesuatu yang harus selalu Anda terapkan selama proses perawatan. Beberapa hal yang dapat Anda lakukan untuk menyikapi situasi ini adalah",
+        "description_points": [
+          "Berdiskusi dengan dokter dan ahli kesehatan mental lainnya mengenai yang harus Anda lakukan saat gejala-gejala muncul",
+          "Tidak membuat asumsi mengenai yang orang lain pikirkan dan rasakan mengenai Anda",
+          "Bercerita kepada orang-orang terdekat mengenai kondisi Anda",
+          "Belajar untuk mengenali pemicu munculnya gejala-gejala yang Anda rasakan",
+          "Tetap mengikuti perawatan yang telah dilakukan",
+          "Mempelajari gangguan yang Anda alami",
+          "Mencari komunitas atau orang-orang yang mengalami hal yang serupa untuk mendapatkan dukungan serta saran dari mereka",
+          "Tidak menyalahkan diri sendiri atas yang Anda alami, fokus dengan menjalani perawatan untuk menjadi lebih baik",
+          "Mempelajari beberapa teknik untuk mengatur emosi secara intens, seperti meditasi, teknik pernapasan, dan sebagainya",
+          "Menjalani pola hidup yang sehat, seperti mengonsumsi makanan sehat, berolahraga, dan sebagainya",
+          "Menetapkan batasan untuk diri Anda dan orang lain dengan belajar untuk mengekspresikan emosi tanpa menjauhi orang-orang terdekat maupun hal yang dapat memperburuk gejala-gejala yang dialami"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Tidak ada cara untuk mencegah gangguan kepribadian ambang, tetapi diagnosis dini akan membantu mencegah gejala semakin parah"
+    ]
+  },
+
+  {
+    "name": "Halusinasi",
+    "short_description": "Halusinasi adalah kondisi seseorang seolah-olah melihat, mendengar, mencium, merasakan, atau merasakan hal-hal yang sebenarnya tidak ada. Kondisi ini mungkin bisa membuat takut penderitanya. Beruntung, umumnya kondisi ini bisa diketahui apa penyebabnya",
+    "types": [],
+    "signs_and_sympthomps": [],
+    "causes": [
+      "Penyebab umum: Skizofrenia, Penyakit Parkinson, Penyakit Alzheimer, Migrain, Tumor otak, Sindrom Charles Bonnet, Epilepsi",
+      "Penyebab halusinasi pendengaran: Skizofrenia, Penyakit Parkinson, Penyakit Alzheimer, Migrain, Tumor otak, Sindrom Charles Bonnet, Epilepsi",
+      "Penyebab halusinasi penciuman: Cedera kepala, Dingin, Kejang lobus temporal, Sinus yang meradang, Tumor otak, Penyakit Parkinson",
+      "Penyebab halusinasi pengecepan: Penyakit lobus temporal, Lesi otak, Penyakit sinus, Epilepsi"
+    ],
+    "diagnosis": [],
+    "complications": [],
+    "how_to_treat": [],
+    "how_to_prevent": []
+  },
+
+  {
+    "name": "Obsessive Compulsive Disorder OCD",
+    "short_description": "Obsessive-compulsive disorder atau OCD adalah gangguan mental yang menyebabkan penderitanya memiliki obsesi berulang yang tidak mereka inginkan. Obsesi tersebut dapat berupa pikiran, ide atau sensasi yang bekembang menjadi dorongan yang menganggu dan muncul secara terus-menerus hingga menimbulkan kecemasan pada penderitanya",
+    "types": [],
+    "signs_and_sympthomps": [
+      {
+        "point": "Gejala berdasarkan obsesi",
+        "description_points": [
+          "Ketakutan terhadap kontaminasi atau kotoran",
+          "Pemikiran yang tidak diinginkan, meliputi agresi, seks, atau agama",
+          "Kebutuhan akan keteraturan dan penataan yang simetris",
+          "Pemikiran yang agresif atau menakutkan, seperti melukai diri sendiri atau orang lain"
+        ]
+      },
+      {
+        "point": "Gejala berdasarkan perilaku kompulsif",
+        "description_points": [
+          "Keteraturan",
+          "Rutinitas yang ketat",
+          "Mencuci dan membersihkan anggota tubuh maupun barang-barang",
+          "Penghitungan pola-pola tertentu",
+          "Memeriksa berulang-ulang kali",
+          "Memastikan berulang-ulang kali"
+        ]
+      }
+    ],
+    "causes": [
+      "Biologis, adanya perubahan pada fungsi otak dan zat-zat kimia dalam otak, seperti kadar serotonin dalam otak yang rendah dan sebagainya. Infeksi tertentu juga mungkin dapat menyebabkan OCD, tetapi hal ini masih membutuhkan penelitian lebih lanjut",
+      "Genetik, risiko terhadap OCD cenderung lebih tinggi pada penderita yang mempunyai anggota keluarga dengan riwayat OCD. Terdapat juga gen-gen tertentu yang mungkin berkontribusi terhadap OCD",
+      "Kepribadian, orang yang rapi, teliti, teratur, memiliki disiplin dan tanggung jawab tinggi, atau orang yang mudah cemas, akan memiliki kecenderungan lebih tinggi untuk mengalami OCD",
+      "Lingkungan, perilaku OCD dapat dipelajari dari mengamati anggota keluarga secara bertahap dari waktu ke waktu sehingga secara tidak sadar seseorang dapat meniru perilaku OCD tersebut"
+    ],
+    "diagnosis": [
+      {
+        "point": "Evaluasi psikologis", 
+        "description": "Pemeriksaan ini dilaukan dengan mengevaluasi pikiran, perasaan, gejala-gejala yang dialami, dan pola perilaku yang dimiliki oleh pasien"
+      },
+      {
+        "point": "Mencocokan kriteria OCD",
+        "description": "Dokter akan mendiagnosis pasien sesuai panduan dalam Diagnosis and Statistical Manual of Mental Disorders (DSM 5) dengan mencocokkan gejala yang dialami pasien dengan kriteria OCD yang telah ditentukan"
+      },
+      {
+        "point": "Tes laboratorium",
+        "description": "Tes laboratorium seperti tes darah, tes fungsi tiroid, tes penyalahgunaan alkohol dan obat-obatan juga tes lainnya mungkin akan dijalankan untuk mengesampingkan penyebab lain yang menyebabkan munculnya gejala"
+      },
+      {
+        "point": "Pemeriksaan fisik",
+        "description": "Pemeriksaan fisik dilakukan untuk menentukan kemungkinan akan kondisi medis lainnya yang mungkin berperan dalam munculnya gejala yang dirasakan"
+      }
+    ],
+    "complications": [
+      "Waktu habis untuk melakukan perilaku berulang secara berlebihan",
+      "Masalah kesehatan, seperti dermatitis kontak akibat sering mencuci tangan",
+      "Kesulitan menghadiri pekerjaan, sekolah atau kegiatan sosial",
+      "Bermasalah dalam hubungan sosial",
+      "Kualitas hidup yang buruk secara keseluruhan",
+      "Pikiran dan perilaku bunuh diri"
+    ],
+    "how_to_treat": [
+      {
+        "point": "Psikoterapi",
+        "description": "Psikoterapi dengan terapi perilaku kognitif (CBT) berfungsi untuk membantu pasien mengidentifikasi pemikiran, perasaan, dan perilaku mengenai gangguan yang dirasakan serta membantu penderita menghadapi obsesi yang dimiliki tanpa harus melakukan perilaku kompulsif. Dokter atau psikolog akan menjalankan komponen CBT yakni terapi exposure and response prevention (ERP) yang dilakukan dengan melibatkan pemaparan secara bertahap akan objek obsesi pada pasien agar pasien dapat memelajari cara-cara untuk menahan dorongan kompulsif yang muncul",
+        "description_points": []
+      },
+      {
+        "point": "Obat-obatan",
+        "description": "Selain psikoterapi, dokter dapat meresepkan obat-obatan antidepresan tertentu seperti clomipramine, fluoxetine, fluvosamine, paroxetine atau sertraline. Obat-obatan ini dapat membantu pasien dalam mengendalikan OCD yang mereka miliki",
+        "description_points": []
+      },
+      {
+        "point": "Terapi lain",
+        "description": "Apabila pengobatan di atas tidak memberikan pengaruh pada pasien, dokter dapat menyarankan untuk menjalani terapi lain seperti",
+        "description_points": [
+          "Program OCD rawat jalan maupun rawat inap yang meliputi pengobatan komprehensif dari terapi ERP selama beberapa minggu",
+          "Deep brain stimulation (DBS). Melalui operasi pembedahan, DBS dilakukan dengan menempatkan elektroda di area otak tertentu. Elektroda ini akan menghasilkan impuls listrik yang dapat mengatur rangsangan saraf abnormal",
+          "Transcranial magnetic stimulation (TMS). TMS dilakukan dengan menanam kumparan magnet di kulit kepala dekat dahi. Tujuannya untuk mengirimkan denyut magnet yang dapat menstimulasi sel-sel saraf di otak"
+        ]
+      },
+      {
+        "point": "Gaya hidup",
+        "description": "Beberapa hal berikut disarankan untuk dilakukan oleh penderita OCD agar dapat mengelola gejala OCD, antara lain",
+        "description_points": [
+          "Tetap mengikuti penanganan yang telah diberikan oleh dokter atau psikolog",
+          "Menerapkan teknik-teknik untuk mengatasi stres dan relaksasi, seperti meditasi, yoga, dan sebagainya",
+          "Memperhatikan pemicu-pemicu yang dapat memunculkan gangguan agar dapat siap menghadapi gangguan tersebut jika tiba-tiba muncul",
+          "Bercerita dengan orang-orang terdekat mengenai masalah yang dialami atau mengikuti komunitas-komunitas yang terdiri dari orang-orang yang mengalami hal yang serupa agar dapat saling berdiskusi dan mendukung satu sama lainnya",
+          "Melakukan aktivitas-aktivitas lain saat rasa cemas atau takut muncul, seperti berjalan-jalan santai",
+          "Menerapkan pola hidup yang sehat, seperti mengonsumsi makanan yang bergizi, istirahat yang cukup, dan berolahraga secara teratur"
+        ]
+      }
+    ],
+    "how_to_prevent": [
+      "Tidak ada cara yang pasti untuk mencegah OCD, tetapi penanganan sejak dini dapat membantu mencegah gejala-gejala yang dirasakan semakin parah. Segera berkonsultasi dengan dokter dan ahli kesehatan mental lainnya jika Anda mengalami OCD"
+    ]
   }
 ]
