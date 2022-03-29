@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from telethon import TelegramClient
+from telethon.tl.types import User
 from telethon.errors import (
     SessionPasswordNeededError,
     PhoneNumberInvalidError, 
@@ -218,28 +219,29 @@ async def get_chat_emotions(user_id, phone):
             messages= []
             
             for entity in entities:
-                message_container= client.iter_messages(entity)
+                sender= await client.get_entity(entity)
 
-                async for message_object in message_container:
-                    if (entity.name != 'Telegram' and entity.name != 'TelegramBot' and
-                        message_object.grouped_id is None and message_object.out is True and 
-                        message_object.message is not None and message_object.message != ''):
-                        chat_with= await client.get_entity(message_object.peer_id)
+                if (isinstance(sender, User) and sender.bot is False and sender.first_name != 'Telegram'):
+                    message_container= client.iter_messages(entity)
 
-                        messages.append({
-                            'chat_with': {
-                                'user_id': chat_with.id,
-                                'first_name': chat_with.first_name,
-                                'phone': '+'+str(chat_with.phone)
-                            },
-                            'data': {
-                                'message_id': message_object.id,
-                                'text': message_object.message,
-                                'timestamps': message_object.date, 
-                                'is_out_message': message_object.out
-                            },
-                            'emotions': {}
-                        })
+                    async for message_object in message_container:
+                        if (message_object.out is True and message_object.message is not None and message_object.message != ''):
+                            chat_with= await client.get_entity(message_object.peer_id)
+
+                            messages.append({
+                                'chat_with': {
+                                    'user_id': chat_with.id,
+                                    'first_name': chat_with.first_name,
+                                    'phone': '+'+str(chat_with.phone)
+                                },
+                                'data': {
+                                    'message_id': message_object.id,
+                                    'text': message_object.message,
+                                    'timestamps': message_object.date, 
+                                    'is_out_message': message_object.out
+                                },
+                                'emotions': {}
+                            })
 
             await client.disconnect()
 
@@ -267,14 +269,14 @@ async def get_chat_emotions(user_id, phone):
                     if message['emotions'][key] > 0: 
                         emotions_total[key]+= 1
 
-            if chat_emotions['emotions'] != emotions_total:
-                result= mongo.db.telegram_chat_emotions.find_one_and_update(
-                    { 'user_id': ObjectId(user_id) },
-                    { '$set': { 'emotions': dict(emotions_total) } }
-                )
+            # if chat_emotions['emotions'] != emotions_total:
+            #     result= mongo.db.telegram_chat_emotions.find_one_and_update(
+            #         { 'user_id': ObjectId(user_id) },
+            #         { '$set': { 'emotions': dict(emotions_total) } }
+            #     )
                 
-                if result is None:
-                    return jsonify(status= False, message= 'Terjadi kesalahan pada server, gagal menyimpan data emosi teks pengguna'), 500
+            #     if result is None:
+            #         return jsonify(status= False, message= 'Terjadi kesalahan pada server, gagal menyimpan data emosi teks pengguna'), 500
             
             return jsonify(
                 status= True,
