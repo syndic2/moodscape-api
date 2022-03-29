@@ -126,7 +126,7 @@ async def two_step_verification():
 
     user_id= request.json['user_id']
     phone= request.json['phone']
-    phone_code_hash= request.json['phone_code_hash']
+    #phone_code_hash= request.json['phone_code_hash']
     password= request.json['password']
     is_chat_emotions_exist= mongo.db.telegram_chat_emotions.find_one({ 'user_id': ObjectId(user_id), 'phone': phone })
 
